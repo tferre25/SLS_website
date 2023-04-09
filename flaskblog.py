@@ -1,33 +1,39 @@
-from flask import Flask, render_template, url_for, flash, redirect
-from forms import RegistrationForm, LoginForm
 
+from flask import Flask, render_template, url_for, flash, redirect
+from forms import RegistrationForm, LoginForm, ProjectForm
 
 app = Flask(__name__) #the name of the module
 
+# protection for our app against cockies
 app.config['SECRET_KEY'] = 'd6ea4b1f91b5abd3be2e209f6d54d448'
+
 
 posts = [
     {
-        'name':'Dina',
-        'age':'26',
-        'post': 'Ingenier',
-        'city':'Paris'
+        'author': 'Corey Schafer',
+        'title': 'Blog Post 1',
+        'content': 'First post content',
+        'date_posted': 'April 20, 2018'
     },
     {
-        'name':'Souad',
-        'age':'56',
-        'post': 'Professor',
-        'city':'Tanger'
+        'author': 'Jane Doe',
+        'title': 'Blog Post 2',
+        'content': 'Second post content',
+        'date_posted': 'April 21, 2018'
     }
 ]
 
-@app.route("/") #decorator oh root page
+
+@app.route("/")
+@app.route("/home")
 def home():
     return render_template('home.html', posts=posts)
 
-@app.route("/about") #decorator oh root page
+
+@app.route("/about")
 def about():
     return render_template('about.html', title='About')
+
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -50,8 +56,14 @@ def login():
     return render_template('login.html', title='Login', form=form)
 
 
-if __name__ == '__main__':
-    # export FLASK_APP=flaskblog.py
-    # export FLASK_debug=1
+@app.route("/project", methods=['GET', 'POST'])
+def project():
+    form = ProjectForm()
+    if form.validate_on_submit():
+        flash(f'Project {form.projectTitle.data} was created!', 'success')
+        return render_template('recapProject.html', title='project', form = form)
+    return render_template('project.html', title='project', form = form)
 
-    app.run(debug=True) #whenever a shut down my terminal, i don't want to set env variables again
+
+if __name__ == '__main__':
+    app.run(debug=True)

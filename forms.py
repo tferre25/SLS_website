@@ -4,8 +4,8 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Username',
-                           validators=[DataRequired(), Length(min=2, max=20)])
+    username = StringField('Username', # html label
+                           validators=[DataRequired(), Length(min=2, max=20)]) #list of validations that we want to check
     email = StringField('Email',
                         validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
@@ -18,7 +18,17 @@ class LoginForm(FlaskForm):
     email = StringField('Email',
                         validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
-    remember = BooleanField('Remember Me')
+    remember = BooleanField('Remember Me') #remember the password
     submit = SubmitField('Login')
 
-                    
+
+
+class ProjectForm(FlaskForm):  
+    firstName = StringField('First Name', validators=[DataRequired(), Length(min=2, max=20)])
+    lastName = StringField('Last Name', validators=[DataRequired(), Length(min=2, max=20)])
+    position = StringField('Position', validators=[DataRequired(), Length(min=2, max=20)])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    projectTitle = StringField('Project Title', validators=[DataRequired(), Length(min=2, max=40)])
+    teamName = StringField('Team Name', validators=[DataRequired(), Length(min=2, max=20)])
+    submit = SubmitField('Send Project')
+    

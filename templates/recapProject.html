@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <h2>Recap project</h2>
+
+    <ul class="list-group">
+        <li class="list-group-item">{{ form.firstName.label }} <br> {{ form.firstName.data }}</li>
+        <li class="list-group-item">{{ form.lastName.label }} <br> {{ form.lastName.data }}</li>
+        <li class="list-group-item">{{ form.position.label }} <br> {{ form.position.data }}</li>
+        <li class="list-group-item">{{ form.email.label }} <br> {{ form.email.data }}</li>
+        <li class="list-group-item">{{ form.projectTitle.label }} <br> {{ form.projectTitle.data }}</li>
+        <li class="list-group-item">{{ form.teamName.label }} <br> {{ form.teamName.data }}</li>
+    </ul>
+
+{% endblock content %}
