@@ -1,7 +1,7 @@
 from flaskblog.models import User, Post
 from flask import render_template, url_for, flash, redirect, request
 from flaskblog import app, db, bcrypt
-from flaskblog.forms import RegistrationForm, LoginForm, ProjectForm
+from flaskblog.forms import RegistrationForm, LoginForm, ProjectForm, GrantForm
 from flask_login import login_user, current_user, logout_user, login_required
 
 # with app.app_context():
@@ -82,3 +82,11 @@ def project():
         flash(f'Project {form.projectTitle.data} was created!', 'success')
         return render_template('recapProject.html', title='project', form=form)
     return render_template('project.html', title='project', form=form)
+
+@app.route("/grant", methods=['GET', 'POST'])
+def grant():
+    form = GrantForm()
+    if form.validate_on_submit():
+        flash(f'writing assistance {form.projectTitle.data} was created!', 'success')
+        return render_template('recapGrant.html', title='grant', form=form)
+    return render_template('grant.html', title='grant', form=form)

@@ -4,7 +4,7 @@
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Form for a research project requiring bioinformatics support</legend>
+                <legend class="border-bottom mb-4">Form for assistance in writing a funding application with a bioinformatics component</legend>
                 <div class="form-group">
                     {{ form.username.label(class="form-control-label") }}
 
@@ -82,6 +82,45 @@
                         </div>
                     {% else %}
                         {{ form.promotor(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.funding_type.label(class="form-control-label") }}
+                    {% if form.funding_type.errors %}
+                        {{ form.funding_type(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.funding_type.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.funding_type(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.total_amount.label(class="form-control-label") }}
+                    {% if form.total_amount.errors %}
+                        {{ form.total_amount(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.total_amount.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.total_amount(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.deadline.label(class="form-control-label") }}
+                    {% if form.deadline.errors %}
+                        {{ form.deadline(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.deadline.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.deadline(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
                 <div class="form-group">
