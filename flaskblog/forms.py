@@ -86,7 +86,7 @@ class ProjectForm(FlaskForm):
                                                                             ('value4', 'Other'),
                                                                             ])
     data_type = StringField('Data type : ', validators=[DataRequired(), Length(min=2, max=10)])
-    data_size = StringField('Data size : ', validators=[DataRequired(), Length(min=2, max=10)])
+    data_size = FloatField('Data size (GO) :', validators=[validators.InputRequired(), validators.NumberRange(min=0, max=1000)])
     add_info = TextAreaField('Additional informations if needs : ')
 
     submit = SubmitField('Validate and Send')
@@ -131,3 +131,8 @@ class GrantForm(FlaskForm):
 
     submit = SubmitField('Validate and Send')
     
+
+class PostForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    content = TextAreaField('Content', validators=[DataRequired()])
+    submit = SubmitField('Post')

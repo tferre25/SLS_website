@@ -1,14 +1,56 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <h2>Recap project</h2>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        function generatePdf(){
+            const element = document.getElementById('invoice');
 
-    <ul class="list-group">
-        <li class="list-group-item">{{ form.firstName.label }} <br> {{ form.firstName.data }}</li>
-        <li class="list-group-item">{{ form.lastName.label }} <br> {{ form.lastName.data }}</li>
-        <li class="list-group-item">{{ form.position.label }} <br> {{ form.position.data }}</li>
-        <li class="list-group-item">{{ form.email.label }} <br> {{ form.email.data }}</li>
-        <li class="list-group-item">{{ form.projectTitle.label }} <br> {{ form.projectTitle.data }}</li>
-        <li class="list-group-item">{{ form.teamName.label }} <br> {{ form.teamName.data }}</li>
-    </ul>
+            html2pdf()
+            .from(element)
+            .save();
+        }
+    </script>
+    <div id="invoice">
+        <h2>Recap project</h2>
+
+        <ul class="list-group">
+            <hr>
+            <h5>Preambule</h5>
+            <li class="list-group-item">{{ form.username.label }} <br> {{ form.username.data }}</li>
+            <li class="list-group-item">{{ form.email.label }} <br> {{ form.email.data }}</li>
+            <hr>
+            <h5>Project</h5>
+            <li class="list-group-item">{{ form.project_title.label }} <br> {{ form.project_title.data }}</li>
+            <li class="list-group-item">{{ form.principal_investigator.label }} <br> {{ form.principal_investigator.data }}</li>
+            <hr>
+            <h5>Financement & promotor</h5>
+            <li class="list-group-item">{{ form.organism.label }} <br> {{ form.organism.data }}</li>
+            <li class="list-group-item">{{ form.promotor.label }} <br> {{ form.promotor.data }}</li>
+            <hr>
+            <h5>Deadline of desire analysis</h5>
+            <li class="list-group-item">{{ form.urgency_of_request.label }} <br> {{ form.urgency_of_request.data }}</li>
+            <li class="list-group-item">{{ form.if_urgency.label }} <br> {{ form.if_urgency.data }}</li>
+            <hr>
+            <li class="list-group-item">{{ form.project_context.label }} <br> {{ form.project_context.data }}</li>
+            <li class="list-group-item">{{ form.project_summary.label }} <br> {{ form.project_summary.data }}</li>
+            <li class="list-group-item">{{ form.bioF_needs.label }} <br> {{ form.bioF_needs.data }}</li>
+            <li class="list-group-item">{{ form.data_available.label }} <br> {{ form.data_available.data }}</li>
+            <hr>
+            <li class="list-group-item">{{ form.access_data.label }} <br> {{ form.access_data.data }}</li>
+            <li class="list-group-item">{{ form.data_owner.label }} <br> {{ form.data_owner.data }}</li>
+            <li class="list-group-item">{{ form.regulatory_requirements.label }} <br> {{ form.regulatory_requirements.data }}</li>
+            <li class="list-group-item">{{ form.if_regulatory_requirements.label }} <br> {{ form.if_regulatory_requirements.data }}</li>
+            <hr>
+            <li class="list-group-item">{{ form.data_type.label }} <br> {{ form.data_type.data }}</li>
+            <li class="list-group-item">{{ form.data_size.label }} <br> {{ form.data_size.data }}</li>
+            <li class="list-group-item">{{ form.add_info.label }} <br> {{ form.add_info.data }}</li>  
+
+        </ul>
+    </div>
+    <br>
+    <button onclick="generatePdf()" type="button" class="btn btn-dark">Download</button>
+    <br>
+    <br>
+    
 
 {% endblock content %}
