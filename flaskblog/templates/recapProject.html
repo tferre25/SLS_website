@@ -48,8 +48,12 @@
         </ul>
     </div>
     <br>
-    <button onclick="generatePdf()" type="button" class="btn btn-dark">Download</button>
-    <br>
+    <div class="form-group">
+        <button onclick="generatePdf()" type="button" class="btn btn-dark">Download</button>
+        <small class="text-muted ml-2">
+            <a href="{{ url_for('main.home') }}">Send it to your email adress?</a>
+        </small>
+    </div>
     <br>
     
 
