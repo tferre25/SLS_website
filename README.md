@@ -23,5 +23,7 @@ We welcome contributions to our application!
 
 **Contact**
 If you have any questions or concerns about our application, please contact us at
-dina_ouahbi@yahoo.com
+
+
+                            dina_ouahbi@yahoo.com
 
