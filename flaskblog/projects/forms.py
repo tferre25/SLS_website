@@ -13,11 +13,9 @@ class ProjectForm(FlaskForm):
     principal_investigator = StringField('Principal investigator :', validators=[DataRequired(), Length(min=2, max=20)])
     promotor = StringField('Promotor (eg, APHP, DRCI ...) :', validators=[DataRequired(), Length(min=2, max=20)])
     ##
-    urgency_of_request = SelectField('Urgency of request :', choices=[('value1', 'Not urgent'),
-                                                                      ('value2', 'Not very urgent'),
-                                                                      ('value3', 'Not particularly urgent'),
-                                                                      ('value4', 'Rather urgent'),
-                                                                      ('value5', 'Very urgent')
+    urgency_of_request = SelectField('Urgency of request :', choices=[('Not urgent', 'Not urgent'),
+                                                                      ('Not particularly urgent', 'Not particularly urgent'),
+                                                                      ('Very urgent', 'Very urgent')
                                                                       ])
     if_urgency = TextAreaField('If very urgent, briefly explain the issues :', validators=[Length(min=2, max=50)])
     ##
@@ -28,10 +26,10 @@ class ProjectForm(FlaskForm):
     access_data = StringField('How can we access data? ', validators=[DataRequired()])
     data_owner = StringField('Data owner :', validators=[DataRequired()])
     regulatory_requirements = BooleanField('Regulatory requirements are available?')
-    if_regulatory_requirements = SelectField('If yes, precise : ', choices=[('value1', 'CPP'),
-                                                                            ('value2', 'Ethical Comity'),
-                                                                            ('value3', 'Jarde law conformity'),
-                                                                            ('value4', 'Other'),
+    if_regulatory_requirements = SelectField('If yes, precise : ', choices=[('CPP', 'CPP'),
+                                                                            ('Ethical Comity', 'Ethical Comity'),
+                                                                            ('Jarde law conformity', 'Jarde law conformity'),
+                                                                            ('Other', 'Other')
                                                                             ])
     data_type = StringField('Data type : ', validators=[DataRequired(), Length(min=2, max=10)])
     data_size = FloatField('Data size (GO) :', validators=[validators.InputRequired(), validators.NumberRange(min=0, max=1000)])
@@ -53,11 +51,9 @@ class GrantForm(FlaskForm):
     total_amount = FloatField('Total amount :', validators=[validators.InputRequired(), validators.NumberRange(min=0, max=100000)])
     ##
     deadline = DateField('Deadline', format='%m/%d/%Y', validators=[validators.InputRequired()])
-    urgency_of_request = SelectField('Urgency of request :', choices=[('value1', 'Not urgent'),
-                                                                      ('value2', 'Not very urgent'),
-                                                                      ('value3', 'Not particularly urgent'),
-                                                                      ('value4', 'Rather urgent'),
-                                                                      ('value5', 'Very urgent')
+    urgency_of_request = SelectField('Urgency of request :', choices=[('Not urgent', 'Not urgent'),
+                                                                      ('Not particularly urgent', 'Not particularly urgent'),
+                                                                      ('Very urgent', 'Very urgent')
                                                                       ])
     if_urgency = TextAreaField('If very urgent, briefly explain the issues :', validators=[Length(min=2, max=50)])
     ##
@@ -68,10 +64,10 @@ class GrantForm(FlaskForm):
     access_data = StringField('How can we access data? ', validators=[DataRequired()])
     data_owner = StringField('Data owner :', validators=[DataRequired()])
     regulatory_requirements = BooleanField('Regulatory requirements are available?')
-    if_regulatory_requirements = SelectField('If yes, precise : ', choices=[('value1', 'CPP'),
-                                                                            ('value2', 'Ethical Comity'),
-                                                                            ('value3', 'Jarde law conformity'),
-                                                                            ('value4', 'Other'),
+    if_regulatory_requirements = SelectField('If yes, precise : ', choices=[('CPP', 'CPP'),
+                                                                            ('Ethical Comity', 'Ethical Comity'),
+                                                                            ('Jarde law conformity', 'Jarde law conformity'),
+                                                                            ('Other', 'Other')
                                                                             ])
     data_type = StringField('Data type (eg, fastq, count table, bam ...): ', validators=[DataRequired(), Length(min=2, max=10)])
     data_size = FloatField('Data size (GO) :', validators=[validators.InputRequired(), validators.NumberRange(min=0, max=1000)])

@@ -9,7 +9,6 @@ from flaskblog.users.utils import save_picture, send_reset_email
 users = Blueprint('users', __name__)
 
 
-
 @users.route("/register", methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -45,7 +44,6 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('main.home'))
-
 
 
 @users.route("/account", methods=['GET', 'POST'])

@@ -1,8 +1,9 @@
 body {
     background: #fafafa;
     color: #333333;
-    margin-top: 5rem;
+    margin-top: 10rem;
   }
+
   
   h1, h2, h3, h4, h5, h6 {
     color: #444444;
@@ -78,3 +79,9 @@ body {
   .account-heading {
     font-size: 2.5rem;
   }
+
+  .fit-picture {
+    width: 100px;
+    height: 50px;
+    margin-right: 20px;
+}

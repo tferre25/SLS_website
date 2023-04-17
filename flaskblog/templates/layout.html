@@ -11,16 +11,17 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 
     {% if title %}
-        <title>AP-HP - {{ title }}</title>
+        <title> INTRANET AP-HP - {{ title }}</title>
     {% else %}
-        <title>AP-HP</title>
+        <title>INTRANET AP-HP</title>
     {% endif %}
 </head>
 <body>
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark bg-info fixed-top">
         <div class="container">
-          <a class="navbar-brand mr-4" href="/">Assistance Publique – Hôpitaux de Paris</a>
+          <img class="fit-picture" src="../static/profile_pics/default.jpg" alt="">
+          <a class="navbar-brand mr-4" href="/">INTRANET - Assistance Publique – Hôpitaux de Paris</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -48,7 +49,7 @@
     </header>
     <main role="main" class="container">
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-10">
           {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
               {% for category, message in messages %}
@@ -60,7 +61,7 @@
           {% endwith %}
           {% block content %}{% endblock %}
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="content-section">
             <h3>Our Sidebar</h3>
             <p class='text-muted'>You can put any information here you'd like.

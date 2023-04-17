@@ -54,7 +54,6 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 
-
 class RequestResetForm(FlaskForm):
     email = StringField('Email',
                         validators=[DataRequired(), Email()])
