@@ -1,8 +1,10 @@
 **Description**
+
 Our application is a local site for project exchange and help between researchers and bioinformaticians within the APHP server. It is designed to facilitate the task of bioinformaticians in the realization of their projects.
 
 
 **Usage**
+
 To use our application, please follow these steps:
 
 Clone the project on git hub 
@@ -19,9 +21,14 @@ Create your own python environment and make a 'pip install requirement.txt'.
 Open a terminal (in the project) and launch the application with the following command : python run.py
 
 **Contributing**
+
 We welcome contributions to our application! 
 
 **Contact**
+
 If you have any questions or concerns about our application, please contact us at
-dina_ouahbi@yahoo.com
+
+
+                            dina_ouahbi@yahoo.com
+                            theo.ferreira@aphp.fr
 
