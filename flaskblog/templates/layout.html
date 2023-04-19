@@ -9,10 +9,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+
+    <!-- calendar-->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='calendar.css') }}">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+    <!-- FOOTER-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='footer.css') }}">
 
     {% if title %}
         <title> INTRANET AP-HP - {{ title }}</title>
@@ -25,8 +31,9 @@
       <nav class="navbar navbar-expand-md navbar-dark bg-info fixed-top">
         <div class="container">
 
-          <img class="fit-picture" src="../static/profile_pics/default.png" alt="logo_aphp" style="width: 200px;">
-          <a class="navbar-brand mr-4" href="/">INTRANET - Assistance Publique – Hôpitaux de Paris</a>
+          <b><a class="navbar-brand mr-4" href="/">INTRANET</a></b>
+          <img class="fit-picture" src="../static/profile_pics/default.png" alt="logo_aphp" style="width: 250px;">
+          
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -38,14 +45,14 @@
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
               {% if current_user.is_authenticated %}
-                <a class="nav-item nav-link" href="{{ url_for('users.account') }}">Account</a>
-                <a class="nav-item nav-link" href="{{ url_for('posts.new_post') }}">New Post</a>
-                <a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout</a>
-                <a class="nav-item nav-link" href="{{ url_for('projects.project') }}">Bioinformatics Analysis Help</a>
-                <a class="nav-item nav-link" href="{{ url_for('projects.grant') }}">Grant Writing Assistance</a>
+                <b><a class="nav-item nav-link" href="{{ url_for('users.account') }}">Account</a></b>
+                <b><a class="nav-item nav-link" href="{{ url_for('posts.new_post') }}">New Post</a></b>
+                <b><a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout</a></b>
+                <b><a class="nav-item nav-link" href="{{ url_for('projects.project') }}">Bioinformatics Analysis Help</a></b>
+                <b><a class="nav-item nav-link" href="{{ url_for('projects.grant') }}">Grant Writing Assistance</a></b>
               {% else %}
-                <a class="nav-item nav-link" href="{{ url_for('users.login') }}">Login</a>
-                <a class="nav-item nav-link" href="{{ url_for('users.register') }}">Register</a>
+                <b><a class="nav-item nav-link" href="{{ url_for('users.login') }}">Login</a></b>
+                <b><a class="nav-item nav-link" href="{{ url_for('users.register') }}">Register</a></b>
               {% endif %}
             </div>
           </div>
@@ -90,6 +97,24 @@
         </div>
       </div>
     </main>
+
+    <footer>
+      <div class="footer-content">
+        <h3>Code opacity</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus molestias corrupti aliquam facere blanditiis deleniti officiis, quos tempore quasi dolore modi natus perferendis vel,
+          quod explicabo. Ullam laborum adipisci quaerat!</p>
+          <ul class="socials">
+            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+            <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+            <li><a href="#"><i class="fa fa-linkedin-square"></i></a></li>
+          </ul>
+      </div>
+      <div class="footer-bottom">
+        <p>copyright &copy;2023 codeOpacity. designed by <span>APHP - sls</span> </p>
+      </div>
+    </footer>
 
 
     <!-- Optional JavaScript -->
