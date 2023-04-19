@@ -85,3 +85,7 @@ body {
     height: 50px;
     margin-right: 20px;
 }
+
+a {
+  font-size:20px;
+}

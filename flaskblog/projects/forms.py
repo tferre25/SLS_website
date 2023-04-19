@@ -5,37 +5,55 @@ from flaskblog.models import User
 
 
 class ProjectForm(FlaskForm):  
-    username = StringField('You are (first & last name):', validators=[DataRequired(), Length(min=2, max=20)])
-    email = StringField('Email :', validators=[DataRequired(), Email()])
+    username = StringField('You are :*', validators=[DataRequired(),Length(min=2, max=20)],
+                           render_kw={'placeholder': 'Prenom et Nom'})
+    email = StringField('Email :*', validators=[DataRequired(), Email()],
+                        render_kw={'placeholder': 'prenom.nom@aphp.fr'})
     ##
-    project_title = StringField('Project title :', validators=[DataRequired(), Length(min=2, max=20)])
-    organism = StringField('Organism (funding succeptible) :', validators=[DataRequired(), Length(min=2, max=40)])
-    principal_investigator = StringField('Principal investigator :', validators=[DataRequired(), Length(min=2, max=20)])
-    promotor = StringField('Promotor (eg, APHP, DRCI ...) :', validators=[DataRequired(), Length(min=2, max=20)])
+    project_title = StringField('Project title :*', validators=[DataRequired(), Length(min=2, max=20)],
+                                render_kw={'placeholder': 'Nom du projet'})
+    organism = StringField('Organism (funding succeptible) :*', validators=[DataRequired(), Length(min=2, max=40)],
+                           render_kw={'placeholder': 'Structure ouorganisme financant le projet'})
+    
+    principal_investigator = StringField('Principal investigator :*', validators=[DataRequired(), Length(min=2, max=20)],
+                                         render_kw={'placeholder': 'Prenom et Nom'})
+    
+    promotor = StringField('Promotor :*', validators=[DataRequired(), Length(min=2, max=20)],
+                           render_kw={'placeholder': 'Nom du ou des promoteur(s) (ex: APHP, DRCI)'})
     ##
-    urgency_of_request = SelectField('Urgency of request :', choices=[('Not urgent', 'Not urgent'),
+    urgency_of_request = SelectField('Urgency of request :*', choices=[('Not urgent', 'Not urgent'),
                                                                       ('Not particularly urgent', 'Not particularly urgent'),
                                                                       ('Very urgent', 'Very urgent')
                                                                       ])
-    if_urgency = TextAreaField('If very urgent, briefly explain the issues :', validators=[Length(min=2, max=50)])
+    
+    if_urgency = TextAreaField('If very urgent, briefly explain the issues :*', validators=[Length(min=2, max=50)],
+                               render_kw={'placeholder': 'Expliquer la raison de l\'urgence, selon ce qui a ete choisi dans la liste deroulante'})
     ##
-    project_context = TextAreaField('Project context :', validators=[DataRequired()])
-    project_summary = TextAreaField('Project summary :', validators=[DataRequired()])
-    bioF_needs = TextAreaField('Needs for analysis and expertise in bioinformatics and biostatistics :', validators=[DataRequired()])
-    data_available = BooleanField('Data is available and accessible?', validators=[DataRequired()])
-    access_data = StringField('How can we access data? ', validators=[DataRequired()])
-    data_owner = StringField('Data owner :', validators=[DataRequired()])
-    regulatory_requirements = BooleanField('Regulatory requirements are available?')
+    project_context = TextAreaField('Project context :*', validators=[DataRequired(), Length(min=10, max=100)],
+                                    render_kw={'placeholder': 'Explications generale du contexte lie au projet (ex : expliquer la raison d\'etre du projet, experiences ou publications anterieures, explications generales sur la maladie, etc.)'})
+    project_summary = TextAreaField('Project summary :*', validators=[DataRequired(), Length(min=10, max=100)],
+                                    render_kw={'placeholder': 'Resume du projet en lui-meme, objectifs vises, etc.'})
+    bioF_needs = TextAreaField('Needs for analysis and expertise in bioinformatics and biostatistics :*', validators=[DataRequired()],
+                               render_kw={'placeholder': 'Techniques, outils, types de resultats, etc.'})
+    data_available = BooleanField('Data is available and accessible?', validators=[DataRequired()],)
+    access_data = StringField('if yes, precise : ', validators=[DataRequired()],
+                              render_kw={'placeholder': 'How can we access data? '})
+    data_owner = StringField('Data owner :', validators=[DataRequired()], 
+                             render_kw={'placeholder': 'Qui detient les donnees?'})
+    regulatory_requirements = BooleanField('Regulatory requirements are available?*')
     if_regulatory_requirements = SelectField('If yes, precise : ', choices=[('CPP', 'CPP'),
                                                                             ('Ethical Comity', 'Ethical Comity'),
                                                                             ('Jarde law conformity', 'Jarde law conformity'),
                                                                             ('Other', 'Other')
                                                                             ])
-    data_type = StringField('Data type : ', validators=[DataRequired(), Length(min=2, max=10)])
-    data_size = FloatField('Data size (GO) :', validators=[validators.InputRequired(), validators.NumberRange(min=0, max=1000)])
-    add_info = TextAreaField('Additional informations if needs : ')
+    data_type = StringField('Data type :*', validators=[DataRequired(), Length(min=2, max=10)],
+                            render_kw={'placeholder': 'ex: fastq, tables de comptage, bam, etc.'})
+    data_size = FloatField('Data size(GO) :*', validators=[validators.InputRequired(), validators.NumberRange(min=0, max=1000)],
+                           render_kw={'placeholder': 'Approximative, en GO'})
+    add_info = TextAreaField('Additional informations if needs :',
+                             render_kw={'placeholder': 'Exemple: biblio, precision(s) non renseignees(s) sans les precedents champs, valorisation(s) experee(s) (ex: publication), etc.'})
 
-    submit = SubmitField('Validate and Send in your email adress')
+    submit = SubmitField('Send and get your project recap')
 
 
 class GrantForm(FlaskForm):  
@@ -57,8 +75,8 @@ class GrantForm(FlaskForm):
                                                                       ])
     if_urgency = TextAreaField('If very urgent, briefly explain the issues :', validators=[Length(min=2, max=50)])
     ##
-    project_context = TextAreaField('Project context :', validators=[DataRequired()])
-    project_summary = TextAreaField('Project summary :', validators=[DataRequired()])
+    project_context = TextAreaField('Project context :', validators=[DataRequired(), Length(min=10, max=100)])
+    project_summary = TextAreaField('Project summary :', validators=[DataRequired(), Length(min=10, max=100)])
     bioF_needs = TextAreaField('Needs for analysis and expertise in bioinformatics and biostatistics :', validators=[DataRequired()])
     data_available = BooleanField('Data is available and accessible?', validators=[DataRequired()])
     access_data = StringField('How can we access data? ', validators=[DataRequired()])
