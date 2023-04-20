@@ -12,6 +12,10 @@ class ProjectForm(FlaskForm):
     ##
     project_title = StringField('Project title :*', validators=[DataRequired(), Length(min=2, max=20)],
                                 render_kw={'placeholder': 'Nom du projet'})
+    
+    application = SelectField('Application :*', choices=[('For diagnosis', 'For diagnosis'),
+                                              ('For research', 'For research')
+                                              ])
     organism = StringField('Organism (funding succeptible) :*', validators=[DataRequired(), Length(min=2, max=40)],
                            render_kw={'placeholder': 'Structure ouorganisme financant le projet'})
     
@@ -29,9 +33,9 @@ class ProjectForm(FlaskForm):
     if_urgency = TextAreaField('If very urgent, briefly explain the issues :*', validators=[Length(min=2, max=50)],
                                render_kw={'placeholder': 'Expliquer la raison de l\'urgence, selon ce qui a ete choisi dans la liste deroulante'})
     ##
-    project_context = TextAreaField('Project context :*', validators=[DataRequired(), Length(min=10, max=100)],
+    project_context = TextAreaField('Project context :*', validators=[DataRequired(), Length(min=10, max=1000)],
                                     render_kw={'placeholder': 'Explications generale du contexte lie au projet (ex : expliquer la raison d\'etre du projet, experiences ou publications anterieures, explications generales sur la maladie, etc.)'})
-    project_summary = TextAreaField('Project summary :*', validators=[DataRequired(), Length(min=10, max=100)],
+    project_summary = TextAreaField('Project summary :*', validators=[DataRequired(), Length(min=10, max=1000)],
                                     render_kw={'placeholder': 'Resume du projet en lui-meme, objectifs vises, etc.'})
     bioF_needs = TextAreaField('Needs for analysis and expertise in bioinformatics and biostatistics :*', validators=[DataRequired()],
                                render_kw={'placeholder': 'Techniques, outils, types de resultats, etc.'})

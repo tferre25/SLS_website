@@ -45,7 +45,6 @@ def logout():
     logout_user()
     return redirect(url_for('main.home'))
 
-
 @users.route("/account", methods=['GET', 'POST'])
 @login_required
 def account():
@@ -66,8 +65,6 @@ def account():
     image_file = url_for('static', filename='profile_pics/'+ current_user.image_file)
     return render_template('account.html', title='Account', image_file=image_file, form=form)
 
-
-
 @users.route("/user/<string:username>")
 def user_posts(username):
     page = request.args.get('page', 1,type=int)
@@ -76,8 +73,6 @@ def user_posts(username):
         .order_by(Post.date_posted.desc())\
         .paginate(page=page, per_page=3)
     return render_template('user_posts.html', posts=posts, user=user)
-
-
 
 @users.route("/reset_password", methods=['GET', 'POST'])
 def reset_request():
@@ -90,7 +85,6 @@ def reset_request():
         flash('An email has been sent with instructions to reset your password', 'info')
         return redirect(url_for('users.login'))
     return render_template('reset_request.html', title='Reset_Password', form=form)
-
 
 @users.route("/reset_password/<token>", methods=['GET', 'POST'])
 def reset_token(token):
@@ -108,3 +102,4 @@ def reset_token(token):
         flash(f'Your password has ben updated! You are now able to log in', 'success')
         return redirect(url_for('users.login'))
     return render_template('reset_token.html', title='Reset_Password', form=form)
+

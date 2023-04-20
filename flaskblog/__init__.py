@@ -17,7 +17,7 @@ mail = Mail()
 
 
 
-# allow us to create different ins of our app with diffrent config
+# allow us to create different instance of our app with diffrent config
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(Config)

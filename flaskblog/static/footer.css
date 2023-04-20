@@ -4,7 +4,6 @@
     box-sizing: border-box;
 }
 
-
 footer{
     background: black;
     height: auto;
@@ -21,6 +20,7 @@ footer{
     flex-direction: column;
     text-align: center;
 }
+
 .footer-content h3{
     font-size: 1.8rem;
     font-weight: 400;
@@ -42,18 +42,21 @@ footer{
     justify-content: center;
     margin: 1rem 0 3rem 0;
 }
+
 .socials li{
     margin: 0 10px;
 }
+
 .socials a{
     text-decoration: none;
     color: #fff
-
 }
+
 .socials a i{
     font-size: 1.1rem;
     transition: color .4s ease;
 }
+
 .socials a:hover i{
     color: aqua
 }
@@ -63,4 +66,16 @@ footer{
     width: 100vw;
     padding: 20px 0;
     text-align: center;
+}
+
+.footer-bottom{
+    font-size: 14px;
+    word-spacing: 2px;
+    text-transform: capitalize;
+}
+
+.footer-bottom span{
+    text-transform: uppercase;
+    opacity:4;
+    font-weight: 200;
 }

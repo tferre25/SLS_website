@@ -70,3 +70,29 @@ class ResetPasswordForm(FlaskForm):
                                      validators=[DataRequired(), EqualTo('password')])
     
     submit = SubmitField('Reset Password')
+
+
+### bioinformaticiens
+class BioRegistrationForm(FlaskForm):
+    aphp_Num = StringField('APHP_Num', # html label
+                           validators=[DataRequired(), Length(min=7, max=7)],
+                           render_kw={'placeholder': '1234567'}) #list of validations that we want to check
+    email = StringField('Email',
+                        validators=[DataRequired(), Email()],
+                        render_kw={'placeholder': 'prenom.nom@aphp.fr'})
+    password = PasswordField('Password', validators=[DataRequired()],
+                             render_kw={'placeholder': '***************'})
+    confirm_password = PasswordField('Confirm Password',
+                                     validators=[DataRequired(), EqualTo('password')],
+                                     render_kw={'placeholder': '***************'})
+    submit = SubmitField('Sign Up')
+
+    def validate_aphp_Num(self, aphp_Num):
+        user_bio = User_bio.query.filter_by(aphp_Num= aphp_Num.data).first()
+        if user_bio:
+            raise ValidationError('That user aphp_Num is taken. Please choose another one') #template of validation method
+        
+    def validate_email(self, email):
+        user_bio = User_bio.query.filter_by(email= email.data).first()
+        if user_bio:
+            raise ValidationError('That user email is taken. Please choose another one') #template of validation method

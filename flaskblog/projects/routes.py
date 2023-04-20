@@ -1,13 +1,14 @@
 from flask import Blueprint, redirect, url_for
 from flask import render_template, flash, Blueprint
 from flaskblog.projects.forms import ProjectForm, GrantForm
-from flask_login import current_user
+from flask_login import login_required
 from flaskblog.models import User
 from flaskblog.projects.utils import send_recap_project, extract_form_info
 
 projects = Blueprint('projects', __name__)
 
 @projects.route("/project", methods=['GET', 'POST'])
+@login_required
 def project():
     form = ProjectForm()
     if form.validate_on_submit():
@@ -21,6 +22,7 @@ def project():
 
 
 @projects.route("/grant", methods=['GET', 'POST'])
+@login_required
 def grant():
     form = GrantForm()
     if form.validate_on_submit():

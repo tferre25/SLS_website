@@ -7,9 +7,9 @@ from email.mime.image import MIMEImage
 
 def send_recap_project(user, body, form):
     token = user.get_reset_token()
-    msg = Message('Summary of your project',
+    msg = Message(f'Summary of your project | {form.project_title.data.upper()} | {form.application.data.upper()}',
                   sender='noreply@demo.com',
-                  recipients=[user.email])
+                  recipients=[user.email, 'dina.ouabhi@aphp.fr'])
     msg.body = f"""
     Hello {user.username.capitalize()},
 
@@ -17,6 +17,8 @@ def send_recap_project(user, body, form):
     please find below a summary of the points summarizing the different criteria of the project : 
                 
                 {body}
+
+
 
     If you have any questions, do not hesitate to come back on the contact page by clicking on the link below.
                 
@@ -30,8 +32,7 @@ def send_recap_project(user, body, form):
     Regards,
     
     """
-    
-    
+ 
     mail.send(msg)
 
 def extract_label(s):
@@ -44,6 +45,7 @@ def extract_form_info(form):
         {extract_label(form.username.label)}\t:\t{form.username.data} \n
         {extract_label(form.email.label)}\t:\t{form.email.data} \n
         {extract_label(form.project_title.label)}\t:\t{form.project_title.data} \n
+        {extract_label(form.application.label)}\t:\t{form.application.data} \n
         {extract_label(form.organism.label)}\t:\t{form.organism.data} \n
 
                 ***************************************

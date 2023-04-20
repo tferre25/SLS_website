@@ -21,14 +21,14 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='footer.css') }}">
 
     {% if title %}
-        <title> INTRANET AP-HP - {{ title }}</title>
+        <title> INTRANET AP-HP Research - {{ title }}</title>
     {% else %}
-        <title>INTRANET AP-HP</title>
+        <title>INTRANET AP-HP Research</title>
     {% endif %}
 </head>
 <body>
     <header class="site-header">
-      <nav class="navbar navbar-expand-md navbar-dark bg-info fixed-top">
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <div class="container">
 
           <b><a class="navbar-brand mr-4" href="/">INTRANET</a></b>
@@ -40,11 +40,13 @@
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
               <a class="nav-item nav-link" href="{{ url_for('main.home') }}">Home</a>
-              <a class="nav-item nav-link" href="{{ url_for('main.about') }}">About</a>
+              <a class="nav-item nav-link" href="{{ url_for('main.about') }}">Contact</a>
+              <a class="nav-item nav-link" href="{{ url_for('main.about_us') }}">About-Us</a>
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
               {% if current_user.is_authenticated %}
+                
                 <b><a class="nav-item nav-link" href="{{ url_for('users.account') }}">Account</a></b>
                 <b><a class="nav-item nav-link" href="{{ url_for('posts.new_post') }}">New Post</a></b>
                 <b><a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout</a></b>
@@ -55,6 +57,8 @@
                 <b><a class="nav-item nav-link" href="{{ url_for('users.register') }}">Register</a></b>
               {% endif %}
             </div>
+            
+
           </div>
         </div>
       </nav>
@@ -100,9 +104,13 @@
 
     <footer>
       <div class="footer-content">
-        <h3>Code opacity</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus molestias corrupti aliquam facere blanditiis deleniti officiis, quos tempore quasi dolore modi natus perferendis vel,
-          quod explicabo. Ullam laborum adipisci quaerat!</p>
+        <h3>APHP - SLS</h3>
+        <p> <b>Hôpital Saint-Louis</b> is a hospital in Paris, France.
+          It was built in 1611 by architect Claude Vellefaux at
+          the request of Henry IV of France. 
+          It is part of the Assistance publique - Hôpitaux de Paris hospital system, 
+          and it is located at 1 avenue Claude-Vellefaux, in the 10th arrondissement 
+          near the metro station Goncourt.</p>
           <ul class="socials">
             <li><a href="#"><i class="fa fa-facebook"></i></a></li>
             <li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -112,11 +120,10 @@
           </ul>
       </div>
       <div class="footer-bottom">
-        <p>copyright &copy;2023 codeOpacity. designed by <span>APHP - sls</span> </p>
+        <p>copyright &copy;2023 APHP. designed by <span>APHP - sls</span> </p>
       </div>
     </footer>
-
-
+    
     <!-- Optional JavaScript -->
     <script src="{{ url_for('static', filename='calendar.js') }}"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
