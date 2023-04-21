@@ -1,6 +1,7 @@
 from flask import render_template, request, Blueprint, flash, url_for, redirect
-from flaskblog.models import Post
+from flaskblog.models import Post, User
 from flask_login import login_required
+from flaskblog.main.forms import SearchForm
 
 
 main = Blueprint('main', __name__)
@@ -46,3 +47,24 @@ def db():
 @main.route("/code")
 def code():
     return render_template('docs/code.html', title='CODE_DEV')
+
+
+# pass stuff to navBar
+@main.context_processor
+def base():
+    form = SearchForm()
+    return dict(form=form)
+
+# create search function
+@main.route("/search",  methods=['GET','POST'])
+@login_required
+def search():
+    form = SearchForm()
+    posts = Post.query
+    if form.validate_on_submit():
+        target = form.searched.data
+        #Query the database
+        posts = posts.filter(Post.content.like('%'+target+'%'))
+        posts = posts.order_by(Post.title).all()
+        return render_template('search.html', form=form, posts=posts)
+    return render_template('about.html', title='Home', posts=posts)

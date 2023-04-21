@@ -134,3 +134,8 @@ a {
 .au_container a{
   size: 4;
 }
+
+.post_search:hover::marker {
+  content: "🤯";
+  font-size: 50px;
+}

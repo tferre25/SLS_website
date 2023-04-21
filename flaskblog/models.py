@@ -16,6 +16,7 @@ class User(db.Model, UserMixin):
                            default='default.jpg')
     password = db.Column(db.String(60), nullable=False)
     posts = db.relationship('Post', backref='author', lazy=True)
+    projects = db.relationship('Project', backref='author', lazy=True)
 
     def get_reset_token(self, expires_sec= 1800):
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
@@ -45,3 +46,12 @@ class Post(db.Model):
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
 
+class Project(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(20), unique=True, nullable=False)
+    content = db.Column(db.String(1000), unique=True, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    def __repr__(self) -> str:
+        return f"Project('{self.title}', '{self.content}')"
+    

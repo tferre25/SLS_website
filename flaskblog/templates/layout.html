@@ -57,10 +57,9 @@
                 <b><a class="nav-item nav-link" href="{{ url_for('users.register') }}">Register</a></b>
               {% endif %}
             </div>
-            
-
           </div>
         </div>
+        {% block search %}{% endblock %}
       </nav>
     </header>
     <main role="main" class="container">

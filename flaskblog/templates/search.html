@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h2>You search </h2>
+    <p>{{ form.searched.data }}</p>
+    
+    {% for post in posts %}
+        <li class = "post_search" style="font-size: large;"><a href="{{ url_for('posts.post', post_id = post.id) }}">{{post.title}}</a><br></li>
+        
+    {% endfor %}
+
+{% endblock content %}

@@ -25,3 +25,13 @@
       {% endif %}
     {% endfor %}
 {% endblock content %}
+
+{% block search %}
+  <form method = 'POST' action="{{url_for('main.search')}}" class="d-flex">
+    {{form.hidden_tag() }}
+    <input class="form-control me-2 mr-4" type="search" placeholder="Search" aria-label="Search", name="searched">
+    <button class="btn btn-primary btn-sm" type="submit">
+      Search
+    </button>
+  </form>
+{% endblock search %}
