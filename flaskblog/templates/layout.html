@@ -63,19 +63,8 @@
       </nav>
     </header>
     <main role="main" class="container">
-      <div class="row">
-        <div class="col-md-8">
-          {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-              {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">
-                  {{ message }}
-                </div>
-              {% endfor %}
-            {% endif %}
-          {% endwith %}
-          {% block content %}{% endblock %}
-        </div>
+      <!--<div class="row">-->
+        <!-- CALENDAR START-->
         <div class="container_cal">
           <div class="calendar">
             <div class="month">
@@ -98,7 +87,23 @@
             <div class="days"></div>
           </div>
         </div>
-      </div>
+        <!-- CALENDAR END-->
+
+        <!-- CONTENT START-->
+        <div class="col-lg-10">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          {% block content %}{% endblock %}
+        </div>
+        <!-- CONTENT END-->
+      <!--</div>-->
     </main>
 
     <footer>
