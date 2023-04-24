@@ -42,16 +42,15 @@
               <a class="nav-item nav-link" href="{{ url_for('main.home') }}">Home</a>
               <a class="nav-item nav-link" href="{{ url_for('main.about') }}">Contact</a>
               <a class="nav-item nav-link" href="{{ url_for('main.about_us') }}">About-Us</a>
+              <b><a class="nav-item nav-link" href="{{ url_for('posts.new_post') }}">New Post</a></b>
+              <b><a class="nav-item nav-link" href="{{ url_for('projects.project') }}">Bioinformatics Analysis Help</a></b>
+              <b><a class="nav-item nav-link" href="{{ url_for('projects.grant') }}">Grant Writing Assistance</a></b>
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
               {% if current_user.is_authenticated %}
-                
                 <b><a class="nav-item nav-link" href="{{ url_for('users.account') }}">Account</a></b>
-                <b><a class="nav-item nav-link" href="{{ url_for('posts.new_post') }}">New Post</a></b>
                 <b><a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout</a></b>
-                <b><a class="nav-item nav-link" href="{{ url_for('projects.project') }}">Bioinformatics Analysis Help</a></b>
-                <b><a class="nav-item nav-link" href="{{ url_for('projects.grant') }}">Grant Writing Assistance</a></b>
               {% else %}
                 <b><a class="nav-item nav-link" href="{{ url_for('users.login') }}">Login</a></b>
                 <b><a class="nav-item nav-link" href="{{ url_for('users.register') }}">Register</a></b>
@@ -86,6 +85,16 @@
             </div>
             <div class="days"></div>
           </div>
+          <div class="links">
+            <div class="git">
+              <a href="https://github.com/bioinformatic-hub-sls"><i class="fab fa-github fa-lg me-3" style="color:black; font-weight: bold; font-size: 2em;">Visite our git hub link</i></a>
+            </div>
+            <div class="slack">
+              <a href="https://join.slack.com/t/cellulebioinfosls/shared_invite/zt-1jw5embhe-NVRA67PADVbTekEwQHqTyQ"><i class="fab fa-slack fa-lg me-3" style="color:blueviolet; font-weight: bold; font-size: 2em;">Visite our SLACK account</i></a></b>
+            </div>
+          </div>
+            
+          
         </div>
         <!-- CALENDAR END-->
 

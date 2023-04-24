@@ -142,4 +142,14 @@ a {
 
 .container {
   display: flex;
+  margin-bottom: 20px;
 }
+
+.links{
+  margin-bottom: 20px;
+}
+
+.git{
+  margin-bottom: 20px;
+}
+

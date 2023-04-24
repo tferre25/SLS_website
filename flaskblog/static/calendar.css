@@ -15,6 +15,11 @@ html {
   height: 30rem;
   background-color: #999696;
   box-shadow: 0 0.5rem 3rem rgba(0, 0, 0, 0.4);
+  margin-bottom: 20px;
+}
+
+.container_cal{
+  margin-right: 50px;
 }
 
 
