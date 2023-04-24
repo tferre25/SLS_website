@@ -1,9 +1,11 @@
 from flask import url_for
 from flask_mail import Message
 from flaskblog import mail
-import re, os
+import re
 from email.mime.image import MIMEImage
-
+from flaskblog.models import Project
+from flaskblog.projects.forms import ProjectForm
+from flask_login import current_user
 
 def send_recap_project(user, body, form):
     token = user.get_reset_token()
@@ -77,4 +79,19 @@ def extract_form_info(form):
     '''
     return body
 
+def object_project():
+    form = ProjectForm()
+    project = Project(
+        username = form.username.data,
+        email = form.email.data,
+        author=current_user,
+        project_title = form.project_title.data,
+        application = form.application.data,
+        organism = form.organism.data,
+        principal_investigator = form.principal_investigator.data,
+        promotor = form.promotor.data,
+        urgency_of_request = form.urgency_of_request.data,
+        if_urgency = form.if_urgency.data
+    )
 
+    return project

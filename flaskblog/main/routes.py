@@ -1,5 +1,5 @@
 from flask import render_template, request, Blueprint, flash, url_for, redirect
-from flaskblog.models import Post, User
+from flaskblog.models import Post, User, Project
 from flask_login import login_required
 from flaskblog.main.forms import SearchForm
 
@@ -15,6 +15,15 @@ def home():
     # grab those posts from database
     posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
     return render_template('home.html', posts=posts)
+
+@main.route("/project_home")
+@login_required
+def project_home():
+    page = request.args.get('page', 1,type=int)
+    # grab those projects from database
+    #projects = Project.query.all()
+    projects = Project.query.order_by(Project.date_posted.desc()).paginate(page=page, per_page=5)
+    return render_template('project_home.html', projects=projects)
 
 @main.route("/about_us")
 def about_us():

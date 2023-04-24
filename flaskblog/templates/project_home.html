@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    {% if projects.items|length == 0 %}
+      <h1>No Projects</h1>
+      <iframe src="https://giphy.com/embed/GnE8HANuuhbzKTuRH5" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/clint-home-care-nobles-GnE8HANuuhbzKTuRH5">via GIPHY</a></p>
+    {% endif %}
+
+    {% for project in projects.items %}
+        <article class="media content-section">
+          <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+project.author.image_file) }}" alt="">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{{ url_for('users.user_projects', username=project.author.username) }}">{{ project.author.username.capitalize() }}</a>
+              <small class="text-muted">{{ project.date_posted.strftime('%Y-%m-%d') }}</small>
+            </div>
+            <h2><a class="article-title" href="{{ url_for('projects.project_unit', project_id=project.id) }}">{{ project.project_title }}</a></h2>
+            <p class="article-content">{{ project.project_summary }}</p>
+          </div>
+        </article>
+    {% endfor %}
+    {% for page_num in projects.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page_num %}
+          {% if projects.page == page_num %}
+              <a class="btn btn-info mb-4" href="{{url_for('main.project_home', page=page_num)}}">{{ page_num }}</a> 
+          {%else%}
+              <a class="btn btn-outline-info mb-4" href="{{url_for('main.project_home', page=page_num)}}">{{ page_num }}</a> 
+          {%endif%}  
+      {% else %}
+        ...
+      {% endif %}
+    {% endfor %}
+{% endblock content %}
+
+{% block search %}
+  <form method = 'POST' action="{{url_for('main.search')}}" class="d-flex">
+    {{form.hidden_tag() }}
+    <input class="form-control me-2 mr-4" type="search" placeholder="Search" aria-label="Search", name="searched">
+    <button class="btn btn-primary btn-sm" type="submit">
+      Search
+    </button>
+  </form>
+{% endblock search %}
