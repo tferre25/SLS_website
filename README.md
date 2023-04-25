@@ -1,3 +1,6 @@
+**Vizualisation**
+![Drag Racing](https://github.com/bioinformatic-hub-sls/aphp_webblog/blob/main/aphp_login_viz.png)
+
 **Description**
 
 Our application is a local site for project exchange and help between researchers and bioinformaticians within the APHP server. It is designed to facilitate the task of bioinformaticians in the realization of their projects.
