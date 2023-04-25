@@ -5,6 +5,8 @@ from flask import url_for
 from flask_mail import Message
 from flaskblog import mail
 from flask import current_app
+from itsdangerous import URLSafeTimedSerializer
+
 
 def save_picture(form_picture):
     random_hex= secrets.token_hex(8)
@@ -31,3 +33,33 @@ def send_reset_email(user):
             If you did not make this request,so simply egnore this email and no changes wil be made
     '''
     mail.send(msg)
+
+def send_conf_email(user):
+    token = user.get_reset_token()
+    msg = Message('CONFIRM',
+                  sender='noreply@demo.com',
+                  recipients=[user.email])
+    msg.body = f''' 
+            To CONFIRM, visit the following link:
+            {url_for('users.confirm_email', token=token, _external = True)}
+            If you did not make this request,so simply egnore this email and no changes wil be made
+    '''
+    mail.send(msg)
+
+
+def generate_token(email):
+    serializer = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
+    return serializer.dumps(email, salt=current_app.config["SECRET_KEY"])
+
+
+def confirm_token(token, expiration=3600):
+    serializer = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
+    try:
+        email = serializer.loads(
+            token, salt=current_app.config["SECURITY_PASSWORD_SALT"], max_age=expiration
+        )
+        return email
+    except Exception:
+        return False
+
+

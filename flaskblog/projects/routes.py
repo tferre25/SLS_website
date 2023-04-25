@@ -8,19 +8,6 @@ from flaskblog.projects.utils import send_recap_project, extract_form_info, obje
 
 projects = Blueprint('projects', __name__)
 
-"""@projects.route("/project", methods=['GET', 'POST'])
-@login_required
-def project():
-    form = ProjectForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-        #TODO function thetextract forminfo (form=form)
-        dico = extract_form_info(form)
-        send_recap_project(user, body=dico, form= form)
-        flash('An email has been sent with recap project', 'info')
-        return render_template('recapProject.html', title='project', form=form)
-    return render_template('project.html', title='Project', form=form)"""
-
 @projects.route("/project", methods=['GET', 'POST'])
 @login_required
 def project():

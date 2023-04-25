@@ -1,12 +1,19 @@
 from flask import render_template, request, Blueprint, flash, url_for, redirect
 from flaskblog.models import Post, User, Project
-from flask_login import login_required
+from flask_login import login_required, current_user
 from flaskblog.main.forms import SearchForm
 
 
 main = Blueprint('main', __name__)
 
-
+admin_list= [
+    'samuel.quentin@aphp.fr',
+    'dina.ouabhi@aphp.fr',
+    'julien.robert@aphp.fr',
+    'abdeljalil.senhajirachik@aphp.fr',
+    'maud.salmona@aphp.fr',
+    'theo.ferreira@aphp.fr'
+]
 
 @main.route("/")
 @main.route("/home")
@@ -19,11 +26,15 @@ def home():
 @main.route("/project_home")
 @login_required
 def project_home():
-    page = request.args.get('page', 1,type=int)
-    # grab those projects from database
-    #projects = Project.query.all()
-    projects = Project.query.order_by(Project.date_posted.desc()).paginate(page=page, per_page=5)
-    return render_template('project_home.html', projects=projects)
+    if current_user.email in admin_list:
+        page = request.args.get('page', 1,type=int)
+        # grab those projects from database
+        projects = Project.query.order_by(Project.date_posted.desc()).paginate(page=page, per_page=5)
+        return render_template('project_home.html', projects=projects)
+    else:
+        flash(f'Your cannot access to projects | please contact one of the admins to get access', 'danger')
+        return redirect(url_for('main.about'))
+
 
 @main.route("/about_us")
 def about_us():
