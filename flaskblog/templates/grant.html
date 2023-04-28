@@ -163,6 +163,19 @@
                     {% endif %}
                 </div>
                 <div class="form-group">
+                    {{ form.project_context_private.label(class="form-control-label") }}
+                    {% if form.project_context_private.errors %}
+                        {{ form.project_context_private(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.project_context_private.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.project_context_private(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
                     {{ form.project_summary.label(class="form-control-label") }}
                     {% if form.project_summary.errors %}
                         {{ form.project_summary(class="form-control form-control-lg is-invalid") }}
@@ -294,7 +307,7 @@
                 </div>
             </fieldset>
             <div class="form-group">
-                {{ form.submit(class="btn btn-warning") }}
+                {{ form.submit(class="btn btn-info") }}
             </div>
         </form>
     </div>

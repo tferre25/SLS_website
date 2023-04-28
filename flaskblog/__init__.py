@@ -4,6 +4,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
 from flaskblog.config import Config
+from flask_migrate import Migrate
 
 
 
@@ -38,6 +39,8 @@ def create_app(config_class=Config):
     app.register_blueprint(main)
     app.register_blueprint(projects)
     app.register_blueprint(errors)
+
+    migrate = Migrate(app, db)
 
     return app
 

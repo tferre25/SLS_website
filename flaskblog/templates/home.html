@@ -3,15 +3,23 @@
 
     {% if posts.items|length == 0 %}
       <h1>No Posts</h1>
-      <iframe src="https://giphy.com/embed/GnE8HANuuhbzKTuRH5" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/clint-home-care-nobles-GnE8HANuuhbzKTuRH5">via GIPHY</a></p>
+      <img class="fit-picture" src="../static/profile_pics/default.png" alt="logo_aphp" style="width: 250px;">
     {% endif %}
 
     {% for post in posts.items %}
         <article class="media content-section">
-          <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+post.author.image_file) }}" alt="">
+          {% if post.author is none %}
+            <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/unknown.jpg') }}" alt="None user">
+          {%else%}
+            <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+post.author.image_file) }}" alt="{{post.author}}">
+          {%endif%}
           <div class="media-body">
             <div class="article-metadata">
-              <a class="mr-2" href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username.capitalize() }}</a>
+              {% if post.author is none %}
+                <a class="mr-2" href="#">Unknown user</a>
+              {%else%}
+                <a class="mr-2" href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username.capitalize() }}</a>
+              {%endif%}
               <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
             </div>
             <h2><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h2>

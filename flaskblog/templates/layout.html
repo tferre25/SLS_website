@@ -39,13 +39,21 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="{{ url_for('main.home') }}">Posts</a>
-              <a class="nav-item nav-link" href="{{ url_for('main.project_home') }}">Projects</a>
-              <a class="nav-item nav-link" href="{{ url_for('main.about') }}">Contact</a>
-              <a class="nav-item nav-link" href="{{ url_for('main.about_us') }}">About-Us</a>
+              <b><a class="nav-item nav-link" href="{{ url_for('main.home') }}">Posts</a></b> 
+              <b><a class="nav-item nav-link" href="{{ url_for('main.project_home') }}">Projects</a></b> 
+              <b><a class="nav-item nav-link" href="{{ url_for('main.about') }}">Contact</a></b> 
+              <b><a class="nav-item nav-link" href="{{ url_for('main.about_us') }}">About-Us</a></b> 
               <b><a class="nav-item nav-link" href="{{ url_for('posts.new_post') }}">New Post</a></b>
-              <b><a class="nav-item nav-link" href="{{ url_for('projects.project') }}">Bioinformatics Analysis Help</a></b>
+              <!--
+              <b><a class="nav-item nav-link" href="{{ url_for('projects.project') }}">Submit Your Project</a></b>
               <b><a class="nav-item nav-link" href="{{ url_for('projects.grant') }}">Grant Writing Assistance</a></b>
+              -->
+              <i><a class="nav-item nav-link" href="{{ url_for('main.generate_posts') }}" style="color: chartreuse;">GENERATE POSTS</a></i>
+              <i><a class="nav-item nav-link" href="{{ url_for('main.delete_posts') }}" style="color: chartreuse;">DELETE POSTS</a></i>
+              <i><a class="nav-item nav-link" href="{{ url_for('main.generate_users') }}" style="color: chocolate;">GENERATE USERS</a></i>
+              <i><a class="nav-item nav-link" href="{{ url_for('main.delete_projects') }}" style="color:chocolate;">DELETE PROJECT</a></i>
+              
+              
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
@@ -63,8 +71,15 @@
       </nav>
     </header>
     <main role="main" class="container">
+      <div class="button-container">
+        <button class="button_git" onclick="window.location.href='https://github.com/bioinformatic-hub-sls';"></button>
+        <button class="button" onclick="window.location.href='{{ url_for('projects.project') }}';">Submit Your Project</button>
+        <button class="button_slack" onclick="window.location.href='https://join.slack.com/t/cellulebioinfosls/shared_invite/zt-1jw5embhe-NVRA67PADVbTekEwQHqTyQ';"></button>
+        <button class="button" onclick="window.location.href='{{ url_for('projects.grant') }}';">Grant Writing Assistance</button>
+      </div>
       <!--<div class="row">-->
         <!-- CALENDAR START-->
+<!--
         <div class="container_cal">
           <div class="calendar">
             <div class="month">
@@ -97,6 +112,7 @@
             
           
         </div>
+-->
         <!-- CALENDAR END-->
 
         <!-- CONTENT START-->

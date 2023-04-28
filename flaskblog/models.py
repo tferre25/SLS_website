@@ -64,6 +64,7 @@ class Project(db.Model):
     if_urgency = db.Column(db.Text, unique=False, nullable=True)
 
     project_context = db.Column(db.Text, unique=False, nullable=True)
+    project_context_private = db.Column(db.Text, unique=False, nullable=True)
     project_summary = db.Column(db.Text, unique=False, nullable=True)
     bioF_needs = db.Column(db.Text, unique=False, nullable=True)
 
@@ -78,8 +79,6 @@ class Project(db.Model):
     data_size = db.Column(db.Integer, unique=False, nullable=True)
     add_info = db.Column(db.Text, unique=False, nullable=True)
     
-
-
     def __repr__(self) -> str:
-        return f"Project('{self.username}', '{self.project_title}', '{self.application}')"
+        return f"Project('{self.username}','{self.project_title}','{self.application}')"
     

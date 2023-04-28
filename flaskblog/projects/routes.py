@@ -12,20 +12,24 @@ projects = Blueprint('projects', __name__)
 @login_required
 def project():
     form = ProjectForm()
+    #try:
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        # ADD TO DATABASE
-        project = object_project()
+            # ADD TO DATABASE
+        project = object_project(form)
         db.session.add(project)
         db.session.commit()
 
-        # SEND A RECAP EMAIL
+            # SEND A RECAP EMAIL
         dico = extract_form_info(form)
         send_recap_project(user, body=dico, form= form)
 
-        # REDIRECT
+            # REDIRECT
         flash('Your project was created succesfully & An email has been sent with recap project', 'info')
-        return render_template('recapProject.html', title='project', form=form)
+        return render_template('recapProject.html', title='Project', form=form)
+    #except AttributeError:
+    #    flash('None type error (the mail should be the same as your mail in Account informations)', 'warning')
+    #    return render_template('errors/errorPage.html', title='ERROR')
     return render_template('project.html', title='Project', form=form)
 
 @projects.route("/project/<int:project_id>")
@@ -39,7 +43,7 @@ def project_unit(project_id):
 def grant():
     form = GrantForm()
     if form.validate_on_submit():
-        flash(f'writing assistance {form.projectTitle.data} was created!', 'success')
+        flash(f'writing assistance {form.project_title.data} was created!', 'success')
         return render_template('recapGrant.html', title='grant', form=form)
     return render_template('grant.html', title='grant', form=form)
 

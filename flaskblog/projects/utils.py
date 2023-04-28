@@ -1,26 +1,36 @@
 from flask import url_for
 from flask_mail import Message
 from flaskblog import mail
-import re
+import re, sys
 from email.mime.image import MIMEImage
 from flaskblog.models import Project
 from flaskblog.projects.forms import ProjectForm
+# setting path
+sys.path.append('../../flaskblog')
+from flaskblog.config import get_admins
 from flask_login import current_user
+
+#admin_list= get_admins()
+
 
 def send_recap_project(user, body, form):
     token = user.get_reset_token()
-    msg = Message(f'Summary of your project | {form.project_title.data.upper()} | {form.application.data.upper()}',
+    msg = Message(f'Summary of your project | {form.project_title.data.capitalize()} | {form.application.data.capitalize()}',
                   sender='noreply@demo.com',
-                  recipients=[user.email, 'dina.ouabhi@aphp.fr'])
+                  recipients=[user.email])
+                              #'dina.ouabhi@aphp.fr',
+                              #'maud.salmona@aphp.fr',
+                              #'theo.ferreira@aphp.fr',
+                              #'julien.robert@aphp.fr'])
     msg.body = f"""
     Hello {user.username.capitalize()},
 
     Following your request for assistance for the project entitled "{form.project_title.data.capitalize()}", 
-    please find below a summary of the points summarizing the different criteria of the project : 
+    please find below a summary of the points summarizing the different criteria of the project :
                 
                 {body}
 
-
+    An answer will be sent to you by the bioinformatics team of the Saint-Louis hospital as soon as possible.
 
     If you have any questions, do not hesitate to come back on the contact page by clicking on the link below.
                 
@@ -30,7 +40,8 @@ def send_recap_project(user, body, form):
 
     https://github.com/bioinformatic-hub-sls
 
-    APHP Team
+
+    Saint Louis Hospital Bioinformaticien Team
     Regards,
     
     """
@@ -60,6 +71,7 @@ def extract_form_info(form):
                 ***************************************
 
         {extract_label(form.project_context.label)}\t:\t{form.project_context.data} \n
+        {extract_label(form.project_context_private)}\t:\t{form.project_context_private.data} \n
         {extract_label(form.project_summary.label)}\t:\t{form.project_summary.data} \n
         {extract_label(form.bioF_needs.label)}\t:\t{form.bioF_needs.data} \n
         {extract_label(form.data_available.label)}\t:\t{form.data_available.data} \n
@@ -79,19 +91,31 @@ def extract_form_info(form):
     '''
     return body
 
-def object_project():
-    form = ProjectForm()
+# define a project object
+def object_project(form):
     project = Project(
         username = form.username.data,
         email = form.email.data,
-        author=current_user,
+        author = current_user,
         project_title = form.project_title.data,
         application = form.application.data,
         organism = form.organism.data,
         principal_investigator = form.principal_investigator.data,
         promotor = form.promotor.data,
         urgency_of_request = form.urgency_of_request.data,
-        if_urgency = form.if_urgency.data
+        if_urgency = form.if_urgency.data,
+        project_context = form.project_context.data,
+        #project_context_private = form.project_context_private,
+        project_summary = form.project_summary.data,
+        bioF_needs = form.bioF_needs.data,
+        data_available = form.data_available.data,
+        access_data = form.access_data.data,
+        data_owner = form.data_owner.data,
+        regulatory_requirements = form.regulatory_requirements.data,
+        if_regulatory_requirements = form.if_regulatory_requirements.data,
+        data_type = form.data_type.data,
+        data_size = form.data_size.data,
+        add_info = form.add_info.data
     )
 
     return project

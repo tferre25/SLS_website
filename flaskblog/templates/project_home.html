@@ -3,19 +3,28 @@
 
     {% if projects.items|length == 0 %}
       <h1>No Projects</h1>
-      <iframe src="https://giphy.com/embed/GnE8HANuuhbzKTuRH5" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/clint-home-care-nobles-GnE8HANuuhbzKTuRH5">via GIPHY</a></p>
+      <img class="fit-picture" src="../static/profile_pics/default.png" alt="logo_aphp" style="width: 250px;">
     {% endif %}
-
+    
     {% for project in projects.items %}
         <article class="media content-section">
-          <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+project.author.image_file) }}" alt="">
-          <div class="media-body">
+          {% if project.author is none %}
+            <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/unknown.jpg') }}" alt="None user">
+          {%else%}
+            <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+project.author.image_file) }}" alt="">
+          {%endif%}
+            <div class="media-body">
             <div class="article-metadata">
-              <a class="mr-2" href="{{ url_for('users.user_projects', username=project.author.username) }}">{{ project.author.username.capitalize() }}</a>
-              <small class="text-muted">{{ project.date_posted.strftime('%Y-%m-%d') }}</small>
+              {% if project.author is none %}
+                <a class="mr-2" href="#">Unknown user</a>
+              {%else%}
+                <a class="mr-2" href="{{ url_for('users.user_projects', username=project.author.username) }}">{{ project.author.username.capitalize() }}</a>
+              {%endif%}
+                <small class="text-muted">{{ project.date_posted.strftime('%Y-%m-%d') }}</small>
             </div>
             <h2><a class="article-title" href="{{ url_for('projects.project_unit', project_id=project.id) }}">{{ project.project_title }}</a></h2>
-            <p class="article-content">{{ project.project_summary }}</p>
+            <p style="color: blue; font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Application: </b>{{ project.application }}</p>
+            <p class="article-content"> <b>Context project (Public): </b>{{ project.project_context }}</p>
           </div>
         </article>
     {% endfor %}

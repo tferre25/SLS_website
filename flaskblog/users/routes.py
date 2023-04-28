@@ -4,13 +4,14 @@ from flaskblog import db, bcrypt
 from flaskblog.models import User, Post, Project
 from flaskblog.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
                                    RequestResetForm, ResetPasswordForm)
-from flaskblog.users.utils import save_picture, send_reset_email, generate_token, confirm_token, send_conf_email
+from flaskblog.users.utils import save_picture, send_reset_email
 #from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 from flask_mail import Message
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 users = Blueprint('users', __name__)
 
+#------------------------------------------------ REGISTRATION
 @users.route("/register", methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -21,27 +22,11 @@ def register():
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
-        token = generate_token(user.email)
-        send_conf_email(user)
         flash(f'Your account has benn created! You are now able to log in', 'success')
         return redirect(url_for('users.login'))
     return render_template('register.html', title='Register', form=form)
 
-@users.route("/confirm/<token>")
-def confirm_email(token):
-    if current_user.is_authenticated:
-        flash("Account already confirmed.", "success")
-        return redirect(url_for("main.home"))
-    email = confirm_token(token)
-    user = User.query.filter_by(email=email).first_or_404()
-    if user.email == email:
-        db.session.add(user)
-        db.session.commit()
-        flash("You have confirmed your account. Thanks!", "success")
-    else:
-        flash("The confirmation link is invalid or has expired.", "danger")
-    return redirect(url_for("main.home"))
-
+#--------------------------------------------------------------- FIN REGISTRATION
 
 @users.route("/login", methods=['GET', 'POST'])
 def login():
