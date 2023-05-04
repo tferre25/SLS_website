@@ -44,15 +44,16 @@
               <b><a class="nav-item nav-link" href="{{ url_for('main.about') }}">Contact</a></b> 
               <b><a class="nav-item nav-link" href="{{ url_for('main.about_us') }}">About-Us</a></b> 
               <b><a class="nav-item nav-link" href="{{ url_for('posts.new_post') }}">New Post</a></b>
+              <b><a class="nav-item nav-link" href="https://authentification.aphp.fr/logon/LogonPoint/tmindex.html" target="_blank">AP-HP mailbox</a></b>
               <!--
-              <b><a class="nav-item nav-link" href="{{ url_for('projects.project') }}">Submit Your Project</a></b>
-              <b><a class="nav-item nav-link" href="{{ url_for('projects.grant') }}">Grant Writing Assistance</a></b>
-              -->
+              <b><a class="nav-item nav-link" href="{{ url_for('projects.new_project') }}">Submit Your Project</a></b>
+              <b><a class="nav-item nav-link" href="{{ url_for('projects.new_grant') }}">Grant Writing Assistance</a></b>
+              
               <i><a class="nav-item nav-link" href="{{ url_for('main.generate_posts') }}" style="color: chartreuse;">GENERATE POSTS</a></i>
               <i><a class="nav-item nav-link" href="{{ url_for('main.delete_posts') }}" style="color: chartreuse;">DELETE POSTS</a></i>
               <i><a class="nav-item nav-link" href="{{ url_for('main.generate_users') }}" style="color: chocolate;">GENERATE USERS</a></i>
               <i><a class="nav-item nav-link" href="{{ url_for('main.delete_projects') }}" style="color:chocolate;">DELETE PROJECT</a></i>
-              
+              -->
               
             </div>
             <!-- Navbar Right Side -->
@@ -72,10 +73,10 @@
     </header>
     <main role="main" class="container">
       <div class="button-container">
-        <button class="button_git" onclick="window.location.href='https://github.com/bioinformatic-hub-sls';"></button>
-        <button class="button" onclick="window.location.href='{{ url_for('projects.project') }}';">Submit Your Project</button>
-        <button class="button_slack" onclick="window.location.href='https://join.slack.com/t/cellulebioinfosls/shared_invite/zt-1jw5embhe-NVRA67PADVbTekEwQHqTyQ';"></button>
-        <button class="button" onclick="window.location.href='{{ url_for('projects.grant') }}';">Grant Writing Assistance</button>
+        <button class="button_git" onclick="window.open('https://github.com/bioinformatic-hub-sls',  '_blank');"></button>
+        <button class="button" onclick="window.location.href='{{ url_for('projects.new_project') }}';">Submit Your Project</button>
+        <button class="button_slack" onclick="window.open('https://join.slack.com/t/cellulebioinfosls/shared_invite/zt-1jw5embhe-NVRA67PADVbTekEwQHqTyQ', '_blank');"></button>
+        <button class="button" onclick="window.location.href='{{ url_for('projects.new_grant') }}';">Grant Writing Assistance</button>
       </div>
       <!--<div class="row">-->
         <!-- CALENDAR START-->

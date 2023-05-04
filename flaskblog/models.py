@@ -17,6 +17,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(60), nullable=False)
     posts = db.relationship('Post', backref='author', lazy=True)
     projects = db.relationship('Project', backref='author', lazy=True)
+    grants = db.relationship('Grant', backref='author', lazy=True)
 
     def get_reset_token(self, expires_sec= 1800):
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
@@ -32,8 +33,7 @@ class User(db.Model, UserMixin):
         return User.query.get(user_id)
 
     def __repr__(self):
-        return f"User('{self.username}', '{self.email}', '{self.image_file}')"
-    
+        return f"User('{self.username}', '{self.email}', '{self.image_file}')"    
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -81,4 +81,43 @@ class Project(db.Model):
     
     def __repr__(self) -> str:
         return f"Project('{self.username}','{self.project_title}','{self.application}')"
+    
+class Grant(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20), unique=False, nullable=False)
+    email = db.Column(db.String(120), unique=False, nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False,
+                            default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    project_title = db.Column(db.String(120), unique=False, nullable=True)
+    application = db.Column(db.String(20), unique=False, nullable=True)
+    organism = db.Column(db.String(20), unique=False, nullable=True)
+    principal_investigator = db.Column(db.String(20), unique=False, nullable=True)
+
+    promotor = db.Column(db.String(20), unique=False, nullable=True)
+    funding_type = db.Column(db.String(20), unique=False, nullable=True)
+    total_amount = db.Column(db.Numeric(10, 2), unique=False, nullable=True)
+    deadline = db.Column(db.Date(), unique=False, nullable=True)
+    urgency_of_request = db.Column(db.String(20), unique=False, nullable=True)
+    if_urgency = db.Column(db.Text, unique=False, nullable=True)
+
+    project_context = db.Column(db.Text, unique=False, nullable=True)
+    project_context_private = db.Column(db.Text, unique=False, nullable=True)
+    project_summary = db.Column(db.Text, unique=False, nullable=True)
+    bioF_needs = db.Column(db.Text, unique=False, nullable=True)
+
+    data_available = db.Column(db.Boolean, unique=False, nullable=True)
+    access_data = db.Column(db.String(120), unique=False, nullable=True)
+    data_owner = db.Column(db.String(20), unique=False, nullable=True)
+
+    regulatory_requirements = db.Column(db.Boolean, unique=False, nullable=True)
+    if_regulatory_requirements = db.Column(db.String(20), unique=False, nullable=True)
+    data_type = db.Column(db.String(20), unique=False, nullable=True)
+
+    data_size = db.Column(db.Integer, unique=False, nullable=True)
+    add_info = db.Column(db.Text, unique=False, nullable=True)
+    
+    def __repr__(self) -> str:
+        return f"Project('{self.username}','{self.project_title}','{self.application}', '{self.total_amount}, '{self.deadline}')"
     

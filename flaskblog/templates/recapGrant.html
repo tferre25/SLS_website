@@ -1,1 +1,54 @@
-<h1>RECAP GRANT</h1>
+{% extends 'layout.html' %}
+{% block content %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        function generatePdf(){
+            const element = document.getElementById('invoice');
+
+            html2pdf()
+            .from(element)
+            .save();
+        }
+    </script>
+    <div id="invoice">
+        <legend style="color: rgb(40, 42, 42); font-size: 4em; font-weight: bold; font-family: Georgia, 'Times New Roman', Times, serif;">Grant Asking Recapitulatif</legend>
+        <ul class="list-group">
+            <li class="list-group-item" id="toto"><b>{{ form.username.label }}</b>  &nbsp; {{ form.username.data }}</li>
+            <li class="list-group-item"><b>{{ form.email.label }}</b>  &nbsp; {{ form.email.data }}</li>
+            <li class="list-group-item"><b>{{ form.project_title.label }}</b>  &nbsp; {{ form.project_title.data }}</li>
+            <li class="list-group-item"><b>{{ form.application.label }}</b>  &nbsp; {{ form.application.data }}</li>
+            <li class="list-group-item"><b>{{ form.principal_investigator.label }}</b> &nbsp; {{ form.principal_investigator.data }}</li>
+            <li class="list-group-item"><b>{{ form.organism.label }}</b>  &nbsp; {{ form.organism.data }}</li>
+            <li class="list-group-item"><b>{{ form.promotor.label }}</b>  &nbsp; {{ form.promotor.data }}</li>
+            <li class="list-group-item"><b>{{ form.funding_type.label }}</b>  &nbsp; {{ form.funding_type.data }}</li>
+            <li class="list-group-item"><b>{{ form.total_amount.label }}</b>  &nbsp; {{ form.total_amount.data }} e</li>
+            <li class="list-group-item"><b>{{ form.deadline.label }}</b>  &nbsp; {{ form.deadline.data }}</li>
+            <li class="list-group-item"><b>{{ form.urgency_of_request.label }}</b>  &nbsp; {{ form.urgency_of_request.data }}</li>
+            <li class="list-group-item"><b>{{ form.if_urgency.label }}</b>  &nbsp; {{ form.if_urgency.data }}</li>
+            <li class="list-group-item"><b>{{ form.project_context.label }}</b>  &nbsp; {{ form.project_context.data }}</li>
+            <li class="list-group-item"><b>{{ form.project_context_private.label }}</b>  &nbsp; {{ form.project_context_private.data }}</li>
+            <li class="list-group-item"><b>{{ form.project_summary.label }}</b>  &nbsp; {{ form.project_summary.data }}</li>
+            <li class="list-group-item"><b>{{ form.bioF_needs.label }}</b>  &nbsp; {{ form.bioF_needs.data }}</li>
+            <li class="list-group-item"><b>{{ form.data_available.label }}</b>  &nbsp; {{ form.data_available.data }}</li>
+            <li class="list-group-item"><b>{{ form.access_data.label }}</b>  &nbsp; {{ form.access_data.data }}</li>
+            <li class="list-group-item"><b>{{ form.data_owner.label }}</b>  &nbsp; {{ form.data_owner.data }}</li>
+            <li class="list-group-item"><b>{{ form.regulatory_requirements.label }}</b>  &nbsp; {{ form.regulatory_requirements.data }}</li>
+            <li class="list-group-item"><b>{{ form.if_regulatory_requirements.label }}</b>  &nbsp; {{ form.if_regulatory_requirements.data }}</li>
+            <li class="list-group-item"><b>{{ form.data_type.label }}</b>  &nbsp; {{ form.data_type.data }}</li>
+            <li class="list-group-item"><b>{{ form.data_size.label }}</b>  &nbsp; {{ form.data_size.data }}</li>
+            <li class="list-group-item"><b>{{ form.add_info.label }}</b>  &nbsp; {{ form.add_info.data }}</li>  
+        </ul>
+    </div>
+    <div class="form-group">
+        <button onclick="generatePdf()" type="button" class="btn btn-dark">Download</button>
+        <small class="text-muted ml-2">
+            <a href="{{ url_for('projects.grant') }}">Go back to the Grant Asking form ? </a>
+        </small>
+        <small class="text-muted ml-2">
+            <a href="{{ url_for('main.project_home') }}">Visit your project in the home page (for projects) ? </a>
+        </small>
+    </div>
+    <br>
+    
+
+{% endblock content %}

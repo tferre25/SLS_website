@@ -26,9 +26,9 @@ body {
   }
   
   .content-section {
-    background: #ffffff;
+    background-color:#ffffff;
     padding: 10px 20px;
-    border: 1px solid #dddddd;
+    border: 5px solid #ffffff;
     border-radius: 3px;
     margin-bottom: 20px;
   }
@@ -229,6 +229,16 @@ a {
 .vh-100:hover{
   transform: scale(1.01);
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.8);
+}
+
+.form-group{
+  font-size: 15px;
+  font-weight: bolder;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.list-group-item{
+  background-color: rgb(117 190 218 / 0.3); /* 70% transparent */
 }
 
 
