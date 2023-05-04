@@ -3,7 +3,11 @@
 
 **Description**
 
-Our application is a local site for project exchange and help between researchers and bioinformaticians within the APHP server. It is designed to facilitate the task of bioinformaticians in the realization of their projects.
+Our application is a local site for project exchange and help between researchers and bioinformaticians within t
+
+Uploading INTRANET AP-HP Research - Google Chrome 2023-05-04 16-50-08.mp4…
+
+he APHP server. It is designed to facilitate the task of bioinformaticians in the realization of their projects.
 
 
 **Usage**
