@@ -1,41 +1,35 @@
 from flask import render_template, request, Blueprint, flash, url_for, redirect
 from flaskblog.models import Post, User, Project
-from flask_login import login_required, current_user
+from flask_login import login_required
 from flaskblog.main.forms import SearchForm
-import sys,os
-sys.path.append('../flaskblog')
-from flaskblog.config import get_admins
-import random
-from flaskblog import db, bcrypt
+import random, pytz
+from flaskblog import db, admin_required
+from datetime import datetime
+
 
 
 main = Blueprint('main', __name__)
 
-admin_list= get_admins()
-
 @main.route("/")
 @main.route("/home")
 def home():
+    UTC = pytz.utc
+    IST = pytz.timezone('Europe/Paris')
+    datetime_ist = datetime.now(IST)
+    time = datetime_ist.strftime('%Y-%m-%d')
     page = request.args.get('page', 1,type=int)
     # grab those posts from database
     posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
-    return render_template('home.html', posts=posts)
+    return render_template('home.html', posts=posts, time=time)
 
 @main.route("/project_home")
 @login_required
+@admin_required
 def project_home():
-    if current_user.email in admin_list:
-        page = request.args.get('page', 1,type=int)
-        # grab those projects from database
-        projects = Project.query.order_by(Project.date_posted.desc()).paginate(page=page, per_page=5)
-        return render_template('project_home.html', projects=projects)
-    else:
-        flash(f'''
-                This page summarizes the projects created by the members of the APHP.
-                It is reserved to the team of bioinformaticians of the Saint-Louis hospital.
-                You can't access it.
-            ''', 'danger')
-        return redirect(url_for('main.about'))
+    page = request.args.get('page', 1,type=int)
+    # grab those projects from database
+    projects = Project.query.order_by(Project.date_posted.desc()).paginate(page=page, per_page=5)
+    return render_template('project_home.html', projects=projects)
 
 
 @main.route("/about_us")
@@ -130,3 +124,5 @@ def delete_projects():
         db.session.commit()
     flash('Delete all projects', 'info')
     return render_template('about.html', title='About')
+
+

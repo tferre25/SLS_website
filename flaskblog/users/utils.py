@@ -34,6 +34,23 @@ def send_reset_email(user):
     '''
     mail.send(msg)
 
+def send_project_request(project, form, request):
+    msg = Message(f'Answer to your project "{project.project_title}"',
+                  sender='noreply@demo.com',
+                  recipients=[project.email])
+    msg.body= f'''
+            Dear {project.username},
+            Your project has been {form.project_request.data}
+            The motif was {form.motif.data}
+
+            The person who will take care of your project : {request.author.email}
+
+            Regards, 
+            APHP Bioinformaticiens Team, 
+
+    '''
+    mail.send(msg)
+
 
 
 

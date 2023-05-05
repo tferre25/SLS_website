@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-    <legend style="color: rgb(40, 42, 42); font-size: 4em; font-weight: bold; font-family: Georgia, 'Times New Roman', Times, serif;">Projects</legend>
+    <legend data-text="Projects...">Projects...</legend>
     {% if projects.items|length == 0 %}
       <h1>No Projects</h1>
       <img class="fit-picture" src="../static/profile_pics/default.png" alt="logo_aphp" style="width: 250px;">

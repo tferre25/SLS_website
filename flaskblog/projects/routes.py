@@ -15,16 +15,12 @@ def new_project():
     #try:
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-            # ADD TO DATABASE
         project = object_project(form)
         db.session.add(project)
         db.session.commit()
-
-            # SEND A RECAP EMAIL
         dico = extract_form_info(form)
-        send_recap_project(user, body=dico, form= form)
-
-            # REDIRECT
+        current_project = int(len(Project.query.all()))
+        send_recap_project(user, body=dico, form= form, project_id=current_project)
         flash('Your project hes been created succesfully & An email has been sent with a recap of your project', 'info')
         return render_template('recapProject.html', title='Project', form=form)
     #except AttributeError:

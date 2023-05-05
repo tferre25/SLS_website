@@ -1,8 +1,12 @@
 import subprocess
 
-def convert_html_to_pdf(html_file, output_pdf):
-    subprocess.call(['wkhtmltopdf', html_file, output_pdf])
+from datetime import datetime
 
-# Replace 'input.html' with the path to your HTML file
-# Replace 'output.pdf' with the desired output PDF file path
-convert_html_to_pdf('flaskblog/templates/recapProject.html', 'output.pdf')
+import pytz
+
+UTC = pytz.utc
+
+IST = pytz.timezone('Europe/Paris')
+  
+datetime_ist = datetime.now(IST)
+print(datetime_ist.strftime('%Y-%m-%d'))

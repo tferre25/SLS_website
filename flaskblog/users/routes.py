@@ -1,13 +1,14 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
-from flaskblog import db, bcrypt
-from flaskblog.models import User, Post, Project
-from flaskblog.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
+from flaskblog import db, bcrypt, admin_required
+from flaskblog.models import User, Post, Project, Project_request
+from flaskblog.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm, ProjectRequestForm,
                                    RequestResetForm, ResetPasswordForm)
-from flaskblog.users.utils import save_picture, send_reset_email
+from flaskblog.users.utils import save_picture, send_reset_email, send_project_request
 #from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 from flask_mail import Message
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+
 
 users = Blueprint('users', __name__)
 
@@ -116,3 +117,24 @@ def user_projects(username):
         .order_by(Project.date_posted.desc())\
         .paginate(page=page, per_page=3)
     return render_template('user_posts.html', posts=projects, user=user)
+
+
+
+#--------------------------------------------------- project_request---------------------------------------------------------
+@users.route('/project_request', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def project_request():
+    form = ProjectRequestForm()
+    if form.validate_on_submit():
+        request = Project_request(project_id=form.project_id.data,
+                                  author=current_user,
+                                  project_request = form.project_request.data,
+                                  motif = form.motif.data)
+        
+        db.session.add(request)
+        db.session.commit()
+        project = Project.query.get(form.project_id.data) # celui qui a fait la demande du projet
+        send_project_request(project, form, request)
+        flash(f'Congrat, your answer to the project entitled "{project.project_title}" has been successfully sent to its creator "{project.username}" ', 'success')
+    return render_template('project_request.html', legend='Project Request', form = form)

@@ -10,13 +10,12 @@ sys.path.append('../../flaskblog')
 from flaskblog.config import get_admins
 from flask_login import current_user
 from flaskblog import db
+from flaskblog.models import User
 
-#admin_list= get_admins()
-
-
-def send_recap_project(user, body, form):
+def send_recap_project(user, body, form, project_id):
     token = user.get_reset_token()
-    msg = Message(f'Summary of your project | {form.project_title.data.capitalize()} | {form.application.data.capitalize()}',
+    admins = [User.query.filter_by(is_admin=True).all()[i].email for i in range(len(User.query.filter_by(is_admin=True).all()))]
+    msg = Message(f'Summary of your project | {form.project_title.data.capitalize()} | {form.application.data.capitalize()} | Id : {project_id}',
                   sender='noreply@demo.com',
                   recipients=[user.email])
                               #'dina.ouabhi@aphp.fr',
@@ -32,6 +31,8 @@ def send_recap_project(user, body, form):
                 {body}
 
     An answer will be sent to you by the bioinformatics team of the Saint-Louis hospital as soon as possible.
+
+    Project ID : {project_id}
 
     If you have any questions, do not hesitate to come back on the contact page by clicking on the link below.
                 

@@ -1,8 +1,43 @@
 body {
-    background: #fafafa;
-    color: #333333;
-    margin-top: 10rem;
+  justify-content: center;
+  background: #252839;
+  margin-top: 10rem;
   }
+
+legend{
+  position: relative;
+  font-size: 2vw;
+  color: #252839;
+  -webkit-text-stroke: 0.3vw #383d52;
+  text-transform: uppercase;
+}
+
+legend::before{
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  color: #01fe87;
+  -webkit-text-stroke: 0vw #383d52;
+  border-right: 2px solid #01fe87;
+  overflow: hidden;
+  animation: animate 6s linear infinite;
+}
+
+@keyframes animate{
+  0%, 10%, 100%
+  {
+    width: 0;
+  }
+  70%, 90%
+  {
+    width: 100%;
+  }
+}
+
+
 
   
   h1, h2, h3, h4, h5, h6 {
@@ -87,11 +122,6 @@ body {
 }
 
 
-body {
-  background-image: url("profile_pics/sls.jpg");
-  background-color: #cccccc;
- }
-
 a {
   font-size:13px;
 }
@@ -171,7 +201,7 @@ a {
   align-items: center;
   justify-content: center;
   font-size: 25px;
-  background-color: #023402;
+  background-color: #01fe87;
   color: white;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-weight: 400;

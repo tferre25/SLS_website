@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-    <legend style="color: rgb(40, 42, 42); font-size: 4em; font-weight: bold; font-family: Georgia, 'Times New Roman', Times, serif;">Posts</legend>
+    <legend data-text="Posts...">Posts...</legend>
     {% if posts.items|length == 0 %}
       <h1>No Posts</h1>
       <img class="fit-picture" src="../static/profile_pics/default.png" alt="logo_aphp" style="width: 250px;">
@@ -49,3 +49,5 @@
     </button>
   </form>
 {% endblock search %}
+
+{% block time %}{{time}}{% endblock %}

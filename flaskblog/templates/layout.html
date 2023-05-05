@@ -21,7 +21,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='footer.css') }}">
 
     {% if title %}
-        <title> INTRANET AP-HP Research - {{ title }}</title>
+        <title> INTRANET AP-HP - {{ title }}</title>
     {% else %}
         <title>INTRANET AP-HP Research</title>
     {% endif %}
@@ -65,6 +65,7 @@
                 <b><a class="nav-item nav-link" href="{{ url_for('users.login') }}">Login</a></b>
                 <b><a class="nav-item nav-link" href="{{ url_for('users.register') }}">Register</a></b>
               {% endif %}
+              <b><a class="nav-item nav-link" href="{{ url_for('users.project_request') }}">Project Request</a></b>
             </div>
           </div>
         </div>
@@ -135,13 +136,13 @@
 
     <footer>
       <div class="footer-content">
-        <h3>APHP - SLS</h3>
-        <p> <b>Hôpital Saint-Louis</b> is a hospital in Paris, France.
-          It was built in 1611 by architect Claude Vellefaux at
-          the request of Henry IV of France. 
-          It is part of the Assistance publique - Hôpitaux de Paris hospital system, 
+        <!--SLS SUMMARY-->
+        <h3>Hôpital Saint-Louis</h3>
+        <p>Hospital in Paris, France.It was built in 1611 by architect Claude Vellefaux at
+          the request of Henry IV of France. It is part of the Assistance publique - Hôpitaux de Paris hospital system, 
           and it is located at 1 avenue Claude-Vellefaux, in the 10th arrondissement 
           near the metro station Goncourt.</p>
+          <!--SOCIAL MEDIAS-->
           <ul class="socials">
             <li><a href="#"><i class="fa fa-facebook"></i></a></li>
             <li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -151,7 +152,14 @@
           </ul>
       </div>
       <div class="footer-bottom">
-        <p>copyright &copy;2023 APHP. designed by <span>APHP - sls</span> </p>
+        <!--SIGNATURE-->
+        <p>
+          copyright &copy;{% block time %}{% endblock %} APHP. designed by <span>
+            <a href="https://github.com/dinaOuahbi" target="_blank" style="color: hotpink;">
+              OUAHBI Dina
+            </a> 
+          </span>
+        </p>
       </div>
     </footer>
     

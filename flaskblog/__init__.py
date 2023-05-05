@@ -6,6 +6,10 @@ from flask_mail import Mail
 from flaskblog.config import Config
 from flask_migrate import Migrate
 
+from flask import abort
+from flask_login import current_user
+from functools import wraps
+
 
 
 db = SQLAlchemy()
@@ -44,3 +48,11 @@ def create_app(config_class=Config):
 
     return app
 
+
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not current_user.is_admin:  # Assuming you have a user object with an `is_admin` property
+            abort(403)  # HTTP 403 Forbidden error
+        return f(*args, **kwargs)
+    return decorated_function

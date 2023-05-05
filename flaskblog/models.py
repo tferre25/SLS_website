@@ -12,12 +12,21 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    image_file = db.Column(db.String(20), nullable=False,
-                           default='default.jpg')
+    image_file = db.Column(db.String(20), nullable=False,default='default.jpg')
+    is_admin = db.Column(db.Boolean, default=False)
     password = db.Column(db.String(60), nullable=False)
+
     posts = db.relationship('Post', backref='author', lazy=True)
     projects = db.relationship('Project', backref='author', lazy=True)
     grants = db.relationship('Grant', backref='author', lazy=True)
+    requests = db.relationship('Project_request', backref='author', lazy=True)
+
+    def __init__(self, username, email, password, is_admin=False, image_file='default.jpg'):
+        self.username = username
+        self.email = email
+        self.is_admin = is_admin
+        self.password = password
+        self.image_file = image_file
 
     def get_reset_token(self, expires_sec= 1800):
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
@@ -33,7 +42,7 @@ class User(db.Model, UserMixin):
         return User.query.get(user_id)
 
     def __repr__(self):
-        return f"User('{self.username}', '{self.email}', '{self.image_file}')"    
+        return f"User('{self.username}', '{self.is_admin}' '{self.email}', '{self.image_file}')"    
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -45,6 +54,17 @@ class Post(db.Model):
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
+
+class Project_request(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    project_id = db.Column(db.Integer, nullable=False)
+    project_request = db.Column(db.String(100), nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False,default=datetime.utcnow)
+    motif = db.Column(db.String(1000), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    def __repr__(self):
+        return f"Poject_request('{self.project_id}','{self.project_request}', '{self.date_posted}', '{self.motif}')"
 
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)

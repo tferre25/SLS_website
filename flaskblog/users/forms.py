@@ -1,18 +1,22 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_login import current_user
 from flaskblog.models import User
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', # html label
-                           validators=[DataRequired(), Length(min=2, max=20)]) #list of validations that we want to check
+                           validators=[DataRequired(), Length(min=2, max=20)],
+                           render_kw={'placeholder': 'firstName & lastName'}) #list of validations that we want to check
     email = StringField('Email',
-                        validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
+                        validators=[DataRequired(), Email()],
+                        render_kw={'placeholder': 'firstName.lastName@aphp.fr'})
+    password = PasswordField('Password', validators=[DataRequired()],
+                             render_kw={'placeholder': '**************'})
     confirm_password = PasswordField('Confirm Password',
-                                     validators=[DataRequired(), EqualTo('password')])
+                                     validators=[DataRequired(), EqualTo('password')],
+                                     render_kw={'placeholder': '**************'})
     submit = SubmitField('Sign Up')
 
     def validate_username(self, username):
@@ -47,16 +51,14 @@ class UpdateAccountForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Email',
-                        validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    email = StringField('Email',validators=[DataRequired(), Email()], render_kw={'placeholder': 'firstName.lastName@aphp.fr'})
+    password = PasswordField('Password', validators=[DataRequired()], render_kw={'placeholder': '**********************'})
     remember = BooleanField('Remember Me') #remember the password
     submit = SubmitField('Login')
 
 
 class RequestResetForm(FlaskForm):
-    email = StringField('Email',
-                        validators=[DataRequired(), Email()])
+    email = StringField('Email', validators=[DataRequired(), Email()], render_kw={'placeholder': 'firstName.lastName@aphp.fr'})
     submit = SubmitField('Request Passord Reset')
 
     def validate_email(self, email):
@@ -72,27 +74,9 @@ class ResetPasswordForm(FlaskForm):
     submit = SubmitField('Reset Password')
 
 
-### bioinformaticiens
-class BioRegistrationForm(FlaskForm):
-    aphp_Num = StringField('APHP_Num', # html label
-                           validators=[DataRequired(), Length(min=7, max=7)],
-                           render_kw={'placeholder': '1234567'}) #list of validations that we want to check
-    email = StringField('Email',
-                        validators=[DataRequired(), Email()],
-                        render_kw={'placeholder': 'prenom.nom@aphp.fr'})
-    password = PasswordField('Password', validators=[DataRequired()],
-                             render_kw={'placeholder': '***************'})
-    confirm_password = PasswordField('Confirm Password',
-                                     validators=[DataRequired(), EqualTo('password')],
-                                     render_kw={'placeholder': '***************'})
-    submit = SubmitField('Sign Up')
-
-    def validate_aphp_Num(self, aphp_Num):
-        user_bio = User_bio.query.filter_by(aphp_Num= aphp_Num.data).first()
-        if user_bio:
-            raise ValidationError('That user aphp_Num is taken. Please choose another one') #template of validation method
-        
-    def validate_email(self, email):
-        user_bio = User_bio.query.filter_by(email= email.data).first()
-        if user_bio:
-            raise ValidationError('That user email is taken. Please choose another one') #template of validation method
+class ProjectRequestForm(FlaskForm):
+    project_id = IntegerField('Project ID : *', validators=[DataRequired()], render_kw={'placeholder': 'eg, 1 . . .'})
+    project_request = SelectField('project_request : *', choices=[('Accepted', 'Accepted'),('Refused', 'Refused')])
+    motif = StringField('Motif : ', render_kw={'placeholder': 'eg, it doesn\'t concern my attributes . . .'})
+    submit = SubmitField('Send')
+     
