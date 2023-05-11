@@ -57,14 +57,14 @@ class Post(db.Model):
 
 class Project_request(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    project_id = db.Column(db.Integer, nullable=False)
+    project_id = db.Column(db.String(70), nullable=False)
     project_request = db.Column(db.String(100), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False,default=datetime.utcnow)
     motif = db.Column(db.String(1000), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
-        return f"Poject_request('{self.project_id}','{self.project_request}', '{self.date_posted}', '{self.motif}')"
+        return f"Poject_request('{self.project_id}','{self.project_request}','{self.date_posted}','{self.motif}')"
 
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -73,7 +73,9 @@ class Project(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False,
                             default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    is_accepted = db.Column(db.Boolean, default=False)
 
+    project_token = db.Column(db.String(120), unique=True, nullable=False)
     project_title = db.Column(db.String(120), unique=False, nullable=True)
     application = db.Column(db.String(20), unique=False, nullable=True)
     organism = db.Column(db.String(20), unique=False, nullable=True)
@@ -100,7 +102,7 @@ class Project(db.Model):
     add_info = db.Column(db.Text, unique=False, nullable=True)
     
     def __repr__(self) -> str:
-        return f"Project('{self.username}','{self.project_title}','{self.application}')"
+        return f"Project('{self.project_token}','{self.username}','{self.project_title}','{self.application}','{self.is_accepted}')"
     
 class Grant(db.Model):
     id = db.Column(db.Integer, primary_key=True)

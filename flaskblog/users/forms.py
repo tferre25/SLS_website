@@ -75,7 +75,7 @@ class ResetPasswordForm(FlaskForm):
 
 
 class ProjectRequestForm(FlaskForm):
-    project_id = IntegerField('Project ID : *', validators=[DataRequired()], render_kw={'placeholder': 'eg, 1 . . .'})
+    project_id = StringField('Project ID : *', validators=[DataRequired()], render_kw={'placeholder': 'eg, 5edffc5d29b070cac566f69d04bb63c0db5119837284f6fa84db7da1442b30a7'})
     project_request = SelectField('project_request : *', choices=[('Accepted', 'Accepted'),('Refused', 'Refused')])
     motif = StringField('Motif : ', render_kw={'placeholder': 'eg, it doesn\'t concern my attributes . . .'})
     submit = SubmitField('Send')

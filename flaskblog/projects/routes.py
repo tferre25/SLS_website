@@ -19,8 +19,8 @@ def new_project():
         db.session.add(project)
         db.session.commit()
         dico = extract_form_info(form)
-        current_project = int(len(Project.query.all()))
-        send_recap_project(user, body=dico, form= form, project_id=current_project)
+        #current_project = int(len(Project.query.all()))
+        send_recap_project(user, body=dico, form= form, project_id=project.project_token)
         flash('Your project hes been created succesfully & An email has been sent with a recap of your project', 'info')
         return render_template('recapProject.html', title='Project', form=form)
     #except AttributeError:

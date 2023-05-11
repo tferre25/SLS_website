@@ -126,15 +126,21 @@ def user_projects(username):
 @admin_required
 def project_request():
     form = ProjectRequestForm()
-    if form.validate_on_submit():
-        request = Project_request(project_id=form.project_id.data,
-                                  author=current_user,
-                                  project_request = form.project_request.data,
-                                  motif = form.motif.data)
-        
-        db.session.add(request)
-        db.session.commit()
-        project = Project.query.get(form.project_id.data) # celui qui a fait la demande du projet
-        send_project_request(project, form, request)
-        flash(f'Congrat, your answer to the project entitled "{project.project_title}" has been successfully sent to its creator "{project.username}" ', 'success')
+    try:
+        if form.validate_on_submit():
+            request = Project_request(project_id=form.project_id.data,
+                                    author=current_user,
+                                    project_request = form.project_request.data,
+                                    motif = form.motif.data)
+            
+            db.session.add(request)
+            db.session.commit()
+            project = Project.query.filter_by(project_token=form.project_id.data).first() # celui qui a fait la demande du projet
+            if form.project_request.data == 'Accepted':
+                project.is_accepted = True
+                db.session.commit()
+            send_project_request(project, form, request)
+            flash(f'Congrat, your answer to the project entitled "{project.project_title}" has been successfully sent to its creator "{project.username}" ', 'success')
+    except AttributeError:
+        flash('The id entered does not correspond to any project. please double check the id received in your mailbox', 'warning')
     return render_template('project_request.html', legend='Project Request', form = form)

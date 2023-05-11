@@ -1,7 +1,7 @@
 from flask import url_for
 from flask_mail import Message
 from flaskblog import mail
-import re, sys
+import re, sys, secrets
 from email.mime.image import MIMEImage
 from flaskblog.models import Project, Grant
 from flaskblog.projects.forms import ProjectForm
@@ -17,8 +17,8 @@ def send_recap_project(user, body, form, project_id):
     admins = [User.query.filter_by(is_admin=True).all()[i].email for i in range(len(User.query.filter_by(is_admin=True).all()))]
     msg = Message(f'Summary of your project | {form.project_title.data.capitalize()} | {form.application.data.capitalize()} | Id : {project_id}',
                   sender='noreply@demo.com',
-                  recipients=[user.email])
-                              #'dina.ouabhi@aphp.fr',
+                  recipients=[user.email,
+                              'dina.ouabhi@aphp.fr'])
                               #'maud.salmona@aphp.fr',
                               #'theo.ferreira@aphp.fr',
                               #'julien.robert@aphp.fr'])
@@ -100,6 +100,7 @@ def object_project(form):
         username = form.username.data,
         email = form.email.data,
         author = current_user,
+        project_token = secrets.token_bytes(32).hex(),
         project_title = form.project_title.data,
         application = form.application.data,
         organism = form.organism.data,
