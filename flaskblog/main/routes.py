@@ -24,11 +24,11 @@ def home():
 
 @main.route("/project_home")
 @login_required
-@admin_required
 def project_home():
     page = request.args.get('page', 1,type=int)
     # grab those projects from database
     projects = Project.query.order_by(Project.date_posted.desc()).paginate(page=page, per_page=5)
+    # TODO : if project.is_accepted == True / then, post it
     return render_template('project_home.html', projects=projects)
 
 

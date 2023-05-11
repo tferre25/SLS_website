@@ -3,7 +3,7 @@ from flask import render_template, flash, Blueprint
 from flaskblog.projects.forms import ProjectForm, GrantForm
 from flask_login import login_required, current_user
 from flaskblog.models import User, Project, Grant
-from flaskblog import db
+from flaskblog import db, admin_required
 from flaskblog.projects.utils import send_recap_project, extract_form_info, object_project, object_grant, extract_form_info_grant, project_update
 
 projects = Blueprint('projects', __name__)
@@ -35,10 +35,12 @@ def project(project_id):
 
 @projects.route("/project/<int:project_id>/update", methods=['GET', 'POST'])
 @login_required
+@admin_required
 def update_project(project_id):
     project = Project.query.get_or_404(project_id)
-    if project.author != current_user:
-        abort(403)
+    #---- before : only author can update | now : only admins can update
+    #if project.author != current_user:
+    #    abort(403)
     form = ProjectForm()
     if form.validate_on_submit():
         project_update(form, project, 'POST')
@@ -50,10 +52,11 @@ def update_project(project_id):
 
 @projects.route("/project/<int:project_id>/delete", methods=['POST'])
 @login_required
+@admin_required
 def delete_projects(project_id):
     project = Project.query.get_or_404(project_id)
-    if project.author != current_user:
-        abort(403)
+    #if project.author != current_user:
+    #    abort(403)
     db.session.delete(project)
     db.session.commit()
     flash('Your project had been deleted !', 'success')
