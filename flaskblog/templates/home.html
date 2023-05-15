@@ -11,19 +11,21 @@
           {% if post.author is none %}
             <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/unknown.jpg') }}" alt="None user">
           {%else%}
-            <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+post.author.image_file) }}" alt="{{post.author}}">
+            <a href="{{ url_for('users.user_profile',  username=post.author.username) }}"><img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+post.author.image_file) }}" alt=""></a>
           {%endif%}
           <div class="media-body">
             <div class="article-metadata">
               {% if post.author is none %}
                 <a class="mr-2" href="#">Unknown user</a>
               {%else%}
-                <a class="mr-2" href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username.capitalize() }}</a>
+                <a class="mr-2" href="{{ url_for('users.user_profile',  username=post.author.username) }}">{{ post.author.username.capitalize() }}</a>
+                <a class="mr-5 ml-5" href="{{ url_for('users.user_posts', username=post.author.username) }}" style="font-weight: bold; color: crimson;">Get all {{ post.author.username.capitalize() }} posts</a>
               {%endif%}
               <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
             </div>
             <h2><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h2>
             <p class="article-content">{{ post.content }}</p>
+            <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/{{ post.image_file }}') }}" alt="#">
           </div>
         </article>
     {% endfor %}

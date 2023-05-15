@@ -11,14 +11,15 @@
           {% if project.author is none %}
             <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/unknown.jpg') }}" alt="None user">
           {%else%}
-            <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+project.author.image_file) }}" alt="">
+            <a href="{{ url_for('users.user_profile',  username=project.author.username) }}"><img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+project.author.image_file) }}" alt=""></a>
           {%endif%}
             <div class="media-body">
             <div class="article-metadata">
               {% if project.author is none %}
                 <a class="mr-2" href="#">Unknown user</a>
               {%else%}
-                <a class="mr-2" href="{{ url_for('users.user_projects', username=project.author.username) }}">{{ project.author.username.capitalize() }}</a>
+                <a class="mr-2" href="{{ url_for('users.user_profile',  username=project.author.username) }}">{{ project.author.username.capitalize() }}</a>
+                <a class="mr-5 ml-5" href="{{ url_for('users.user_projects', username=project.author.username) }}" style="font-weight: bold; color: crimson;">Get all {{ project.author.username.capitalize() }} projects</a>
               {%endif%}
                 <small class="text-muted">{{ project.date_posted.strftime('%Y-%m-%d') }}</small>
             </div>

@@ -12,6 +12,8 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
+    aphp_num = db.Column(db.String(20), unique=True, nullable=False)
+    status = db.Column(db.String(120), unique=True, nullable=False)
     image_file = db.Column(db.String(20), nullable=False,default='default.jpg')
     is_admin = db.Column(db.Boolean, default=False)
     password = db.Column(db.String(60), nullable=False)
@@ -21,9 +23,11 @@ class User(db.Model, UserMixin):
     grants = db.relationship('Grant', backref='author', lazy=True)
     requests = db.relationship('Project_request', backref='author', lazy=True)
 
-    def __init__(self, username, email, password, is_admin=False, image_file='default.jpg'):
+    def __init__(self, username, email, aphp_num, status, password, is_admin=False, image_file='default.jpg'):
         self.username = username
         self.email = email
+        self.aphp_num = aphp_num
+        self.status = status
         self.is_admin = is_admin
         self.password = password
         self.image_file = image_file
@@ -50,6 +54,7 @@ class Post(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False,
                             default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
+    image_file = db.Column(db.String(20), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
@@ -57,7 +62,7 @@ class Post(db.Model):
 
 class Project_request(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    project_id = db.Column(db.String(70), nullable=False)
+    project_id = db.Column(db.String(70), unique=True, nullable=False)
     project_request = db.Column(db.String(100), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False,default=datetime.utcnow)
     motif = db.Column(db.String(1000), nullable=False)

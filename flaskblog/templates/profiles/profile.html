@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>{{user.username}} profile</h1>
+
+<img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+user.image_file) }}" alt="{{user.username}}">
+<br>
+<ul>
+    <li style="color: azure;">Username : {{user.username}}</li>
+    <li style="color: azure;">Email : {{user.email}}</li>
+    <li style="color: azure;">AP-HP Num : {{user.aphp_num}}</li>
+    <li style="color: azure;">Position at the aphp : {{user.status}}</li>
+    <li style="color: azure;">is_admin : {{user.is_admin}}</li>
+    <br>
+    <li style="color: azure;">#NO Valid projects : {{no_accepted}}</li>
+    <li style="color: azure;">#NO Valid projects : {{no_refused}}</li>
+</ul>
+
+
+{% endblock content %}

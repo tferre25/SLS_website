@@ -20,7 +20,11 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        user = User(username=form.username.data,
+                    email=form.email.data,
+                    aphp_num=form.aphp_num.data,
+                    status=form.status.data,
+                    password=hashed_password)
         db.session.add(user)
         db.session.commit()
         flash(f'Your account has benn created! You are now able to log in', 'success')
@@ -61,12 +65,16 @@ def account():
 
         current_user.username = form.username.data
         current_user.email = form.email.data
+        current_user.aphp_num = form.aphp_num.data
+        current_user.status = form.status.data
         db.session.commit()
         flash('Your account has been updated', 'success')
         return redirect(url_for('users.account'))
     elif request.method == 'GET':
         form.username.data=current_user.username
         form.email.data=current_user.email
+        form.aphp_num.data=current_user.aphp_num
+        form.status.data=current_user.status
     image_file = url_for('static', filename='profile_pics/'+ current_user.image_file)
     return render_template('account.html', title='Account', image_file=image_file, form=form)
 
@@ -109,14 +117,14 @@ def reset_token(token):
     return render_template('reset_token.html', title='Reset_Password', form=form)
 
 # PROJECTS
-@users.route("/user/<string:username>")
+@users.route("/user/<string:username>/")
 def user_projects(username):
     page = request.args.get('page', 1,type=int)
     user = User.query.filter_by(username=username).first_or_404()
     projects = Project.query.filter_by(author=user)\
         .order_by(Project.date_posted.desc())\
         .paginate(page=page, per_page=3)
-    return render_template('user_posts.html', posts=projects, user=user)
+    return render_template('user_projects.html', projects=projects, user=user)
 
 
 
@@ -144,3 +152,15 @@ def project_request():
     except AttributeError:
         flash('The id entered does not correspond to any project. please double check the id received in your mailbox', 'warning')
     return render_template('project_request.html', legend='Project Request', form = form)
+
+
+
+# TO DO
+@users.route("/user/<string:username>/profile")
+@login_required
+def user_profile(username):
+    user = User.query.filter_by(username=username).first()
+    posts = Post.query.all()
+    no_accepted = int(len(Project.query.filter_by(author=user, is_accepted=True).all()))
+    no_refused = int(len(Project.query.filter_by(author=user, is_accepted=False).all()))
+    return render_template('profiles/profile.html', user=user, posts = posts, no_accepted=no_accepted, no_refused=no_refused)

@@ -22,7 +22,7 @@ def new_project():
         #current_project = int(len(Project.query.all()))
         send_recap_project(user, body=dico, form= form, project_id=project.project_token)
         flash('Your project hes been created succesfully & An email has been sent with a recap of your project', 'info')
-        return render_template('recapProject.html', title='Project', form=form)
+        return render_template('recapProject.html', title=project.project_title, form=form)
     #except AttributeError:
     #    flash('None type error (the mail should be the same as your mail in Account informations)', 'warning')
     #    return render_template('errors/errorPage.html', title='ERROR')

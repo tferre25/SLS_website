@@ -33,6 +33,32 @@
                     {% endif %}
                 </div>
                 <div class="form-group">
+                    {{ form.aphp_num.label(class="form-control-label") }}
+                    {% if form.aphp_num.errors %}
+                        {{ form.aphp_num(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.aphp_num.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.aphp_num(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.status.label(class="form-control-label") }}
+                    {% if form.status.errors %}
+                        {{ form.status(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.status.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.status(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
                     {{ form.password.label(class="form-control-label") }}
                     {% if form.password.errors %}
                         {{ form.password(class="form-control form-control-lg is-invalid") }}

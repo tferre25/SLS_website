@@ -14,7 +14,7 @@ def new_post():
     form = PostForm()
     if form.validate_on_submit():
         #create and add to database
-        post = Post(title=form.title.data, content=form.content.data, author=current_user)
+        post = Post(title=form.title.data, content=form.content.data, image_file=form.picture.data,author=current_user)
         db.session.add(post)
         db.session.commit()
         flash(f'Your post has been created!', 'success')
