@@ -5,9 +5,8 @@
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <div class="form-group">
+                <div class="form-group" id="username">
                     {{ form.username.label(class="form-control-label") }}
-
                     {% if form.username.errors %}
                         {{ form.username(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
@@ -17,6 +16,84 @@
                         </div>
                     {% else %}
                         {{ form.username(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group" id="application">
+                    {{ form.application.label(class="form-control-label text-danger") }}
+                    {% if form.application.errors %}
+                        {{ form.application(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.application.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.application(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group" id="organism">
+                    {{ form.organism.label(class="form-control-label") }}
+                    {% if form.organism.errors %}
+                        {{ form.organism(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.organism.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.organism(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group" id="principal_investigator">
+                    {{ form.principal_investigator.label(class="form-control-label") }}
+                    {% if form.principal_investigator.errors %}
+                        {{ form.principal_investigator(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.principal_investigator.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.principal_investigator(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group" id="promotor">
+                    {{ form.promotor.label(class="form-control-label") }}
+                    {% if form.promotor.errors %}
+                        {{ form.promotor(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.promotor.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.promotor(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group" id="regulatory_requirements">
+                    {{ form.regulatory_requirements.label(class="form-control-label") }}
+                    {% if form.regulatory_requirements.errors %}
+                        {{ form.regulatory_requirements(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.regulatory_requirements.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.regulatory_requirements(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group" id="if_regulatory_requirements">
+                    {{ form.if_regulatory_requirements.label(class="form-control-label text-danger") }}
+                    {% if form.if_regulatory_requirements.errors %}
+                        {{ form.if_regulatory_requirements(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.if_regulatory_requirements.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.if_regulatory_requirements(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
                 <div class="form-group">
@@ -45,59 +122,7 @@
                         {{ form.project_title(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class="form-group">
-                    {{ form.application.label(class="form-control-label") }}
-                    {% if form.application.errors %}
-                        {{ form.application(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.application.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.application(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.organism.label(class="form-control-label") }}
-                    {% if form.organism.errors %}
-                        {{ form.organism(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.organism.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.organism(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.principal_investigator.label(class="form-control-label") }}
-                    {% if form.principal_investigator.errors %}
-                        {{ form.principal_investigator(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.principal_investigator.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.principal_investigator(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.promotor.label(class="form-control-label") }}
-                    {% if form.promotor.errors %}
-                        {{ form.promotor(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.promotor.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.promotor(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
+                <div class="form-group" id="urgency_of_request">
                     {{ form.urgency_of_request.label(class="form-control-label") }}
                     {% if form.urgency_of_request.errors %}
                         {{ form.urgency_of_request(class="form-control form-control-lg is-invalid") }}
@@ -110,8 +135,8 @@
                         {{ form.urgency_of_request(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class="form-group">
-                    {{ form.if_urgency.label(class="form-control-label") }}
+                <div class="form-group" id="if_urgency">
+                    {{ form.if_urgency.label(class="form-control-label text-danger") }}
                     {% if form.if_urgency.errors %}
                         {{ form.if_urgency(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
@@ -175,7 +200,7 @@
                         {{ form.bioF_needs(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="data_available">
                     {{ form.data_available.label(class="form-control-label") }}
                     {% if form.data_available.errors %}
                         {{ form.data_available(class="form-control form-control-lg is-invalid") }}
@@ -185,11 +210,11 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.data_available(class="form-control form-control-lg") }}
+                        {{ form.data_available(class="form-control form-control-lg") }} 
                     {% endif %}
                 </div>
-                <div class="form-group">
-                    {{ form.access_data.label(class="form-control-label") }}
+                <div class="form-group" id="access_data">
+                    {{ form.access_data.label(class="form-control-label text text-danger") }}
                     {% if form.access_data.errors %}
                         {{ form.access_data(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
@@ -212,32 +237,6 @@
                         </div>
                     {% else %}
                         {{ form.data_owner(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.regulatory_requirements.label(class="form-control-label") }}
-                    {% if form.regulatory_requirements.errors %}
-                        {{ form.regulatory_requirements(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.regulatory_requirements.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.regulatory_requirements(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.if_regulatory_requirements.label(class="form-control-label") }}
-                    {% if form.if_regulatory_requirements.errors %}
-                        {{ form.if_regulatory_requirements(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.if_regulatory_requirements.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.if_regulatory_requirements(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
                 <div class="form-group">

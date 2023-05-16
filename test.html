@@ -1,0 +1,38 @@
+import subprocess
+<form>
+    <div>
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age">
+    </div>
+    <div id="field-container">
+      <!-- Dynamic field will be added here -->
+    </div>
+    <button type="submit">Submit</button>
+</form>
+
+
+<script>
+    const form = document.querySelector('form');
+    const fieldContainer = document.querySelector('#field-container');
+
+    form.addEventListener('submit', event => {
+        event.preventDefault(); // Prevent form submission for demonstration purposes
+    });
+
+    form.age.addEventListener('input', event => {
+        const age = parseInt(event.target.value);
+        if (age >= 18) {
+            const dynamicField = document.createElement('div');
+            dynamicField.innerHTML = `
+            <label for="license">Driver's License:</label>
+            <input type="text" id="license" name="license">
+            `;
+            fieldContainer.appendChild(dynamicField);
+        } else {
+            // Remove the dynamic field if age is less than 18
+            while (fieldContainer.firstChild) {
+                fieldContainer.removeChild(fieldContainer.firstChild);
+            }
+        }
+    });
+</script>
