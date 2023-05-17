@@ -163,4 +163,4 @@ def user_profile(username):
     posts = Post.query.all()
     no_accepted = int(len(Project.query.filter_by(author=user, is_accepted=True).all()))
     no_refused = int(len(Project.query.filter_by(author=user, is_accepted=False).all()))
-    return render_template('profiles/profile.html', user=user, posts = posts, no_accepted=no_accepted, no_refused=no_refused)
+    return render_template('profile.html', user=user, posts = posts, no_accepted=no_accepted, no_refused=no_refused)

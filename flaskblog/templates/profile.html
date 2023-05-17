@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="profile_container">
+    <h1>{{user.username}} profile</h1>
+
+    <div class="myImage">
+        <img src="{{ url_for('static', filename='profile_pics/'+user.image_file) }}" alt="{{user.username}}">
+    </div>
+    
+    <div class="profile_list">
+        <ul>
+            <li>Username : {{user.username}}</li>
+            <li>Email : {{user.email}}</li>
+            <li>AP-HP Num : {{user.aphp_num}}</li>
+            <li>Position at the aphp : {{user.status}}</li>
+            <li>is_admin : {{user.is_admin}}</li>
+            <li>#NO Valid projects : {{no_accepted}}</li>
+            <li>#NO Valid projects : {{no_refused}}</li>
+        </ul>
+    </div>
+</div>
+
+{% endblock content %}

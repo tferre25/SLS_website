@@ -234,7 +234,7 @@ def object_grant(form):
         urgency_of_request = form.urgency_of_request.data,
         if_urgency = form.if_urgency.data,
         project_context = form.project_context.data,
-        #project_context_private = form.project_context_private,
+        project_context_private = form.project_context_private,
         project_summary = form.project_summary.data,
         bioF_needs = form.bioF_needs.data,
         data_available = form.data_available.data,

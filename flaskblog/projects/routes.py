@@ -73,9 +73,9 @@ def new_grant():
         db.session.add(grant)
         db.session.commit()
         dico = extract_form_info_grant(form)
-        send_recap_project(user, body=dico, form= form)
-        flash(f'writing assistance {form.project_title.data} was created!', 'success')
-        return render_template('recapGrant.html', title='grant', form=form)
-    return render_template('grant.html', title='grant', form=form)
+        send_recap_project(user, body=dico, form= form, project_id=grant.project_token)
+        flash('Your project hes been created succesfully & An email has been sent with a recap of your grant', 'info')
+        return render_template('recapGrant.html', title=grant.project_title, form=form)
+    return render_template('create_grant.html', title='New Grant', form=form, legend='New Grant')
 
 

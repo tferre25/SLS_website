@@ -114,39 +114,45 @@ class Grant(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=False, nullable=False)
     email = db.Column(db.String(120), unique=False, nullable=False)
-    date_posted = db.Column(db.DateTime, nullable=False,
-                            default=datetime.utcnow)
+    date_posted = db.Column(db.DateTime, nullable=False,default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    is_accepted = db.Column(db.Boolean, default=False, nullable=False)
+    project_token = db.Column(db.String(120), unique=False, nullable=False)
+    project_title = db.Column(db.String(120), unique=False, nullable=False)
 
-    project_title = db.Column(db.String(120), unique=False, nullable=True)
+    urgency_of_request = db.Column(db.String(20), unique=False, nullable=False)
+    if_urgency = db.Column(db.Text, unique=False, nullable=False)
+
+    project_context = db.Column(db.Text, unique=False, nullable=False)
+    project_context_private = db.Column(db.Text, unique=False, nullable=True)
+    project_summary = db.Column(db.Text, unique=False, nullable=False)
+    bioF_needs = db.Column(db.Text, unique=False, nullable=False)
+
+    data_available = db.Column(db.String(20), unique=False, nullable=False)
+    access_data = db.Column(db.String(120), unique=False, nullable=False)
+
+    data_owner = db.Column(db.String(20), unique=False, nullable=False)
+    if_regulatory_requirements = db.Column(db.String(20), unique=False, nullable=False)
+    data_type = db.Column(db.String(20), unique=False, nullable=False)
+    data_size = db.Column(db.Integer, unique=False, nullable=False)
+    add_info = db.Column(db.Text, unique=False, nullable=False)
+
+    # NOT REQUIRED
+    regulatory_requirements = db.Column(db.String(20), unique=False, nullable=True)
     application = db.Column(db.String(20), unique=False, nullable=True)
     organism = db.Column(db.String(20), unique=False, nullable=True)
     principal_investigator = db.Column(db.String(20), unique=False, nullable=True)
-
     promotor = db.Column(db.String(20), unique=False, nullable=True)
+
     funding_type = db.Column(db.String(20), unique=False, nullable=True)
     total_amount = db.Column(db.Numeric(10, 2), unique=False, nullable=True)
     deadline = db.Column(db.Date(), unique=False, nullable=True)
-    urgency_of_request = db.Column(db.String(20), unique=False, nullable=True)
-    if_urgency = db.Column(db.Text, unique=False, nullable=True)
 
-    project_context = db.Column(db.Text, unique=False, nullable=True)
-    project_context_private = db.Column(db.Text, unique=False, nullable=True)
-    project_summary = db.Column(db.Text, unique=False, nullable=True)
-    bioF_needs = db.Column(db.Text, unique=False, nullable=True)
-
-    data_available = db.Column(db.Boolean, unique=False, nullable=True)
-    access_data = db.Column(db.String(120), unique=False, nullable=True)
-    data_owner = db.Column(db.String(20), unique=False, nullable=True)
-
-    regulatory_requirements = db.Column(db.Boolean, unique=False, nullable=True)
-    if_regulatory_requirements = db.Column(db.String(20), unique=False, nullable=True)
-    data_type = db.Column(db.String(20), unique=False, nullable=True)
-
-    data_size = db.Column(db.Integer, unique=False, nullable=True)
-    add_info = db.Column(db.Text, unique=False, nullable=True)
     
+
     def __repr__(self) -> str:
-        return f"Project('{self.username}','{self.project_title}','{self.application}', '{self.total_amount}, '{self.deadline}')"
+        return f"Grant('{self.project_token}','{self.username}','{self.project_title}','{self.application}','{self.is_accepted}')"
+
+
 
 

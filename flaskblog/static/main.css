@@ -1,6 +1,6 @@
 body {
   justify-content: center;
-  background: #252839;
+  background: #ffffff;
   margin-top: 10rem;
   }
 
@@ -19,9 +19,9 @@ legend::before{
   left: 0;
   width: 0;
   height: 100%;
-  color: #01fe87;
+  color: #273792;
   -webkit-text-stroke: 0vw #383d52;
-  border-right: 2px solid #01fe87;
+  border-right: 2px solid #273792;
   overflow: hidden;
   animation: animate 6s linear infinite;
 }
@@ -61,10 +61,8 @@ legend::before{
   }
   
   .content-section {
-    background-color:#ffffff;
+    background-color:#F0FFFF;
     padding: 10px 20px;
-    border: 5px solid #ffffff;
-    border-radius: 3px;
     margin-bottom: 20px;
   }
   
@@ -73,7 +71,7 @@ legend::before{
   }
   
   a.article-title:hover {
-    color: #428bca;
+    color: #273792;
     text-decoration: none;
   }
   
@@ -148,7 +146,10 @@ a {
   color:#333333;
 }
 .au_container p{
+  font-size: 20px;
   line-height: 2;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
 }
 
 .au_container img{
@@ -163,7 +164,11 @@ a {
 
 .au_container a{
   size: 4;
+  color:#273792;
+  font-size: 15px;
+  font-weight: bold;
 }
+
 
 .post_search:hover{
   font-size: 50px;
@@ -201,7 +206,7 @@ a {
   align-items: center;
   justify-content: center;
   font-size: 25px;
-  background-color: #01fe87;
+  background-color: #273792;
   color: white;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-weight: 400;
@@ -268,8 +273,53 @@ a {
 }
 
 .list-group-item{
-  background-color:#ffffff /* 70% transparent */
+  background-color: rgba(252, 252, 252, 0.3); /* 70% transparent */
 }
 
+.vh-100{
+  background-color: #273792;
+}
 
+.profile_container{
+  background-color: #273792;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: row;
+}
+
+.profile_container h1{
+  font-family: 'Courier New', Courier, monospace;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.profile_list{
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.profile_list li{
+  color: #ffffff;
+  font-size: 10px;
+  margin-bottom: 8px;
+  padding-top: 10px;
+  padding-left: 30px;
+}
+
+.myImage {
+  width: 200px;
+  height: 200px;
+  padding-top: 80px;
+
+}
+
+.profile_list li:hover{
+  font-size: 12px;
+  font-weight: bold;
+  color: chartreuse;
+}
+
+.profile_list ul {
+  list-style-type: none;
+}
 

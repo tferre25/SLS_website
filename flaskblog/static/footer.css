@@ -5,7 +5,7 @@
 }
 
 footer{
-    background: black;
+    background: #273792;
     height: auto;
     width: 100vw;
     font-family: 'Open Sans';
@@ -78,4 +78,8 @@ footer{
     text-transform: uppercase;
     opacity:4;
     font-weight: 200;
+}
+
+.footer h3{
+    color: #fff;
 }
