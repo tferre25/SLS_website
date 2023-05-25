@@ -6,6 +6,7 @@ from flaskblog.models import User, Project, Grant
 from flaskblog import db, admin_required
 from flaskblog.projects.utils import send_recap_project, extract_form_info, object_project, object_grant, extract_form_info_grant, project_update
 import socket
+from sqlalchemy.exc import IntegrityError
 
 projects = Blueprint('projects', __name__)
 
@@ -17,19 +18,22 @@ def new_project():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         project = object_project(form)
-        db.session.add(project)
-        db.session.commit()
-        dico = extract_form_info(form)
-        #current_project = int(len(Project.query.all()))
         try:
-            send_recap_project(user, body=dico, form= form, project_id=project.project_token)
-            flash('Your project hes been created succesfully & An email has been sent with a recap of your project', 'info')
-            return render_template('recapProject.html', title=project.project_title, form=form)
-        except socket.gaierror:
-            flash('Please check your network connection and try again.', 'warning')
-    #except AttributeError:
-    #    flash('None type error (the mail should be the same as your mail in Account informations)', 'warning')
-    #    return render_template('errors/errorPage.html', title='ERROR')
+            db.session.add(project)
+            db.session.commit()
+            dico = extract_form_info(form)
+            #current_project = int(len(Project.query.all()))
+            try:
+                send_recap_project(user, body=dico, form= form, project_id=project.project_token)
+                flash('Your project hes been created succesfully & An email has been sent with a recap of your project', 'info')
+                return render_template('recapProject.html', title=project.project_title, form=form)
+            except socket.gaierror:
+                flash('Please check your network connection and try again.', 'warning')
+        #except AttributeError:
+        #    flash('None type error (the mail should be the same as your mail in Account informations)', 'warning')
+        #    return render_template('errors/errorPage.html', title='ERROR')
+        except IntegrityError as e:
+            flash(f'A project with the same title has already been sent to the bioinformaticians team.','warning')
     return render_template('create_project.html', title='New Project', form=form, legend='New Project')
 
 @projects.route("/project/<int:project_id>")
@@ -112,15 +116,18 @@ def new_grant():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         grant = object_grant(form)
-        db.session.add(grant)
-        db.session.commit()
-        dico = extract_form_info_grant(form)
         try:
-            send_recap_project(user, body=dico, form= form, project_id=grant.project_token)
-            flash('Your project hes been created succesfully & An email has been sent with a recap of your grant', 'info')
-            return render_template('recapGrant.html', title=grant.project_title, form=form)
-        except socket.gaierror:
-            flash('Please check your network connection and try again.', 'warning')
+            db.session.add(grant)
+            db.session.commit()
+            dico = extract_form_info_grant(form)
+            try:
+                send_recap_project(user, body=dico, form= form, project_id=grant.project_token)
+                flash('Your project hes been created succesfully & An email has been sent with a recap of your grant', 'info')
+                return render_template('recapGrant.html', title=grant.project_title, form=form)
+            except socket.gaierror:
+                flash('Please check your network connection and try again.', 'warning')
+        except IntegrityError as e:
+            flash(f'A project grant with the same title has already been sent to the bioinformaticians team.','warning')
     return render_template('create_grant.html', title='New Grant', form=form, legend='New Grant')
 
 

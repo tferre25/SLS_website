@@ -83,7 +83,7 @@ class Project(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     is_accepted = db.Column(db.Boolean, default=False, nullable=False)
     project_token = db.Column(db.String(120), unique=True, nullable=False)
-    project_title = db.Column(db.String(120), unique=False, nullable=False)
+    project_title = db.Column(db.String(120), unique=True, nullable=False)
 
     urgency_of_request = db.Column(db.String(20), unique=False, nullable=False)
     if_urgency = db.Column(db.Text, unique=False, nullable=True)
@@ -121,7 +121,7 @@ class Grant(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     is_accepted = db.Column(db.Boolean, default=False, nullable=False)
     project_token = db.Column(db.String(120), unique=False, nullable=False)
-    project_title = db.Column(db.String(120), unique=False, nullable=False)
+    project_title = db.Column(db.String(120), unique=True, nullable=False)
 
     urgency_of_request = db.Column(db.String(20), unique=False, nullable=False)
     if_urgency = db.Column(db.Text, unique=False, nullable=True)

@@ -157,9 +157,8 @@ def project_request():
                                     asking_for = form.asking_for.data,
                                     project_request = form.project_request.data,
                                     motif = form.motif.data)
-            
-            db.session.add(request)
             try:
+                db.session.add(request)
                 db.session.commit()
                 if form.asking_for.data == 'Requiring bioinformatics support' and form.project_request.data == 'Accepted':
                     project = Project.query.filter_by(project_token=form.project_id.data).first() # celui qui a fait la demande du projet
@@ -168,14 +167,14 @@ def project_request():
                 elif form.asking_for.data == 'Funding' and form.project_request.data == 'Accepted':
                     project = Grant.query.filter_by(project_token=form.project_id.data).first() # celui qui a fait la demande du projet
                     project.is_accepted = True
-                    db.session.commit()
-                try:  
+                    db.session.commit() 
+                try:
                     send_project_request(project, form, request)
                     flash(f'Congrat, your answer to the project entitled "{project.project_title}" has been successfully sent to its creator "{project.username}" ', 'success')
                 except socket.gaierror:
                     flash('Please check your network connection and try again.', 'warning')
             except IntegrityError as e:
-                flash(f'An answer to this project has already been given', 'warning')
+                flash(f'A answer has already been sent for this project ID. ','warning')
     except AttributeError:
         flash('The id entered does not correspond to any project. please double check the id received in your mailbox', 'warning')
     return render_template('project_request.html', legend='Project Request', form = form)
