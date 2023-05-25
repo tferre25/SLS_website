@@ -1,14 +1,15 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from flaskblog import db, bcrypt, admin_required
-from flaskblog.models import User, Post, Project, Project_request
+from flaskblog.models import User, Post, Project, Project_request, Grant
 from flaskblog.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm, ProjectRequestForm,
                                    RequestResetForm, ResetPasswordForm)
 from flaskblog.users.utils import save_picture, send_reset_email, send_project_request
 #from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 from flask_mail import Message
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-
+import socket
+from sqlalchemy.exc import IntegrityError
 
 users = Blueprint('users', __name__)
 
@@ -26,9 +27,12 @@ def register():
                     status=form.status.data,
                     password=hashed_password)
         db.session.add(user)
-        db.session.commit()
-        flash(f'Your account has benn created! You are now able to log in', 'success')
-        return redirect(url_for('users.login'))
+        try:
+            db.session.commit()
+            flash(f'Your account has benn created! You are now able to log in', 'success')
+            return redirect(url_for('users.login'))
+        except IntegrityError as e:
+            flash(f'{str(e)} Parameter should be unique','warning')
     return render_template('register.html', title='Register', form=form)
 
 #--------------------------------------------------------------- FIN REGISTRATION
@@ -94,8 +98,11 @@ def reset_request():
     form = RequestResetForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        send_reset_email(user)
-        flash('An email has been sent with instructions to reset your password', 'info')
+        try:
+            send_reset_email(user)
+            flash('An email has been sent with instructions to reset your password', 'info')
+        except socket.gaierror:
+            flash('Please check your network connection and try again.', 'warning')
         return redirect(url_for('users.login'))
     return render_template('reset_request.html', title='Reset_Password', form=form)
 
@@ -126,6 +133,15 @@ def user_projects(username):
         .paginate(page=page, per_page=3)
     return render_template('user_projects.html', projects=projects, user=user)
 
+@users.route("/user/<string:username>/")
+def user_grants(username):
+    page = request.args.get('page', 1,type=int)
+    user = User.query.filter_by(username=username).first_or_404()
+    grants = Grant.query.filter_by(author=user)\
+        .order_by(Grant.date_posted.desc())\
+        .paginate(page=page, per_page=3)
+    return render_template('user_grants.html', projects=grants, user=user)
+
 
 
 #--------------------------------------------------- project_request---------------------------------------------------------
@@ -138,17 +154,28 @@ def project_request():
         if form.validate_on_submit():
             request = Project_request(project_id=form.project_id.data,
                                     author=current_user,
+                                    asking_for = form.asking_for.data,
                                     project_request = form.project_request.data,
                                     motif = form.motif.data)
             
             db.session.add(request)
-            db.session.commit()
-            project = Project.query.filter_by(project_token=form.project_id.data).first() # celui qui a fait la demande du projet
-            if form.project_request.data == 'Accepted':
-                project.is_accepted = True
+            try:
                 db.session.commit()
-            send_project_request(project, form, request)
-            flash(f'Congrat, your answer to the project entitled "{project.project_title}" has been successfully sent to its creator "{project.username}" ', 'success')
+                if form.asking_for.data == 'Requiring bioinformatics support' and form.project_request.data == 'Accepted':
+                    project = Project.query.filter_by(project_token=form.project_id.data).first() # celui qui a fait la demande du projet
+                    project.is_accepted = True
+                    db.session.commit()
+                elif form.asking_for.data == 'Funding' and form.project_request.data == 'Accepted':
+                    project = Grant.query.filter_by(project_token=form.project_id.data).first() # celui qui a fait la demande du projet
+                    project.is_accepted = True
+                    db.session.commit()
+                try:  
+                    send_project_request(project, form, request)
+                    flash(f'Congrat, your answer to the project entitled "{project.project_title}" has been successfully sent to its creator "{project.username}" ', 'success')
+                except socket.gaierror:
+                    flash('Please check your network connection and try again.', 'warning')
+            except IntegrityError as e:
+                flash(f'An answer to this project has already been given', 'warning')
     except AttributeError:
         flash('The id entered does not correspond to any project. please double check the id received in your mailbox', 'warning')
     return render_template('project_request.html', legend='Project Request', form = form)

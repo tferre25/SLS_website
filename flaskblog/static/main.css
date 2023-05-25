@@ -187,7 +187,14 @@ a {
   margin-bottom: 20px;
 }
 
+.col-lg-10{
+  margin-left: 30%;
+}
+
 .button-container {
+  position: fixed;
+  left: 0;
+  padding: 10px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
@@ -195,6 +202,7 @@ a {
   width: 400px;
   height: 400px;
   margin-right: 100px;
+  margin-left: 100px;
   margin-top: 20px;
 
 }
@@ -323,3 +331,14 @@ a {
   list-style-type: none;
 }
 
+.media-body img{
+  width: 100%;
+  height: auto; 
+}
+
+.pdf_btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh; /* Ajuster la hauteur selon les besoins */
+}

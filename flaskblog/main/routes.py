@@ -1,5 +1,5 @@
 from flask import render_template, request, Blueprint, flash, url_for, redirect
-from flaskblog.models import Post, User, Project
+from flaskblog.models import Post, User, Project, Grant
 from flask_login import login_required
 from flaskblog.main.forms import SearchForm
 import random, pytz
@@ -31,6 +31,16 @@ def project_home():
     projects = Project.query.filter_by(is_accepted=True).order_by(Project.date_posted.desc()).paginate(page=page, per_page=5)
     # TODO : if project.is_accepted == True / then, post it
     return render_template('project_home.html', projects=projects)
+
+@main.route("/grant_home")
+@login_required
+def grant_home():
+    page = request.args.get('page', 1,type=int)
+    # grab those projects from database
+    #projects = Project.query.order_by(Project.date_posted.desc()).paginate(page=page, per_page=5)
+    grants = Grant.query.filter_by(is_accepted=True).order_by(Grant.date_posted.desc()).paginate(page=page, per_page=5)
+    # TODO : if project.is_accepted == True / then, post it
+    return render_template('grant_home.html', grants=grants)
 
 
 @main.route("/about_us")

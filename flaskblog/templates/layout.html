@@ -24,9 +24,9 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='footer.css') }}">
 
     {% if title %}
-        <title> INTRANET AP-HP - {{ title }}</title>
+        <title> MediResearchDepot - APHP - {{ title }}</title>
     {% else %}
-        <title>INTRANET AP-HP Research</title>
+        <title>MediResearchDepot - APHP</title>
     {% endif %}
 </head>
 <body>
@@ -34,7 +34,7 @@
       <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <div class="container">
 
-          <b><a class="navbar-brand mr-4" href="/">INTRANET</a></b>
+          <b><a class="navbar-brand mr-4" href="/">MediResearchDepot - APHP Intranet</a></b>
           <img class="fit-picture" src="../static/profile_pics/default.png" alt="logo_aphp" style="width: 250px;">
           
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +43,8 @@
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
               <b><a class="nav-item nav-link" href="{{ url_for('main.home') }}">Posts</a></b> 
-              <b><a class="nav-item nav-link" href="{{ url_for('main.project_home') }}">Projects</a></b> 
+              <b><a class="nav-item nav-link" href="{{ url_for('main.project_home') }}">Projects</a></b>
+              <b><a class="nav-item nav-link" href="{{ url_for('main.grant_home') }}">Grants</a></b> 
               <b><a class="nav-item nav-link" href="{{ url_for('main.about') }}">Contact</a></b> 
               <b><a class="nav-item nav-link" href="{{ url_for('main.about_us') }}">About-Us</a></b> 
               <b><a class="nav-item nav-link" href="{{ url_for('posts.new_post') }}">New Post</a></b>
@@ -169,6 +170,10 @@
     <!-- Optional JavaScript -->
     <script src="{{ url_for('static', filename='calendar.js') }}"></script>
     <script src="{{ url_for('static', filename='dynamic_field.js') }}"></script>
+    <script src="{{ url_for('static', filename='load_pdf.js') }}"></script>
+    <!--load html into pdf file-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

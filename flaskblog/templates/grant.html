@@ -1,36 +1,36 @@
 {% extends "layout.html" %}
 {% block content %}
     <article class="media content-section">
-        <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+project.author.image_file) }}" alt="">
+        <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+grant.author.image_file) }}" alt="">
         <div class="media-body">
             <div class="article-metadata">
-                <a class="mr-2" href="{{ url_for('users.user_projects', username=project.author.username) }}">{{ project.author.username.capitalize() }}</a>
-                <small class="text-muted">{{ project.date_posted.strftime('%Y-%m-%d') }}</small>
-                {% if not project.author.is_admin %}
+                <a class="mr-2" href="{{ url_for('users.user_grants', username=grant.author.username) }}">{{ grant.author.username.capitalize() }}</a>
+                <small class="text-muted">{{ grant.date_posted.strftime('%Y-%m-%d') }}</small>
+                {% if not grant.author.is_admin %}
                     <div>
-                        <a class = 'btn btn-secondary btn-sm m-1' href="{{ url_for('projects.update_project', project_id=project.id) }}">Update</a>
+                        <a class = 'btn btn-secondary btn-sm m-1' href="{{ url_for('projects.update_grant', grant_id=grant.id) }}">Update</a>
                         <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
                     </div>
                 {% endif %}
 
             </div>
-            <h2><a class="article-title" href="{{ url_for('projects.project', project_id=project.id) }}">{{ project.project_title }}</a></h2>
-            <p style="color: blue; font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Application: </b>{{ project.application }}</p>
-            <p class="article-content"> <b>Context project (Public): </b>{{ project.project_context }}</p>
+            <h2><a class="article-title" href="{{ url_for('projects.grant', grant_id=grant.id) }}">{{ grant.project_title }}</a></h2>
+            <p style="color: blue; font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Application: </b>{{ grant.application }}</p>
+            <p class="article-content"> <b>Context grant (Public): </b>{{ grant.project_context }}</p>
         </div>
     </article>
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="deleteModalLabel">Delete Project?</h5>
+            <h5 class="modal-title" id="deleteModalLabel">Delete Grant?</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <form action="{{ url_for('projects.delete_projects', project_id=project.id) }}" method="POST">
+            <form action="{{ url_for('projects.delete_grants', grant_id=grant.id) }}" method="POST">
                 <input class="btn btn-danger" type="submit" value="Delete">
             </form>
             </div>

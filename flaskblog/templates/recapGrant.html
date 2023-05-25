@@ -1,17 +1,12 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script>
-        function generatePdf(){
-            const element = document.getElementById('invoice');
 
-            html2pdf()
-            .from(element)
-            .save();
-        }
-    </script>
+<div class="pdf_btn">
+    <a href="javascript:htmlIntoPDF()" class="button">Download</a>
+</div>
+<div id="content">
+    <legend style="color: rgb(40, 42, 42); font-size: 4em; font-weight: bold; font-family: Georgia, 'Times New Roman', Times, serif;">Grant Asking Recapitulatif</legend>    
     <div id="invoice">
-        <legend style="color: rgb(40, 42, 42); font-size: 4em; font-weight: bold; font-family: Georgia, 'Times New Roman', Times, serif;">Grant Asking Recapitulatif</legend>
         <ul class="list-group">
             <li class="list-group-item" id="toto"><b>{{ form.username.label }}</b>  &nbsp; {{ form.username.data }}</li>
             <li class="list-group-item"><b>{{ form.email.label }}</b>  &nbsp; {{ form.email.data }}</li>
@@ -39,10 +34,11 @@
             <li class="list-group-item"><b>{{ form.add_info.label }}</b>  &nbsp; {{ form.add_info.data }}</li>  
         </ul>
     </div>
+</div>
+    
     <div class="form-group">
-        <button onclick="generatePdf()" type="button" class="btn btn-dark">Download</button>
         <small class="text-muted ml-2">
-            <a href="{{ url_for('projects.grant') }}">Go back to the Grant Asking form ? </a>
+            <a href="{{ url_for('projects.new_grant') }}">Go back to the Grant Asking form ? </a>
         </small>
         <small class="text-muted ml-2">
             <a href="{{ url_for('main.project_home') }}">Visit your project in the home page (for projects) ? </a>

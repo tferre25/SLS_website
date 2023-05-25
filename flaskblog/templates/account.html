@@ -3,14 +3,14 @@
     <legend data-text="Acount Info...">Account Info...</legend>
     <div class="content-section">
         <div class="media">
-        <img class="rounded-circle account-img" src="{{ image_file }}">
-        <div class="media-body">
-            <h2 class="account-heading">{{ current_user.username.capitalize() }}</h2>
-            {% if current_user.is_admin %}
-                <p style="color: rgb(255, 0, 0); font-weight:bold;">Administrator account</p>
-            {% endif %}
-            <p class="text-secondary">{{ current_user.email }}</p>
-        </div>
+            <img class="rounded-circle account-img" src="{{ image_file }}">
+            <div class="media-body">
+                <h2 class="account-heading">{{ current_user.username.capitalize() }}</h2>
+                {% if current_user.is_admin %}
+                    <p style="color: rgb(255, 0, 0); font-weight:bold;">Administrator account</p>
+                {% endif %}
+                <p class="text-secondary">{{ current_user.email }}</p>
+            </div>
         </div>
             <form method="POST" action="" enctype="multipart/form-data">
                 {{ form.hidden_tag() }}

@@ -5,6 +5,7 @@ from flask import url_for
 from flask_mail import Message
 from flaskblog import mail
 from flask import current_app
+import socket
 from itsdangerous import URLSafeTimedSerializer
 
 
@@ -32,10 +33,13 @@ def send_reset_email(user):
             {url_for('users.reset_token', token=token, _external = True)}
             If you did not make this request,so simply egnore this email and no changes wil be made
     '''
+    
     mail.send(msg)
+    
+        
 
 def send_project_request(project, form, request):
-    msg = Message(f'Answer to your project "{project.project_title}"',
+    msg = Message(f'Answer to your project "{project.project_title}" | {form.asking_for.data}',
                   sender='noreply@demo.com',
                   recipients=[project.email])
     msg.body= f'''

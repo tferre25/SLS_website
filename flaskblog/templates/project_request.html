@@ -19,6 +19,19 @@
                     {% endif %}
                 </div>
                 <div class="form-group">
+                    {{ form.asking_for.label(class="form-control-label") }}
+                    {% if form.asking_for.errors %}
+                        {{ form.asking_for(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.asking_for.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.asking_for(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
                     {{ form.project_request.label(class="form-control-label") }}
                     {% if form.project_request.errors %}
                         {{ form.project_request(class="form-control form-control-lg is-invalid") }}

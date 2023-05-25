@@ -31,6 +31,19 @@
                         {{ form.application(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
+                <div class="form-group" id="clinical_service">
+                    {{ form.clinical_service.label(class="form-control-label text-danger") }}
+                    {% if form.clinical_service.errors %}
+                        {{ form.clinical_service(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.clinical_service.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.clinical_service(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
                 <div class="form-group" id="organism">
                     {{ form.organism.label(class="form-control-label") }}
                     {% if form.organism.errors %}

@@ -25,7 +25,7 @@
             </div>
             <h2><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h2>
             <p class="article-content">{{ post.content }}</p>
-            <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/{{ post.image_file }}') }}" alt="#">
+            <img class="img-thumbnail mx-auto d-block article-img" src="../static/profile_pics/{{ post.image_file }}" alt="#">
           </div>
         </article>
     {% endfor %}

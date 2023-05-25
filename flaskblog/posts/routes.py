@@ -4,6 +4,7 @@ from flask_login import current_user, login_required
 from flaskblog import db
 from flaskblog.models import Post
 from flaskblog.posts.forms import PostForm
+from flaskblog.posts.utils import save_picture
 
 posts = Blueprint('posts', __name__)
 
@@ -13,14 +14,15 @@ posts = Blueprint('posts', __name__)
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
-        #create and add to database
-        post = Post(title=form.title.data, content=form.content.data, image_file=form.picture.data,author=current_user)
+        if form.image_file.data:
+            picture_file = save_picture(form.image_file.data)
+            #current_user.image_file = picture_file
+        post = Post(title=form.title.data, content=form.content.data, image_file=picture_file,author=current_user)
         db.session.add(post)
         db.session.commit()
         flash(f'Your post has been created!', 'success')
         return redirect(url_for('main.home'))
-    return render_template('create_post.html', title='New Post',
-                           form=form, legend='New Post')
+    return render_template('create_post.html', title='New Post', form=form, legend='New Post')
 
 
 @posts.route("/post/<int:post_id>")
@@ -37,14 +39,19 @@ def update_post(post_id):
         abort(403)
     form = PostForm()
     if form.validate_on_submit():
+        if form.image_file.data:
+            picture_file = save_picture(form.image_file.data)
+            #current_user.image_file = picture_file
         post.title = form.title.data
         post.content = form.content.data
+        post.image_file = picture_file
         db.session.commit()
         flash('Your post has been updated!', 'success')
         return redirect(url_for('posts.post', post_id=post.id))
     elif request.method == 'GET':
         form.title.data = post.title
         form.content.data = post.content
+        form.image_file.data = post.image_file
     return render_template('create_post.html', title='Update Post',
                            form=form, legend='Update Post')
 

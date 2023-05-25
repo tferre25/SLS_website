@@ -3,6 +3,7 @@ from flask_login import UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from datetime import datetime #into --init--
 from flask import current_app
+from sqlalchemy import Float
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -13,7 +14,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     aphp_num = db.Column(db.String(20), unique=True, nullable=False)
-    status = db.Column(db.String(120), unique=True, nullable=False)
+    status = db.Column(db.String(120), nullable=False)
     image_file = db.Column(db.String(20), nullable=False,default='default.jpg')
     is_admin = db.Column(db.Boolean, default=False)
     password = db.Column(db.String(60), nullable=False)
@@ -54,7 +55,7 @@ class Post(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False,
                             default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
-    image_file = db.Column(db.String(20), nullable=True)
+    image_file = db.Column(db.String(20), nullable=False,default='default.jpg')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
@@ -63,6 +64,7 @@ class Post(db.Model):
 class Project_request(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     project_id = db.Column(db.String(70), unique=True, nullable=False)
+    asking_for = db.Column(db.String(70), unique=False, nullable=False)
     project_request = db.Column(db.String(100), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False,default=datetime.utcnow)
     motif = db.Column(db.String(1000), nullable=False)
@@ -84,7 +86,7 @@ class Project(db.Model):
     project_title = db.Column(db.String(120), unique=False, nullable=False)
 
     urgency_of_request = db.Column(db.String(20), unique=False, nullable=False)
-    if_urgency = db.Column(db.Text, unique=False, nullable=False)
+    if_urgency = db.Column(db.Text, unique=False, nullable=True)
 
     project_context = db.Column(db.Text, unique=False, nullable=False)
     project_context_private = db.Column(db.Text, unique=False, nullable=True)
@@ -92,7 +94,7 @@ class Project(db.Model):
     bioF_needs = db.Column(db.Text, unique=False, nullable=False)
 
     data_available = db.Column(db.String(20), unique=False, nullable=False)
-    access_data = db.Column(db.String(120), unique=False, nullable=False)
+    access_data = db.Column(db.String(120), unique=False, nullable=True)
 
     data_owner = db.Column(db.String(20), unique=False, nullable=False)
     if_regulatory_requirements = db.Column(db.String(20), unique=False, nullable=False)
@@ -103,6 +105,7 @@ class Project(db.Model):
     # NOT REQUIRED
     regulatory_requirements = db.Column(db.String(20), unique=False, nullable=True)
     application = db.Column(db.String(20), unique=False, nullable=True)
+    clinical_service = db.Column(db.String(20), unique=False, nullable=True)
     organism = db.Column(db.String(20), unique=False, nullable=True)
     principal_investigator = db.Column(db.String(20), unique=False, nullable=True)
     promotor = db.Column(db.String(20), unique=False, nullable=True)
@@ -121,15 +124,15 @@ class Grant(db.Model):
     project_title = db.Column(db.String(120), unique=False, nullable=False)
 
     urgency_of_request = db.Column(db.String(20), unique=False, nullable=False)
-    if_urgency = db.Column(db.Text, unique=False, nullable=False)
+    if_urgency = db.Column(db.Text, unique=False, nullable=True)
 
     project_context = db.Column(db.Text, unique=False, nullable=False)
-    project_context_private = db.Column(db.Text, unique=False, nullable=True)
+    #project_context_private = db.Column(db.Text, unique=False, nullable=False)
     project_summary = db.Column(db.Text, unique=False, nullable=False)
     bioF_needs = db.Column(db.Text, unique=False, nullable=False)
 
     data_available = db.Column(db.String(20), unique=False, nullable=False)
-    access_data = db.Column(db.String(120), unique=False, nullable=False)
+    access_data = db.Column(db.String(120), unique=False, nullable=True)
 
     data_owner = db.Column(db.String(20), unique=False, nullable=False)
     if_regulatory_requirements = db.Column(db.String(20), unique=False, nullable=False)
@@ -140,12 +143,13 @@ class Grant(db.Model):
     # NOT REQUIRED
     regulatory_requirements = db.Column(db.String(20), unique=False, nullable=True)
     application = db.Column(db.String(20), unique=False, nullable=True)
+    clinical_service = db.Column(db.String(20), unique=False, nullable=True)
     organism = db.Column(db.String(20), unique=False, nullable=True)
     principal_investigator = db.Column(db.String(20), unique=False, nullable=True)
     promotor = db.Column(db.String(20), unique=False, nullable=True)
 
     funding_type = db.Column(db.String(20), unique=False, nullable=True)
-    total_amount = db.Column(db.Numeric(10, 2), unique=False, nullable=True)
+    total_amount = db.Column(db.String(20), unique=False, nullable=True)
     deadline = db.Column(db.Date(), unique=False, nullable=True)
 
     

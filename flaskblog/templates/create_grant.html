@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-    <legend data-text="Requiring bioinformatics support _ {{legend}}" class="border-bottom mb-6 h2">Funding _ {{legend}}</legend>
+    <legend data-text="Funding _ {{legend}}" class="border-bottom mb-6 h2">Funding _ {{legend}}</legend>
     <div class="content-section">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
@@ -29,6 +29,19 @@
                         </div>
                     {% else %}
                         {{ form.application(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group" id="clinical_service">
+                    {{ form.clinical_service.label(class="form-control-label text-danger") }}
+                    {% if form.clinical_service.errors %}
+                        {{ form.clinical_service(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.clinical_service.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.clinical_service(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
                 <div class="form-group" id="organism">
@@ -68,6 +81,45 @@
                         </div>
                     {% else %}
                         {{ form.promotor(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.funding_type.label(class="form-control-label") }}
+                    {% if form.funding_type.errors %}
+                        {{ form.funding_type(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.funding_type.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.funding_type(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.total_amount.label(class="form-control-label") }}
+                    {% if form.total_amount.errors %}
+                        {{ form.total_amount(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.total_amount.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.total_amount(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.deadline.label(class="form-control-label") }}
+                    {% if form.deadline.errors %}
+                        {{ form.deadline(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.deadline.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.deadline(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
                 <div class="form-group" id="regulatory_requirements">
@@ -198,45 +250,6 @@
                         </div>
                     {% else %}
                         {{ form.bioF_needs(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.funding_type.label(class="form-control-label") }}
-                    {% if form.funding_type.errors %}
-                        {{ form.funding_type(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.funding_type.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.funding_type(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.total_amount.label(class="form-control-label") }}
-                    {% if form.total_amount.errors %}
-                        {{ form.total_amount(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.total_amount.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.total_amount(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.deadline.label(class="form-control-label") }}
-                    {% if form.deadline.errors %}
-                        {{ form.deadline(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.deadline.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.deadline(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
                 <div class="form-group" id="data_available">

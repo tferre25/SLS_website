@@ -145,6 +145,11 @@ def project_update(form, project, method):
         project.if_regulatory_requirements = form.if_regulatory_requirements.data
         project.data_type = form.data_type.data
         project.data_size = form.data_size.data
+
+        project.funding_type = form.funding_type.data
+        project.total_amount = form.total_amount.data
+        project.deadline = form.deadline.data
+
         db.session.commit()
     elif method == 'GET':
         form.username.data = project.username
@@ -166,6 +171,10 @@ def project_update(form, project, method):
         form.if_regulatory_requirements.data = project.if_regulatory_requirements
         form.data_type.data = project.data_type
         form.data_size.data = project.data_size
+
+        form.funding_type.data = project.funding_type
+        form.total_amount.data = project.total_amount
+        form.deadline.data = project.deadline
 
     
 
@@ -223,18 +232,16 @@ def object_grant(form):
         username = form.username.data,
         email = form.email.data,
         author = current_user,
+        project_token = secrets.token_bytes(32).hex(),
         project_title = form.project_title.data,
         application = form.application.data,
         organism = form.organism.data,
         principal_investigator = form.principal_investigator.data,
         promotor = form.promotor.data,
-        funding_type = form.funding_type.data,
-        total_amount = form.total_amount.data,
-        deadline = form.deadline.data,
         urgency_of_request = form.urgency_of_request.data,
         if_urgency = form.if_urgency.data,
         project_context = form.project_context.data,
-        project_context_private = form.project_context_private,
+        #project_context_private = form.project_context_private,
         project_summary = form.project_summary.data,
         bioF_needs = form.bioF_needs.data,
         data_available = form.data_available.data,
@@ -244,7 +251,10 @@ def object_grant(form):
         if_regulatory_requirements = form.if_regulatory_requirements.data,
         data_type = form.data_type.data,
         data_size = form.data_size.data,
-        add_info = form.add_info.data
+        add_info = form.add_info.data,
+        funding_type = form.funding_type.data,
+        total_amount = form.total_amount.data,
+        deadline = form.deadline.data
     )
 
     return grant

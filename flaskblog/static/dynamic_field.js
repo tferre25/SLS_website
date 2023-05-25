@@ -2,12 +2,16 @@
 // IF USERNAME/biogem => APPLICATION APEAR
 const username = document.querySelector('#username');
 const application = document.querySelector('#application');
+const clinical_service = document.querySelector('#clinical_service');
 application.style.display = 'none';
+clinical_service.style.display = 'none';
 
 username.addEventListener('change', event => {
-  if (event.target.value == 'BioGem') {
+  if (event.target.value == 'Laboratoire diagnostic St Louis') {
     application.style.display = 'block';
-  } else if (event.target.value == 'Another_DMU') {
+    clinical_service.style.display = 'none';
+  } else if (event.target.value == 'Service clinique St Louis') {
+    clinical_service.style.display = 'block';
     application.style.display = 'none';
   }
 });
@@ -35,9 +39,9 @@ const access_data = document.querySelector('#access_data');
 access_data.style.display = 'none';
 
 data_available.addEventListener('change', event => {
-    if (event.target.value == '1') {
+    if (event.target.value == 'Yes') {
         access_data.style.display = 'block';
-    } else if (event.target.value == '0') {
+    } else if (event.target.value == 'No') {
         access_data.style.display = 'none';
     }
 });
@@ -48,9 +52,9 @@ const if_regulatory_requirements = document.querySelector('#if_regulatory_requir
 if_regulatory_requirements.style.display = 'none';
 
 regulatory_requirements.addEventListener('change', event => {
-    if (event.target.value == '1') {
+    if (event.target.value == 'Yes') {
         if_regulatory_requirements.style.display = 'block';
-    } else if (event.target.value == '0') {
+    } else if (event.target.value == 'No') {
         if_regulatory_requirements.style.display = 'none';
     }
 });
@@ -61,7 +65,7 @@ const if_urgency = document.querySelector('#if_urgency');
 if_urgency.style.display = 'none';
 
 urgency_of_request.addEventListener('change', event => {
-    if (event.target.value == 'vu') {
+    if (event.target.value == 'Very urgent') {
         if_urgency.style.display = 'block';
     } else {
         if_urgency.style.display = 'none';
