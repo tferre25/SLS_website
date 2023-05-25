@@ -30,9 +30,11 @@ print(g)'''
 print(Grant.query.all())
 
 print(f'--------------------------> Project_request')
+'''print(Project_request.query.all())
 p = Project_request.query.get(1)
+print(p)
 db.session.delete(p)
-db.session.commit()
+db.session.commit()'''
 print(Project_request.query.all())
 
 

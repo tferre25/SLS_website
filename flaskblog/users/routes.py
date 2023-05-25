@@ -8,7 +8,7 @@ from flaskblog.users.utils import save_picture, send_reset_email, send_project_r
 #from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 from flask_mail import Message
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-import socket
+import socket, sys
 from sqlalchemy.exc import IntegrityError
 
 users = Blueprint('users', __name__)
@@ -150,33 +150,42 @@ def user_grants(username):
 @admin_required
 def project_request():
     form = ProjectRequestForm()
-    try:
-        if form.validate_on_submit():
+    if form.validate_on_submit():
+        try:
             request = Project_request(project_id=form.project_id.data,
                                     author=current_user,
                                     asking_for = form.asking_for.data,
                                     project_request = form.project_request.data,
                                     motif = form.motif.data)
-            try:
-                db.session.add(request)
+            # UNIQUE REQUEST
+            db.session.add(request)
+            db.session.commit()
+            if form.asking_for.data == 'Requiring bioinformatics support' and form.project_request.data == 'Accepted':
+                project = Project.query.filter_by(project_token=form.project_id.data).first() # celui qui a fait la demande du projet
+                project.is_accepted = True
                 db.session.commit()
-                if form.asking_for.data == 'Requiring bioinformatics support' and form.project_request.data == 'Accepted':
-                    project = Project.query.filter_by(project_token=form.project_id.data).first() # celui qui a fait la demande du projet
-                    project.is_accepted = True
-                    db.session.commit()
-                elif form.asking_for.data == 'Funding' and form.project_request.data == 'Accepted':
-                    project = Grant.query.filter_by(project_token=form.project_id.data).first() # celui qui a fait la demande du projet
-                    project.is_accepted = True
-                    db.session.commit() 
-                try:
-                    send_project_request(project, form, request)
-                    flash(f'Congrat, your answer to the project entitled "{project.project_title}" has been successfully sent to its creator "{project.username}" ', 'success')
-                except socket.gaierror:
-                    flash('Please check your network connection and try again.', 'warning')
-            except IntegrityError as e:
-                flash(f'A answer has already been sent for this project ID. ','warning')
-    except AttributeError:
-        flash('The id entered does not correspond to any project. please double check the id received in your mailbox', 'warning')
+            elif form.asking_for.data == 'Funding' and form.project_request.data == 'Accepted':
+                project = Grant.query.filter_by(project_token=form.project_id.data).first() # celui qui a fait la demande du projet
+                project.is_accepted = True
+                db.session.commit()
+            elif form.asking_for.data == 'Funding' and form.project_request.data == 'Refused':
+                project = Grant.query.filter_by(project_token=form.project_id.data).first() # celui qui a fait la demande du projet
+            else:
+                project = Project.query.filter_by(project_token=form.project_id.data).first() # celui qui a fait la demande du projet
+
+            # INTERNET
+            try:
+                send_project_request(project, form, request)
+                flash(f'Congrat, your answer to the project entitled "{project.project_title}" has been successfully sent to its creator "{project.username}" ', 'success')
+            except socket.gaierror:
+                flash('Please check your network connection and try again.', 'warning')
+        except AttributeError:
+            flash('The id entered does not correspond to any project. please double check the id received in your mailbox', 'warning')
+            db.session.delete(request)
+            db.session.commit()
+        except IntegrityError:
+            flash('Already done for this project', 'warning')
+
     return render_template('project_request.html', legend='Project Request', form = form)
 
 
