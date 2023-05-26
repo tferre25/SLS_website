@@ -342,3 +342,10 @@ a {
   align-items: center;
   height: 10vh; /* Ajuster la hauteur selon les besoins */
 }
+
+.p-viewer {
+  z-index: 9999;
+  position: absolute;
+  top: 30%;
+  right: 10px;
+}

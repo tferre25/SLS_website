@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, SelectField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Regexp
 from flask_login import current_user
 from flaskblog.models import User
 
@@ -18,7 +18,12 @@ class RegistrationForm(FlaskForm):
     status = StringField('Position at the aphp',
                          validators=[DataRequired(), Length(min=2)],
                          render_kw={'placeholder': 'Engineer; Medical intern...'})
-    password = PasswordField('Password', validators=[DataRequired()],
+    password = PasswordField('Password', 
+                             validators=[DataRequired(),
+                                         Length(min=8, max=16),
+                                         Regexp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).+$',
+                                                message="""Password must contain at least one uppercase letter,
+                                                           one lowercase letter, and one digit.""")],
                              render_kw={'placeholder': '**************'})
     confirm_password = PasswordField('Confirm Password',
                                      validators=[DataRequired(), EqualTo('password')],
@@ -77,7 +82,13 @@ class RequestResetForm(FlaskForm):
             raise ValidationError('There is no account with this email. You must register first!') #template of validation method
         
 class ResetPasswordForm(FlaskForm):
-    password = PasswordField('Password', validators=[DataRequired()])
+    password = PasswordField('Password', 
+                             validators=[DataRequired(),
+                                         Length(min=8, max=16),
+                                         Regexp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).+$',
+                                                message="""Password must contain at least one uppercase letter,
+                                                           one lowercase letter, and one digit.""")],
+                             render_kw={'placeholder': '**************'})
     confirm_password = PasswordField('Confirm Password',
                                      validators=[DataRequired(), EqualTo('password')])
     

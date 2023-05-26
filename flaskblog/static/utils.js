@@ -1,4 +1,5 @@
 
+//------------------------------------------------------------- LOAD PDF FILE FROM RECAP PROJECT HTML PAGE
 function htmlIntoPDF() {
     var pdf = new jsPDF('p', 'pt', 'letter');
     // source can be HTML-formatted string, or a reference
@@ -38,4 +39,15 @@ function htmlIntoPDF() {
             pdf.save('recap_project.pdf');
         }, margins
     );
+}
+
+
+//------------------------------------------------------------- VISUALIZE PASSWORD
+function togglePasswordVisibility() {
+    var passwordInput = document.getElementById("password");
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+    } else {
+        passwordInput.type = "password";
+    }
 }
