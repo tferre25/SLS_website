@@ -343,9 +343,53 @@ a {
   height: 10vh; /* Ajuster la hauteur selon les besoins */
 }
 
-.p-viewer {
-  z-index: 9999;
+/*contact page*/
+main{
+  width: 100%;
+  margin: auto;
+}
+
+.diapo{
+  position: relative;
+  overflow: hidden;
+}
+
+.elements{
+  display: flex;
+}
+
+.element{
+  flex: 1 0 100%;
+  position: relative;
+  width: 1000px;
+  height: 500px;
+}
+
+.element > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.caption{
   position: absolute;
-  top: 30%;
-  right: 10px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+#nav-gauche, #nav-droite{
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%);
+  color: rgb(23, 3, 103);
+  font-size: 4rem;
+  cursor: pointer;
+}
+
+#nav-droite{
+  right: 0;
 }
