@@ -1,6 +1,16 @@
 {% extends "layout.html" %}
 {% block content %}
 
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+
+
 <div class="profile_container">
     <h1>{{user.username}} profile</h1>
 
@@ -8,6 +18,7 @@
         <img src="{{ url_for('static', filename='profile_pics/'+user.image_file) }}" alt="{{user.username}}">
     </div>
     
+
     <div class="profile_list">
         <ul>
             <li>Username : {{user.username}}</li>

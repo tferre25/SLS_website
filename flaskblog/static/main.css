@@ -8,7 +8,7 @@ legend{
   position: relative;
   font-size: 2vw;
   color: #252839;
-  -webkit-text-stroke: 0.3vw #383d52;
+  -webkit-text-stroke: 0.3vw #c0c2c9;
   text-transform: uppercase;
 }
 
@@ -33,7 +33,7 @@ legend::before{
   }
   70%, 90%
   {
-    width: 100%;
+    width: 70%;
   }
 }
 
@@ -345,7 +345,7 @@ a {
 
 /*contact page*/
 main{
-  width: 100%;
+  width: 80%;
   margin: auto;
 }
 
@@ -361,7 +361,7 @@ main{
 .element{
   flex: 1 0 100%;
   position: relative;
-  width: 1000px;
+  width: 500px;
   height: 500px;
 }
 

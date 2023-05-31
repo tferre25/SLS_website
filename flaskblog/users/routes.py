@@ -13,7 +13,7 @@ from sqlalchemy.exc import IntegrityError
 
 users = Blueprint('users', __name__)
 
-#------------------------------------------------ REGISTRATION
+#--------------------------------------------------- Account---------------------------------------------------------
 @users.route("/register", methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -35,8 +35,6 @@ def register():
             flash(f'{str(e)} Parameter should be unique','warning')
     return render_template('register.html', title='Register', form=form)
 
-#--------------------------------------------------------------- FIN REGISTRATION
-
 @users.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -51,7 +49,6 @@ def login():
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html', title='Login', form=form)
-
 
 @users.route("/logout")
 def logout():
@@ -123,7 +120,8 @@ def reset_token(token):
         return redirect(url_for('users.login'))
     return render_template('reset_token.html', title='Reset_Password', form=form)
 
-# PROJECTS
+
+#--------------------------------------------------- project_request---------------------------------------------------------
 @users.route("/user/<string:username>/")
 def user_projects(username):
     page = request.args.get('page', 1,type=int)
@@ -142,9 +140,6 @@ def user_grants(username):
         .paginate(page=page, per_page=3)
     return render_template('user_grants.html', projects=grants, user=user)
 
-
-
-#--------------------------------------------------- project_request---------------------------------------------------------
 @users.route('/project_request', methods=['GET', 'POST'])
 @login_required
 @admin_required
@@ -189,8 +184,7 @@ def project_request():
     return render_template('project_request.html', legend='Project Request', form = form)
 
 
-
-# TO DO
+#--------------------------------------------------- profile---------------------------------------------------------
 @users.route("/user/<string:username>/profile")
 @login_required
 def user_profile(username):
@@ -199,3 +193,5 @@ def user_profile(username):
     no_accepted = int(len(Project.query.filter_by(author=user, is_accepted=True).all()))
     no_refused = int(len(Project.query.filter_by(author=user, is_accepted=False).all()))
     return render_template('profile.html', user=user, posts = posts, no_accepted=no_accepted, no_refused=no_refused)
+
+

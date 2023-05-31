@@ -12,15 +12,17 @@ print(f'--------------------------> Project')
 #projects = list(Project.query.filter_by(is_accepted=False).all())
 #PROJECTS = Project.query.filter_by(is_accepted=True)
 #print(PROJECTS)
-p=Project.query.get(1)
+#p=Project.query.get(1)
 print(Project.query.all())
 
 print(f'--------------------------> User')
-u=User.query.get(2)
-u.is_admin=True
-db.session.commit()
-print(u)
-print(User.query.all())
+dico = dict()
+for i in User.query.all():
+    print(i)
+    print(i.requests)
+
+
+
 
 print(f'--------------------------> Grant')
 '''grants = list(Grant.query.filter_by(is_accepted=False).all())

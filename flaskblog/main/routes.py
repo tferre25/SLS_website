@@ -47,9 +47,11 @@ def grant_home():
 def about_us():
     return render_template('about_us.html', title='About')
 
+#--------------------------------------------------- ABOUT ---------------------------------------------------------
 @main.route("/about")
 def about():
-    return render_template('about.html', title='About')
+    users = User.query.filter_by(is_admin=True).all()
+    return render_template('about.html', users=users, title='About')
 
 #------------------------------------------------------------ DOC --------------------------------------------#
 @main.route("/about_us/omics")
