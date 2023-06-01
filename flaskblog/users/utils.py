@@ -15,9 +15,9 @@ def save_picture(form_picture):
     picture_fn = random_hex + f_ext
     picture_path = os.path.join(current_app.root_path, 'static/profile_pics', picture_fn)
     # resize image ==> speed up website
-    output_size = (125, 125)
+    #output_size = (125, 125)
     i = Image.open(form_picture)
-    i.thumbnail(output_size)
+    #i.thumbnail(output_size)
     i.save(picture_path)
     #retun filename image
     return picture_fn

@@ -78,7 +78,7 @@ class Project(db.Model):
 
     # REQUIRED
     username = db.Column(db.String(20), unique=False, nullable=False)
-    email = db.Column(db.String(120), unique=False, nullable=False)
+    email = db.Column(db.String(120), unique=False, nullable=True)
     date_posted = db.Column(db.DateTime, nullable=False,default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     is_accepted = db.Column(db.Boolean, default=False, nullable=False)
@@ -106,6 +106,11 @@ class Project(db.Model):
     regulatory_requirements = db.Column(db.String(20), unique=False, nullable=True)
     application = db.Column(db.String(20), unique=False, nullable=True)
     clinical_service = db.Column(db.String(20), unique=False, nullable=True)
+
+    #new adddd
+    laboratories = db.Column(db.String(20), unique=False, nullable=True)
+    if_no_laboratory = db.Column(db.String(20), unique=False, nullable=True)
+
     organism = db.Column(db.String(20), unique=False, nullable=True)
     principal_investigator = db.Column(db.String(20), unique=False, nullable=True)
     promotor = db.Column(db.String(20), unique=False, nullable=True)
@@ -116,7 +121,7 @@ class Project(db.Model):
 class Grant(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=False, nullable=False)
-    email = db.Column(db.String(120), unique=False, nullable=False)
+    email = db.Column(db.String(120), unique=False, nullable=True)
     date_posted = db.Column(db.DateTime, nullable=False,default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     is_accepted = db.Column(db.Boolean, default=False, nullable=False)
@@ -142,9 +147,14 @@ class Grant(db.Model):
 
     # NOT REQUIRED
     regulatory_requirements = db.Column(db.String(20), unique=False, nullable=True)
-    application = db.Column(db.String(20), unique=False, nullable=True)
+    #application = db.Column(db.String(20), unique=False, nullable=True)
     clinical_service = db.Column(db.String(20), unique=False, nullable=True)
     organism = db.Column(db.String(20), unique=False, nullable=True)
+
+    #new addd
+    laboratories = db.Column(db.String(20), unique=False, nullable=True)
+    if_no_laboratory = db.Column(db.String(20), unique=False, nullable=True)
+
     principal_investigator = db.Column(db.String(20), unique=False, nullable=True)
     promotor = db.Column(db.String(20), unique=False, nullable=True)
 

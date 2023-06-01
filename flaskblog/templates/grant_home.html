@@ -23,11 +23,10 @@
               {%endif%}
                 <small class="text-muted">{{ grant.date_posted.strftime('%Y-%m-%d') }}</small>
             </div>
-            <h2><a class="article-title" href="{{ url_for('projects.grant', grant_id=grant.id) }}">{{ grant.project_title }}</a></h2>
-            <li style="color: blue; font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Funding type: </b>{{ grant.funding_type }}</li>
-            <li style="color: rgb(255, 0, 0); font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Application: </b>{{ grant.application }}</li>
-            <li style="color: rgb(255, 0, 0); font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Total Amount: </b>{{ grant.total_amount }}</li>
-            <li style="color: rgb(255, 0, 0); font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Deadline: </b>{{ grant.deadline }}</li>
+            <h2 class="article-title" href="{{ url_for('projects.grant', grant_id=grant.id) }}">{{ grant.project_title }}</h2>
+            <li style="color: rgb(28, 3, 71); font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Principal  investigator: </b>{{ grant.principal_investigator }}</li>
+            <li style="color: rgb(28, 3, 71); font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Total Amount: </b>{{ grant.total_amount }}</li>
+            <li style="color: rgb(28, 3, 71); font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Deadline: </b>{{ grant.deadline }}</li>
             <p class="article-content"> <b>Context grant (Public): </b>{{ grant.project_context }}</p>
           </div>
         </article>

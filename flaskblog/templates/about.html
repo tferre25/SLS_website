@@ -8,9 +8,8 @@
                 <div class="element">
                     <img src="../static/profile_pics/{{ user.image_file }}" alt="{{user.username}}">
                     <div class="caption">
-                        <h2>{{ user.username }}</h2>
+                        <h2 class="article-title">{{ user.username }}</h2>
                         <li>Email : {{user.email}}</li>
-                        <li>APHP : {{user.aphp_num}}</li>
                         <li>Status : {{user.status}}</li>
                         <li>Number of project requests : {{user.requests|length}}</li>
                     </div>
@@ -18,7 +17,7 @@
             {% endfor %}
         </div>
         <!--FLECHES-->
-        <i id="nav-gauche" class="fas fa-chevron-left"></i>
+        <!--<i id="nav-gauche" class="fas fa-chevron-left"></i>-->
         <i id="nav-droite" class="fas fa-chevron-right"></i>
     </div>
 </main>

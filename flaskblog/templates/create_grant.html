@@ -18,6 +18,8 @@
                         {{ form.username(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
+                <!--IF USERNAME == Laboratoire diagnostic St Louis -->
+                <!--
                 <div class="form-group" id="application">
                     {{ form.application.label(class="form-control-label text-danger") }}
                     {% if form.application.errors %}
@@ -31,6 +33,36 @@
                         {{ form.application(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
+                -->
+                <!--IF USERNAME == Laboratoire diagnostic St Louis -->
+                <div class="form-group" id="laboratories">
+                    {{ form.laboratories.label(class="form-control-label text-danger") }}
+                    {% if form.laboratories.errors %}
+                        {{ form.laboratories(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.laboratories.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.laboratories(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <!--IF LABORATORIES == AUTRE -->
+                <div class="form-group" id="if_no_laboratory">
+                    {{ form.if_no_laboratory.label(class="form-control-label text-danger") }}
+                    {% if form.if_no_laboratory.errors %}
+                        {{ form.if_no_laboratory(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.if_no_laboratory.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.if_no_laboratory(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <!--IF USERNAME == Service clinique St Louis -->
                 <div class="form-group" id="clinical_service">
                     {{ form.clinical_service.label(class="form-control-label text-danger") }}
                     {% if form.clinical_service.errors %}
@@ -146,19 +178,6 @@
                         </div>
                     {% else %}
                         {{ form.if_regulatory_requirements(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.email.label(class="form-control-label") }}
-                    {% if form.email.errors %}
-                        {{ form.email(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.email.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.email(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
                 <div class="form-group">
@@ -315,6 +334,19 @@
                         </div>
                     {% else %}
                         {{ form.data_size(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.email.label(class="form-control-label") }}
+                    {% if form.email.errors %}
+                        {{ form.email(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.email(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
                 <div class="form-group">

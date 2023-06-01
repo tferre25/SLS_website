@@ -23,7 +23,7 @@
               {%endif%}
                 <small class="text-muted">{{ project.date_posted.strftime('%Y-%m-%d') }}</small>
             </div>
-            <h2><a class="article-title" href="{{ url_for('projects.project', project_id=project.id) }}">{{ project.project_title }}</a></h2>
+            <h2 class="article-title" href="{{ url_for('projects.project', project_id=project.id) }}">{{ project.project_title }}</h2>
             <p style="color: blue; font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Application: </b>{{ project.application }}</p>
             <p class="article-content"> <b>Context project (Public): </b>{{ project.project_context }}</p>
           </div>

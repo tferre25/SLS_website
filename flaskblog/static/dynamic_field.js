@@ -2,19 +2,41 @@
 // IF USERNAME/biogem => APPLICATION APEAR
 const username = document.querySelector('#username');
 const application = document.querySelector('#application');
+const laboratories = document.querySelector('#laboratories');
 const clinical_service = document.querySelector('#clinical_service');
 application.style.display = 'none';
 clinical_service.style.display = 'none';
+laboratories.style.display = 'none'
 
 username.addEventListener('change', event => {
   if (event.target.value == 'Laboratoire diagnostic St Louis') {
     application.style.display = 'block';
+    laboratories.style.display = 'block';
     clinical_service.style.display = 'none';
   } else if (event.target.value == 'Service clinique St Louis') {
     clinical_service.style.display = 'block';
     application.style.display = 'none';
+    laboratories.style.display = 'none';
+  } else if (event.target.value == 'None'){
+    application.style.display = 'none';
+    laboratories.style.display = 'none';
+    clinical_service.style.display = 'none';
   }
 });
+
+// IF LABORATORIES == AUTRE
+const if_no_laboratory = document.querySelector('#if_no_laboratory')
+if_no_laboratory.style.display = 'none'
+
+laboratories.addEventListener('change', event => {
+    if (event.target.value == 'Autre') {
+        if_no_laboratory.style.display = 'block';
+    } else {
+        if_no_laboratory.style.display = 'none';
+    }
+})
+
+
 
 // IF APPLICATION/RESEARCH ==> 4 FIELD APEAR 
 const organism = document.querySelector('#organism');
