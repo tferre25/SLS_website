@@ -6,7 +6,7 @@
             <div class="article-metadata">
                 <a class="mr-2" href="{{ url_for('users.user_projects', username=project.author.username) }}">{{ project.author.username.capitalize() }}</a>
                 <small class="text-muted">{{ project.date_posted.strftime('%Y-%m-%d') }}</small>
-                {% if not project.author.is_admin %}
+                {% if current_user.is_admin %}
                     <div>
                         <a class = 'btn btn-secondary btn-sm m-1' href="{{ url_for('projects.update_project', project_id=project.id) }}">Update</a>
                         <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
@@ -14,7 +14,7 @@
                 {% endif %}
 
             </div>
-            <h2><a class="article-title" href="{{ url_for('projects.project', project_id=project.id) }}">{{ project.project_title }}</a></h2>
+            <h2 class="article-title">{{ project.project_title }}</h2>
             <p style="color: blue; font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Application: </b>{{ project.application }}</p>
             <p class="article-content"> <b>Context project (Public): </b>{{ project.project_context }}</p>
         </div>

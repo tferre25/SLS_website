@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, TextAreaField, SelectField, BooleanField, FloatField, validators, DateField
 from wtforms.validators import DataRequired, Length, Email, ValidationError
 from flaskblog.models import User
+from datetime import datetime
 
 laboratories = [('Bactériologie','Bactériologie'),
                ('Biochimie','Biochimie'),
@@ -21,6 +22,18 @@ laboratories = [('Bactériologie','Bactériologie'),
 
 laboratories.sort(key=lambda x: x[1])
 laboratories.append(('Autre', 'Autre'))
+
+# TO USE IT IN GRANT FORM 
+class CustomDateField(StringField):
+    def process_formdata(self, valuelist):
+        if valuelist:
+            date_string = valuelist[0]
+            try:
+                self.data = datetime.strptime(date_string, "%d-%m-%Y").date()
+            except ValueError:
+                raise ValueError("Invalid date format, please use DD-MM-YYYY")
+        else:
+            self.data = None
 
 class ProjectForm(FlaskForm):  
     username = SelectField('You are* :', choices=[(None,None),
@@ -68,14 +81,14 @@ class ProjectForm(FlaskForm):
     data_type = StringField('Data type :*', validators=[DataRequired(), Length(min=2)],render_kw={'placeholder': 'ex: fastq, counting tables, bam, etc.'})
     data_size = FloatField('Data size(GO) :*', validators=[validators.InputRequired(), validators.NumberRange(min=0)],render_kw={'placeholder': 'Approximate, in GO'})
     
-    submit = SubmitField('Send and get your project recap')
+    submit = SubmitField('Send It To Bioinfo SLS')
 
 class GrantForm(FlaskForm):  
     username = SelectField('You are* :', choices=[(None,None),
                                                   ('Laboratoire diagnostic St Louis', 'Laboratoire diagnostic St Louis'),
                                                   ('Service clinique St Louis', 'Service clinique St Louis')],
                                         validators=[DataRequired()])
-    #application = SelectField('Application :', choices=[('For_research', 'For research'),('For_diagnosis', 'For diagnosis')]) # if username = 'Laboratoire diagnostic St Louis
+    application = SelectField('Application :', choices=[('For_research', 'For research')]) # if username = 'Laboratoire diagnostic St Louis
     laboratories = SelectField('Saint-Louis clinical services', choices=laboratories)# if username = 'Laboratoire diagnostic St Louis
     if_no_laboratory = StringField('Precise witch laboratory * :',render_kw={'placeholder': 'cardio, reanimation...'}) # if laboratories = 'autre'
     clinical_service = StringField('Clinical service* :',render_kw={'placeholder': 'cardio, reanimation...'}) # if username= Service clinique St Louis
@@ -118,9 +131,9 @@ class GrantForm(FlaskForm):
     
     funding_type = StringField('Funding type : *', render_kw={'placeholder': 'funding type ...'})
     total_amount = FloatField('Total amount: *', render_kw={'placeholder': 'Total amount ...'})
-    deadline = DateField('Deadline:')
+    deadline = CustomDateField('Deadline:', render_kw={'placeholder': 'please use DD-MM-YYYY'})
 
-    submit = SubmitField('Send and get your project recap')
+    submit = SubmitField('Send It To Bioinfo SLS')
 
 # project
 class RequestProjectForm(FlaskForm):

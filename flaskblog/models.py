@@ -147,7 +147,7 @@ class Grant(db.Model):
 
     # NOT REQUIRED
     regulatory_requirements = db.Column(db.String(20), unique=False, nullable=True)
-    #application = db.Column(db.String(20), unique=False, nullable=True)
+    application = db.Column(db.String(20), unique=False, nullable=True)
     clinical_service = db.Column(db.String(20), unique=False, nullable=True)
     organism = db.Column(db.String(20), unique=False, nullable=True)
 

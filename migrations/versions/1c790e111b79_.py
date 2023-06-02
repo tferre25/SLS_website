@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 231808551b55
+Revision ID: 1c790e111b79
 Revises: 
-Create Date: 2023-05-25 14:20:35.498664
+Create Date: 2023-06-02 14:19:40.083043
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '231808551b55'
+revision = '1c790e111b79'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -35,7 +35,7 @@ def upgrade():
     op.create_table('grant',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=20), nullable=False),
-    sa.Column('email', sa.String(length=120), nullable=False),
+    sa.Column('email', sa.String(length=120), nullable=True),
     sa.Column('date_posted', sa.DateTime(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('is_accepted', sa.Boolean(), nullable=False),
@@ -57,6 +57,8 @@ def upgrade():
     sa.Column('application', sa.String(length=20), nullable=True),
     sa.Column('clinical_service', sa.String(length=20), nullable=True),
     sa.Column('organism', sa.String(length=20), nullable=True),
+    sa.Column('laboratories', sa.String(length=20), nullable=True),
+    sa.Column('if_no_laboratory', sa.String(length=20), nullable=True),
     sa.Column('principal_investigator', sa.String(length=20), nullable=True),
     sa.Column('promotor', sa.String(length=20), nullable=True),
     sa.Column('funding_type', sa.String(length=20), nullable=True),
@@ -79,7 +81,7 @@ def upgrade():
     op.create_table('project',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=20), nullable=False),
-    sa.Column('email', sa.String(length=120), nullable=False),
+    sa.Column('email', sa.String(length=120), nullable=True),
     sa.Column('date_posted', sa.DateTime(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('is_accepted', sa.Boolean(), nullable=False),
@@ -101,6 +103,8 @@ def upgrade():
     sa.Column('regulatory_requirements', sa.String(length=20), nullable=True),
     sa.Column('application', sa.String(length=20), nullable=True),
     sa.Column('clinical_service', sa.String(length=20), nullable=True),
+    sa.Column('laboratories', sa.String(length=20), nullable=True),
+    sa.Column('if_no_laboratory', sa.String(length=20), nullable=True),
     sa.Column('organism', sa.String(length=20), nullable=True),
     sa.Column('principal_investigator', sa.String(length=20), nullable=True),
     sa.Column('promotor', sa.String(length=20), nullable=True),

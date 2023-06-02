@@ -4,9 +4,10 @@ const username = document.querySelector('#username');
 const application = document.querySelector('#application');
 const laboratories = document.querySelector('#laboratories');
 const clinical_service = document.querySelector('#clinical_service');
+laboratories.style.display = 'none';
 application.style.display = 'none';
 clinical_service.style.display = 'none';
-laboratories.style.display = 'none'
+
 
 username.addEventListener('change', event => {
   if (event.target.value == 'Laboratoire diagnostic St Louis') {
@@ -35,8 +36,6 @@ laboratories.addEventListener('change', event => {
         if_no_laboratory.style.display = 'none';
     }
 })
-
-
 
 // IF APPLICATION/RESEARCH ==> 4 FIELD APEAR 
 const organism = document.querySelector('#organism');

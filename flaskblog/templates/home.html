@@ -22,10 +22,11 @@
                 <a class="mr-5 ml-5" href="{{ url_for('users.user_posts', username=post.author.username) }}" style="font-weight: bold; color: crimson;">Get all {{ post.author.username.capitalize() }} posts</a>
               {%endif%}
               <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+              <a class="ml-5" href="{{ url_for('posts.post', post_id=post.id) }}">Modification</a>
             </div>
-            <h2 class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</h2>
+            <h2 class="article-title">{{ post.title }}</h2>
             <p class="article-content">{{ post.content }}</p>
-            <img class="img-thumbnail mx-auto d-block article-img" src="../static/profile_pics/{{ post.image_file }}" alt="#">
+            <img class="img-thumbnail mx-auto d-block article-img" style="width: 50%; height: 50%;" src="../static/profile_pics/{{ post.image_file }}" alt="#">
           </div>
         </article>
     {% endfor %}

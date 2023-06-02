@@ -3,40 +3,30 @@ from run import app
 from flask import request
 app.app_context().push()
 
+# mdp admin : M42,7R}g=-sxXwW$
+# mdp louis : XRXuS574t6jxt2
+# mdp theo : J5Q7eR4a8Zegt8
+# mdp julien : pH3Y6A85Ynnj3r
+
 from flaskblog.models import Grant, Project, User, Post, Project_request
 
 print(f'--------------------------> Post')
 print(Post.query.all())
 
 print(f'--------------------------> Project')
-#projects = list(Project.query.filter_by(is_accepted=False).all())
-#PROJECTS = Project.query.filter_by(is_accepted=True)
-#print(PROJECTS)
-#p=Project.query.get(1)
 print(Project.query.all())
 
 print(f'--------------------------> User')
-dico = dict()
-for i in User.query.all():
-    print(i)
-    print(i.requests)
-
-
+print(User.query.all())
+u = User.query.get(4)
+u.is_admin = True
+db.session.commit()
 
 
 print(f'--------------------------> Grant')
-'''grants = list(Grant.query.filter_by(is_accepted=False).all())
-g=Grant.query.get_or_404(1)
-print(g.total_amount)
-print(g)'''
 print(Grant.query.all())
 
 print(f'--------------------------> Project_request')
-'''print(Project_request.query.all())
-p = Project_request.query.get(1)
-print(p)
-db.session.delete(p)
-db.session.commit()'''
 print(Project_request.query.all())
 
 

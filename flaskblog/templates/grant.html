@@ -14,7 +14,7 @@
                 {% endif %}
 
             </div>
-            <h2><a class="article-title" href="{{ url_for('projects.grant', grant_id=grant.id) }}">{{ grant.project_title }}</a></h2>
+            <h2 class="article-title">{{ grant.project_title }}</h2>
             <p style="color: blue; font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Application: </b>{{ grant.application }}</p>
             <p class="article-content"> <b>Context grant (Public): </b>{{ grant.project_context }}</p>
         </div>

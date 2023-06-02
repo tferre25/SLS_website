@@ -1,35 +1,23 @@
 {% extends "layout.html" %}
 {% block content %}
 
-    <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="..." alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+    <div class="card" style="width: 40rem; display: block; margin-left: auto; margin-right: auto;">
+        <img class="card-img-top" style="border-radius: 50px; width: 50%; display: block; margin-left: auto; margin-right: auto;" src="{{ url_for('static', filename='profile_pics/'+user.image_file) }}" alt="Card image cap">
+        <div class="card-body" style="background-color: rgb(83, 169, 140); margin: 10px; border-radius: 5px;">
+            <h5 class="card-title" style="text-align: center;">{{user.username}}</h5>
+            <li>Email : {{user.email}}</li>
+            <li>Position at the aphp : {{user.status}}</li>
+            <li>Number of Valid Projects : {{no_accepted}}</li>
+            <li>Number of Invalid Projects : {{no_refused}}</li>
+            {% if user.is_admin %}
+                <a href="{{ url_for('main.project_home') }}" class="btn btn-primary" style="margin-top: 10px; display: block;">Check All Accepted Team Project</a>
+            {% else %}
+                <a href="{{ url_for('users.user_projects', username=user.username)}}" class="btn btn-primary" style="margin-top: 10px; display: block;">Check my submit projects</a>
+            {% endif %}
         </div>
     </div>
 
 
-<div class="profile_container">
-    <h1>{{user.username}} profile</h1>
 
-    <div class="myImage">
-        <img src="{{ url_for('static', filename='profile_pics/'+user.image_file) }}" alt="{{user.username}}">
-    </div>
-    
-
-    <div class="profile_list">
-        <ul>
-            <li>Username : {{user.username}}</li>
-            <li>Email : {{user.email}}</li>
-            <li>AP-HP Num : {{user.aphp_num}}</li>
-            <li>Position at the aphp : {{user.status}}</li>
-            <li>is_admin : {{user.is_admin}}</li>
-            <li>#NO Valid projects : {{no_accepted}}</li>
-            <li>#NO Valid projects : {{no_refused}}</li>
-        </ul>
-    </div>
-</div>
 
 {% endblock content %}

@@ -146,9 +146,9 @@ def project_update(form, project, method):
         project.data_type = form.data_type.data
         project.data_size = form.data_size.data
 
-        project.funding_type = form.funding_type.data
-        project.total_amount = form.total_amount.data
-        project.deadline = form.deadline.data
+        #project.funding_type = form.funding_type.data
+        #project.total_amount = form.total_amount.data
+        #project.deadline = form.deadline.data
 
         db.session.commit()
     elif method == 'GET':
@@ -172,9 +172,9 @@ def project_update(form, project, method):
         form.data_type.data = project.data_type
         form.data_size.data = project.data_size
 
-        form.funding_type.data = project.funding_type
-        form.total_amount.data = project.total_amount
-        form.deadline.data = project.deadline
+        #form.funding_type.data = project.funding_type
+        #form.total_amount.data = project.total_amount
+        #form.deadline.data = project.deadline
 
     
 

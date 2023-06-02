@@ -22,8 +22,9 @@
                 <a class="mr-5 ml-5" href="{{ url_for('users.user_grants', username=grant.author.username) }}" style="font-weight: bold; color: crimson;">Get all {{ grant.author.username.capitalize() }} grants</a>
               {%endif%}
                 <small class="text-muted">{{ grant.date_posted.strftime('%Y-%m-%d') }}</small>
+                <a class="ml-5" href="{{ url_for('projects.grant', grant_id=grant.id) }}">Modification</a>
             </div>
-            <h2 class="article-title" href="{{ url_for('projects.grant', grant_id=grant.id) }}">{{ grant.project_title }}</h2>
+            <h2 class="article-title">{{ grant.project_title }}</h2>
             <li style="color: rgb(28, 3, 71); font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Principal  investigator: </b>{{ grant.principal_investigator }}</li>
             <li style="color: rgb(28, 3, 71); font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Total Amount: </b>{{ grant.total_amount }}</li>
             <li style="color: rgb(28, 3, 71); font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Deadline: </b>{{ grant.deadline }}</li>
