@@ -14,18 +14,31 @@ he APHP server. It is designed to facilitate the task of bioinformaticians in th
 
 To use our application, please follow these steps:
 
-Clone the project on git hub 
-Open the project in a text editor
-Configure your environment variables (in your Operating System) 
+step 1 : Clone the project on git hub
+  git clone https://github.com/bioinformatic-hub-sls/aphp_webblog.git
 
-- MAIL_PASSWORD
-- MAIL_USERNAME
-- SECRET_KEY
-- SQLALCHEMY_DATABASE_URI
+step 2 : Open the project in a text editor (eg, vscode)
+  code path/to/project
+  
+step 3 : Configure your environment variables (in your Operating System) 
 
-Create your own python environment and make a 'pip install requirement.txt'.
+  - MAIL_PASSWORD
+  - MAIL_USERNAME
+  - SECRET_KEY : d6ea4b1f91b5abd3be2e209f6d54d448
+  - SQLALCHEMY_DATABASE_URI : sqlite:///site.db
+  - FLASK_APP : run.py
 
-Open a terminal (in the project) and launch the application with the following command : python run.py
+step 4 : Create your own python environment
+  python -m venv myenv
+  source path/to/myenv/Script/activate
+
+step 5 : Set the requirements
+  pip install -r requirements.txt
+
+step 6 : launch app from terminal
+  python run.py
+
+copy/past localhost path in your browser
 
 **Contributing**
 
@@ -36,6 +49,6 @@ We welcome contributions to our application!
 If you have any questions or concerns about our application, please contact us at
 
 
-                            dina_ouahbi@yahoo.com
+                            dina.ouahbi@aphp.fr
                             theo.ferreira@aphp.fr
 
