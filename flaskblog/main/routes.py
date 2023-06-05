@@ -5,6 +5,7 @@ from flaskblog.main.forms import SearchForm
 import random, pytz
 from flaskblog import db, admin_required
 from datetime import datetime
+from ..static.info import instructions
 
 
 
@@ -20,7 +21,7 @@ def home():
     page = request.args.get('page', 1,type=int)
     # grab those posts from database
     posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
-    return render_template('home.html', posts=posts, time=time)
+    return render_template('home.html', posts=posts, time=time, instructions=instructions('post'))
 
 @main.route("/project_home")
 @login_required
@@ -30,7 +31,7 @@ def project_home():
     #projects = Project.query.order_by(Project.date_posted.desc()).paginate(page=page, per_page=5)
     projects = Project.query.filter_by(is_accepted=True).order_by(Project.date_posted.desc()).paginate(page=page, per_page=5)
     # TODO : if project.is_accepted == True / then, post it
-    return render_template('project_home.html', projects=projects)
+    return render_template('project_home.html', projects=projects, instructions=instructions('projects'))
 
 @main.route("/grant_home")
 @login_required
@@ -40,39 +41,39 @@ def grant_home():
     #projects = Project.query.order_by(Project.date_posted.desc()).paginate(page=page, per_page=5)
     grants = Grant.query.filter_by(is_accepted=True).order_by(Grant.date_posted.desc()).paginate(page=page, per_page=5)
     # TODO : if project.is_accepted == True / then, post it
-    return render_template('grant_home.html', grants=grants)
+    return render_template('grant_home.html', grants=grants, instructions=instructions('grants'))
 
 
 @main.route("/about_us")
 def about_us():
-    return render_template('about_us.html', title='About')
+    return render_template('about_us.html', title='About', instructions=instructions('about_us'))
 
 #--------------------------------------------------- ABOUT ---------------------------------------------------------
 @main.route("/about")
 def about():
     users = User.query.filter_by(is_admin=True).all()
-    return render_template('about.html', users=users, title='About')
+    return render_template('about.html', users=users, title='About', instructions = instructions('about'))
 
 #------------------------------------------------------------ DOC --------------------------------------------#
 @main.route("/about_us/omics")
 def omics():
-    return render_template('docs/omics.html', title='OMICS')
+    return render_template('docs/omics.html', title='OMICS', instructions = instructions('about'))
 
 @main.route("/about_us/log")
 def log():
-    return render_template('docs/log.html', title='LOG_DEV')
+    return render_template('docs/log.html', title='LOG_DEV', instructions = instructions('about'))
 
 @main.route("/about_us/web")
 def web():
-    return render_template('docs/web.html', title='WEB_DEV')
+    return render_template('docs/web.html', title='WEB_DEV', instructions = instructions('about'))
 
 @main.route("/about_us/db")
 def database():
-    return render_template('docs/db.html', title='DB_DEV')
+    return render_template('docs/db.html', title='DB_DEV', instructions = instructions('about'))
 
 @main.route("/about_us/code")
 def code():
-    return render_template('docs/code.html', title='CODE_DEV')
+    return render_template('docs/code.html', title='CODE_DEV', instructions = instructions('about'))
 
 
 # pass stuff to navBar

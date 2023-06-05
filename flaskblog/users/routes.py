@@ -10,6 +10,7 @@ from flask_mail import Message
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 import socket, sys
 from sqlalchemy.exc import IntegrityError
+from ..static.info import instructions
 
 users = Blueprint('users', __name__)
 
@@ -33,7 +34,7 @@ def register():
             return redirect(url_for('users.login'))
         except IntegrityError as e:
             flash(f'{str(e)} Parameter should be unique','warning')
-    return render_template('register.html', title='Register', form=form)
+    return render_template('register.html', title='Register', form=form, instructions=instructions('register'))
 
 @users.route("/login", methods=['GET', 'POST'])
 def login():
@@ -48,7 +49,7 @@ def login():
             return redirect(next_page) if next_page else redirect(url_for('main.home'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
-    return render_template('login.html', title='Login', form=form)
+    return render_template('login.html', title='Login', form=form, instructions=instructions('login'))
 
 @users.route("/logout")
 def logout():
@@ -77,7 +78,7 @@ def account():
         form.aphp_num.data=current_user.aphp_num
         form.status.data=current_user.status
     image_file = url_for('static', filename='profile_pics/'+ current_user.image_file)
-    return render_template('account.html', title='Account', image_file=image_file, form=form)
+    return render_template('account.html', title='Account', image_file=image_file, form=form, instructions=instructions('account'))
 
 @users.route("/user/<string:username>")
 def user_posts(username):

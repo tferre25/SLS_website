@@ -90,10 +90,11 @@
                 {{ form.submit(class="btn btn-outline-info") }}
             </div>
         </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Already Have An Account? <a class="ml-2" href="{{ url_for('users.login') }}">Sign In</a>
+            </small>
+        </div>
     </div>
-    <div class="border-top pt-3">
-        <small class="text-muted" style="background-color: black; font-size: large; font-weight: bold;">
-            Already Have An Account? <a class="ml-2" href="{{ url_for('users.login') }}" style="background-color: black; color: azure;">Sign In</a>
-        </small>
-    </div>
+    
 {% endblock content %}

@@ -43,12 +43,18 @@
                     <a href="{{ url_for('users.reset_request') }}">Forgot Password?</a>
                 </small>
             </div>
-            
         </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Need An Account? <a class="ml-2" href="{{ url_for('users.register') }}">Sign Up Now</a>
+            </small>
+        </div>
     </div>
-    <div class="border-top pt-3">
-        <small class="text-muted" style="background-color: black; font-size: large; font-weight: bold;">
-            Need An Account? <a class="ml-2" href="{{ url_for('users.register') }}" style="background-color: black; color: azure;">Sign Up Now</a>
-        </small>
-    </div>
+    
 {% endblock content %}
+
+
+
+{% block info %}
+    {{ instructions }}
+{% endblock info %}

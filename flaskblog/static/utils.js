@@ -99,3 +99,14 @@ function slideNext(){
      
 }
 
+
+//text description
+
+document.getElementById("zone-survol").addEventListener("mouseover", function() {
+    document.getElementById("texte-cache").style.display = "block";
+ });
+ 
+ document.getElementById("zone-survol").addEventListener("mouseout", function() {
+    document.getElementById("texte-cache").style.display = "none";
+ });
+ 

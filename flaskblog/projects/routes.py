@@ -7,6 +7,7 @@ from flaskblog import db, admin_required
 from flaskblog.projects.utils import send_recap_project, extract_form_info, object_project, object_grant, extract_form_info_grant, project_update
 import socket
 from sqlalchemy.exc import IntegrityError
+from ..static.info import instructions 
 
 projects = Blueprint('projects', __name__)
 
@@ -34,7 +35,7 @@ def new_project():
         #    return render_template('errors/errorPage.html', title='ERROR')
         except IntegrityError as e:
             flash(f'A project with the same title has already been sent to the bioinformaticians team.','warning')
-    return render_template('create_project.html', title='New Project', form=form, legend='New Project')
+    return render_template('create_project.html', title='New Project', form=form, legend='New Project', instructions=instructions('new_project'))
 
 @projects.route("/project/<int:project_id>")
 def project(project_id):
@@ -128,6 +129,6 @@ def new_grant():
                 flash('Please check your network connection and try again.', 'warning')
         except IntegrityError as e:
             flash(f'A project grant with the same title has already been sent to the bioinformaticians team.','warning')
-    return render_template('create_grant.html', title='New Grant', form=form, legend='New Grant')
+    return render_template('create_grant.html', title='New Grant', form=form, legend='New Grant',instructions=instructions('new_project').replace('Projet', 'Grant'))
 
 

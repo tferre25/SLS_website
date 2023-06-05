@@ -1,5 +1,37 @@
-<span class="tooltip">
-    <span class="tooltip-text">Texte à afficher</span>
-    <span class="question-mark">?</span>
-</span>
-  
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .zone {
+      width: 200px;
+      height: 200px;
+      background-color: lightgray;
+      margin: 50px;
+      padding: 20px;
+      position: relative;
+    }
+    
+    .texte {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      color: black;
+    }
+    
+    .zone:hover .texte {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="zone">
+    Info
+    <div class="texte">
+      Texte qui apparaît
+    </div>
+  </div>
+</body>
+</html>

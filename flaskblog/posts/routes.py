@@ -5,6 +5,7 @@ from flaskblog import db
 from flaskblog.models import Post
 from flaskblog.posts.forms import PostForm
 from flaskblog.posts.utils import save_picture
+from ..static.info import instructions
 
 posts = Blueprint('posts', __name__)
 
@@ -16,13 +17,16 @@ def new_post():
     if form.validate_on_submit():
         if form.image_file.data:
             picture_file = save_picture(form.image_file.data)
+            post = Post(title=form.title.data, content=form.content.data, image_file=picture_file,author=current_user)
+        else:
+            picture_file = None
+            post = Post(title=form.title.data, content=form.content.data,author=current_user)
             #current_user.image_file = picture_file
-        post = Post(title=form.title.data, content=form.content.data, image_file=picture_file,author=current_user)
         db.session.add(post)
         db.session.commit()
         flash(f'Your post has been created!', 'success')
         return redirect(url_for('main.home'))
-    return render_template('create_post.html', title='New Post', form=form, legend='New Post')
+    return render_template('create_post.html', title='New Post', form=form, legend='New Post', instructions=instructions('new_post'))
 
 
 @posts.route("/post/<int:post_id>")
