@@ -12,6 +12,11 @@ from ..static.info import instructions
 main = Blueprint('main', __name__)
 
 @main.route("/")
+def racine():
+    return render_template('racine.html', instructions=instructions('racine'))
+
+
+
 @main.route("/home")
 def home():
     UTC = pytz.utc

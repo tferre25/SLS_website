@@ -1,4 +1,14 @@
 
+racine = '''
+    Les bioinformaticien (nes) transversaux de la cellule bioinfo de 
+    l'hôpital Saint-Louis, sont à votre service pour réaliser vos 
+    projets a des fins de recherche ou de diagnostique de routine.
+    Cet plateforme vous permet aussi de faire des demandes de subvention.
+    Leur expertise touche à plusieurs domaines de recherche comme l'Omics, 
+    l'intelligence artificielle ou même la métagénomique. 
+    Cliquer sur l'un de ses boutons ci-dessous selon vos besoins.
+'''
+
 
 login = '''
    Info login
@@ -71,7 +81,8 @@ def instructions(key):
         'grants':grants,
         'about_us':about_us,
         'new_project':new_project,
-        'new_post':new_post
+        'new_post':new_post,
+        'racine':racine
 
     }
 
