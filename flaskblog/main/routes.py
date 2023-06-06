@@ -16,7 +16,7 @@ def racine():
     return render_template('racine.html', instructions=instructions('racine'))
 
 
-
+# LES POSTES
 @main.route("/home")
 def home():
     UTC = pytz.utc
@@ -28,6 +28,8 @@ def home():
     posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
     return render_template('home.html', posts=posts, time=time, instructions=instructions('post'))
 
+
+# LES PROJETS ACCPT
 @main.route("/project_home")
 @login_required
 def project_home():

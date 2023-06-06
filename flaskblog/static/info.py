@@ -6,7 +6,7 @@ racine = '''
     Cet plateforme vous permet aussi de faire des demandes de subvention.
     Leur expertise touche à plusieurs domaines de recherche comme l'Omics, 
     l'intelligence artificielle ou même la métagénomique. 
-    Cliquer sur l'un de ses boutons ci-dessous selon vos besoins.
+    Cliquer sur l'un de ses boutons ci-contre selon vos besoins.
 '''
 
 

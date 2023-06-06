@@ -13,6 +13,26 @@ footer{
     color: #fff;
 }
 
+.footer-aphp img{
+    width: 200px;
+    background-color: #a59898;
+    margin-right: 150px;
+    border-radius: 20px;
+}
+
+.footer-sls img{
+    width: 200px;
+    margin-left: 150px;
+    border-radius: 20px;
+}
+
+.footer-top{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
 .footer-content{
     display: flex;
     align-items: center;
@@ -29,7 +49,7 @@ footer{
 }
 
 .footer-content p{
-    max-width: 500px;
+    max-width: 700px;
     margin: 10px auto;
     line-height: 28px;
     font-size: 14px;

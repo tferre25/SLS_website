@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  -->
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='racine.css') }}">
 
     <!-- calendar-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"/>
@@ -26,29 +27,29 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='footer.css') }}">
 
     {% if title %}
-        <title> MediResearchDepot - APHP - {{ title }}</title>
+        <title> Cellule Bioinformatique SLS - {{ title }}</title>
     {% else %}
-        <title>MediResearchDepot - APHP</title>
+        <title>Cellule Bioinformatique SLS</title>
     {% endif %}
 </head>
 <body>
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <div class="container">
-          <b><a class="navbar-brand mr-4" href="/">MediResearchDepot - APHP Intranet</a></b>
-          <img class="fit-picture" src="../static/profile_pics/default.png" alt="logo_aphp" style="width: 250px;">
+          <img class="fit-picture mr-7" src="../static/profile_pics/default.png" alt="logo_sls" style="width: 100px;">
+          <a class="navbar-brand mr-4" href="/">Accueil</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
-            <div class="navbar-nav mr-auto">
-              <b><a class="nav-item nav-link" href="{{ url_for('main.home') }}">Posts</a></b> 
-              <b><a class="nav-item nav-link" href="{{ url_for('main.project_home') }}">Projects</a></b>
-              <b><a class="nav-item nav-link" href="{{ url_for('main.grant_home') }}">Grants</a></b> 
-              <b><a class="nav-item nav-link" href="{{ url_for('main.about') }}">Contact</a></b> 
-              <b><a class="nav-item nav-link" href="{{ url_for('main.about_us') }}">About-Us</a></b> 
-              <b><a class="nav-item nav-link" href="{{ url_for('posts.new_post') }}">New Post</a></b>
-              <b><a class="nav-item nav-link" href="https://authentification.aphp.fr/logon/LogonPoint/tmindex.html" target="_blank">AP-HP mailbox</a></b>
+            <div class="navbar-nav mr-auto"> 
+              <b><a class="nav-item nav-link" href="{{ url_for('main.project_home') }}" title="Lister les projets et les subventions acceptés">Projets</a></b>
+              <b><a class="nav-item nav-link" href="{{ url_for('main.grant_home') }}">Subventions</a></b> 
+              <b><a class="nav-item nav-link" href="{{ url_for('main.home') }}">Postes</a></b>
+              <b><a class="nav-item nav-link" href="{{ url_for('main.about') }}">A propos</a></b> 
+              <!--<b><a class="nav-item nav-link" href="{{ url_for('main.about_us') }}">About-Us</a></b>-->
+              <!--<b><a class="nav-item nav-link" href="{{ url_for('posts.new_post') }}">New Post</a></b>-->
+              <!--<b><a class="nav-item nav-link" href="https://authentification.aphp.fr/logon/LogonPoint/tmindex.html" target="_blank">AP-HP mailbox</a></b>-->
               <!--
               <b><a class="nav-item nav-link" href="{{ url_for('projects.new_project') }}">Submit Your Project</a></b>
               <b><a class="nav-item nav-link" href="{{ url_for('projects.new_grant') }}">Grant Writing Assistance</a></b>
@@ -63,13 +64,13 @@
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
               {% if current_user.is_authenticated %}
-                <b><a class="nav-item nav-link" href="{{ url_for('users.account') }}">Account</a></b>
-                <b><a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout</a></b>
+                <b><a class="nav-item nav-link" href="{{ url_for('users.account') }}">Compte</a></b>
+                <b><a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Déconnexion</a></b>
               {% else %}
-                <b><a class="nav-item nav-link" href="{{ url_for('users.login') }}">Login</a></b>
-                <b><a class="nav-item nav-link" href="{{ url_for('users.register') }}">Register</a></b>
+                <b><a class="nav-item nav-link" href="{{ url_for('users.login') }}">Connexion</a></b>
+                <b><a class="nav-item nav-link" href="{{ url_for('users.register') }}">Enregistrement</a></b>
               {% endif %}
-              <b><a class="nav-item nav-link" href="{{ url_for('users.project_request') }}">Project Request</a></b>
+              <b><a class="nav-item nav-link" href="{{ url_for('users.project_request') }}" title="Dedier aux bioinformaticiens transversaux">Réponse au projet</a></b>
             </div>
           </div>
         </div>
@@ -78,10 +79,10 @@
     </header>
     <main role="main" class="container">
       <div class="button-container">
-        <button class="button_git" onclick="window.open('https://github.com/bioinformatic-hub-sls',  '_blank');"></button>
-        <button class="button" onclick="window.location.href='{{ url_for('projects.new_project') }}';">Submit Your Project</button>
-        <button class="button_slack" onclick="window.open('https://join.slack.com/t/cellulebioinfosls/shared_invite/zt-1jw5embhe-NVRA67PADVbTekEwQHqTyQ', '_blank');"></button>
-        <button class="button" onclick="window.location.href='{{ url_for('projects.new_grant') }}';">Grant Writing Assistance</button>
+        <!--<button class="button_git" onclick="window.open('https://github.com/bioinformatic-hub-sls',  '_blank');"></button>-->
+        <button class="button" onclick="window.location.href='{{ url_for('projects.new_project') }}';">Soumettez Votre Projet</button>
+        <!--<button class="button_slack" onclick="window.open('https://join.slack.com/t/cellulebioinfosls/shared_invite/zt-1jw5embhe-NVRA67PADVbTekEwQHqTyQ', '_blank');"></button>-->
+        <button class="button" onclick="window.location.href='{{ url_for('projects.new_grant') }}';">Aide à la rédaction de demandes de financement</button>
       </div>
       <!--<div class="row">-->
         <!-- CALENDAR START-->
@@ -147,21 +148,33 @@
     </main>
 
     <footer class="footer">
-      <div class="footer-content">
+      <div class="footer-top">
+        <div class="footer-aphp">
+          <img  src="../static/profile_pics/aphp.png" alt="logo_aphp">
+        </div>
+        <div class="footer-content">
         <!--SLS SUMMARY-->
-        <h3>Hôpital Saint-Louis</h3>
-        <p>Hospital in Paris, France.It was built in 1611 by architect Claude Vellefaux at
-          the request of Henry IV of France. It is part of the Assistance publique - Hôpitaux de Paris hospital system, 
-          and it is located at 1 avenue Claude-Vellefaux, in the 10th arrondissement 
-          near the metro station Goncourt.</p>
+          <h3>Hôpital Saint-Louis</h3>
+          <p>
+            Situé à <b>Paris</b>, en France. Il a été construit en 1611 par l'architecte Claude Vellefaux.
+            Il fait partie du système hospitalier Assistance publique - Hôpitaux de Paris.
+            L'Hôpital Saint-Louis est un établissement médical de renom qui se spécialise 
+            dans le traitement des maladies de la peau et des maladies infectieuses. 
+            Il est également un centre de référence pour la prise en charge des patients 
+            atteints de cancer et des maladies du sang.
+            Cet hôpital historique est reconnu pour sa contribution à la recherche médicale et à l'enseignement.
+            Il continue de fournir des soins de qualité et d'être un pilier important du système de santé français.
+          </p>
           <!--SOCIAL MEDIAS-->
-          <ul class="socials">
-            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-            <li><a href="#"><i class="fa fa-youtube"></i></a></li>
-            <li><a href="#"><i class="fa fa-linkedin-square"></i></a></li>
-          </ul>
+            <ul class="socials">
+              <li><a href="https://github.com/bioinformatic-hub-sls" target="_blank" title="Github"><i class="fa fa-github"></i></a></li>
+              <li><a href="https://join.slack.com/t/cellulebioinfosls/shared_invite/zt-1jw5embhe-NVRA67PADVbTekEwQHqTyQ" target="_blank" title="Slack"><i class="fa fa-slack"></i></a></li>
+            </ul>
+        </div>
+        <div class="footer-sls">
+          <img  src="../static/profile_pics/default.png" alt="logo_sls">
+        </div>
+
       </div>
       <div class="footer-bottom">
         <!--SIGNATURE-->
