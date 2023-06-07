@@ -2,8 +2,7 @@
 {% block content %}
     <legend data-text="Posts...">Posts...</legend>
     {% if posts.items|length == 0 %}
-      <h1>No Posts</h1>
-      <img class="fit-picture" src="../static/profile_pics/default.png" alt="logo_aphp" style="width: 250px;">
+
     {% endif %}
 
     {% for post in posts.items %}
@@ -32,6 +31,11 @@
           </div>
         </article>
     {% endfor %}
+
+    <div class="content">
+      <a href="{{ url_for('posts.new_post') }}">New Post</a></b>
+    </div>
+    
     {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
       {% if page_num %}
           {% if posts.page == page_num %}

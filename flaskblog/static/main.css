@@ -410,3 +410,15 @@ main{
   height: 250px;
 
 }
+
+/*home template*/
+.content a{
+  text-decoration: none;
+  display: inline-block;
+  color: black;
+  font-size: 24px;
+  border: 2px solid black;
+  padding: 14px 70px;
+  border-radius: 50px;
+  margin-top: 20px;
+}

@@ -13,10 +13,24 @@ footer{
     color: #fff;
 }
 
+.footer-aphp {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-aphp{
+    align-items: center;
+    margin-right: 150px;
+}
+
+.footer-aphp a{
+    margin-top: 10px;
+    font-size:48px;color:red;
+    text-decoration: none;
+}
 .footer-aphp img{
     width: 200px;
     background-color: #a59898;
-    margin-right: 150px;
     border-radius: 20px;
 }
 
