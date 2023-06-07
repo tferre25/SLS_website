@@ -56,29 +56,27 @@ function togglePasswordVisibility() {
 //------------------------------------------------------------- DIAPO CONTACT
 let compteur = 0; // permet de connaitre l'image dans lequelle on se trouve
 let timer, elements, slides, slideWidth;
+const parentElement = document.getElementById('user');
 
 window.onload = () => {
     // on recupere le diapo
     const diapo = document.querySelector(".diapo");
     elements = document.querySelector(".elements");
-
     // on clone la 1ere image
-    let firstImage = elements.firstElementChild.cloneNode(true);
-
-    // on injeste le clone a la fin du diapo
-    elements.appendChild(firstImage);
-
-    slides = Array.from(elements.children);
-
-    // on recup la largeur d'une slide
-    slideWidth = diapo.getBoundingClientRect().width;
-
-    // on recupere les fleches
-    let next = document.querySelector("#nav-droite");
-
-
-    // on gere le clic
-    next.addEventListener("click", slideNext);
+    if (parentElement !== null) {
+        let firstImage = elements.firstElementChild.cloneNode(true);
+        // on injeste le clone a la fin du diapo
+        elements.appendChild(firstImage);
+        slides = Array.from(elements.children);
+        // on recup la largeur d'une slide
+        slideWidth = diapo.getBoundingClientRect().width;
+        // on recupere les fleches
+        let next = document.querySelector("#nav-droite");
+        // on gere le clic
+        next.addEventListener("click", slideNext);
+    } else {
+        console.error("user element does not exist.");
+    }
 }
 
 function slideNext(){

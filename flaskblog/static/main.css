@@ -62,6 +62,12 @@ legend::before{
     padding: 10px 20px;
     margin-bottom: 20px;
   }
+
+  .content-section-grant {
+    background-color:#f3d7d7;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+  }
   
   .article-title {
     color: #444444;

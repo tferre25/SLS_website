@@ -17,13 +17,17 @@ print(f'--------------------------> Project')
 print(Project.query.all())
 
 print(f'--------------------------> User')
-print(User.query.all())
-u = User.query.get(4)
+
+'''u = User.query.get(1)
 u.is_admin = True
-db.session.commit()
+db.session.commit()'''
+print(User.query.all())
 
 
 print(f'--------------------------> Grant')
+'''g = Grant.query.get(1)
+db.session.delete(g)
+db.session.commit()'''
 print(Grant.query.all())
 
 print(f'--------------------------> Project_request')

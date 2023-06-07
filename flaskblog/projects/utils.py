@@ -15,10 +15,11 @@ from flaskblog.models import User
 def send_recap_project(user, body, form, project_id):
     token = user.get_reset_token()
     admins = [User.query.filter_by(is_admin=True).all()[i].email for i in range(len(User.query.filter_by(is_admin=True).all()))]
-    msg = Message(f'Summary of your project | {form.project_title.data.capitalize()} | {form.application.data.capitalize()} | Id : {project_id}',
+    msg = Message(f'Summary of your project | {form.project_title.data.capitalize()} | {form.application.data.capitalize()}',
                   sender='noreply@demo.com',
+                  cc = [form.email.data],
                   recipients=[user.email,
-                              'dina.ouabhi@aphp.fr'])
+                              'dina.ouahbi@aphp.fr'])
                               #'maud.salmona@aphp.fr',
                               #'theo.ferreira@aphp.fr',
                               #'julien.robert@aphp.fr'])
@@ -47,7 +48,8 @@ def send_recap_project(user, body, form, project_id):
     Regards,
     
     """
- 
+    
+
     mail.send(msg)
 
 def extract_label(s):

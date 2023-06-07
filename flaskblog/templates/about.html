@@ -3,7 +3,7 @@
 <main>
     <legend data-text="{{title}}" class="border-bottom mb-4">{{title}}</legend>
     <div class="diapo">
-        <div class="elements">
+        <div class="elements" id="user">
             {% for user in users %}
                 <div class="element">
                     <img src="../static/profile_pics/{{ user.image_file }}" alt="{{user.username}}">

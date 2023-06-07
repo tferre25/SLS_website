@@ -4,9 +4,13 @@ const username = document.querySelector('#username');
 const application = document.querySelector('#application');
 const laboratories = document.querySelector('#laboratories');
 const clinical_service = document.querySelector('#clinical_service');
+const project_context_private = document.querySelector('#project_context_private');
+const regulatory_requirements = document.querySelector('#regulatory_requirements')
+
 laboratories.style.display = 'none';
 application.style.display = 'none';
 clinical_service.style.display = 'none';
+project_context_private.style.display = 'none';
 
 
 username.addEventListener('change', event => {
@@ -47,10 +51,14 @@ application.addEventListener('change', event => {
         organism.style.display = 'none';
         principal_investigator.style.display = 'none';
         promotor.style.display = 'none';
+        project_context_private.style.display = 'none';
+        regulatory_requirements.style.display = 'none';
     } else if (event.target.value == 'For_research') {
         organism.style.display = 'block';
         principal_investigator.style.display = 'block';
         promotor.style.display = 'block';
+        project_context_private.style.display = 'block';
+        regulatory_requirements.style.display = 'block';
     }
 })
 
@@ -68,7 +76,7 @@ data_available.addEventListener('change', event => {
 });
 
 // IF reg req are AVAILABLE, THEN PRECISE
-const regulatory_requirements = document.querySelector('#regulatory_requirements');
+//const regulatory_requirements = document.querySelector('#regulatory_requirements');
 const if_regulatory_requirements = document.querySelector('#if_regulatory_requirements');
 if_regulatory_requirements.style.display = 'none';
 

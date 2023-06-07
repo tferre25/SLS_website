@@ -29,18 +29,16 @@ def home():
     return render_template('home.html', posts=posts, time=time, instructions=instructions('post'))
 
 
-# LES PROJETS ACCPT
+# LES PROJETS ACCPTt
 @main.route("/project_home")
 @login_required
 def project_home():
     page = request.args.get('page', 1,type=int)
-    # grab those projects from database
-    #projects = Project.query.order_by(Project.date_posted.desc()).paginate(page=page, per_page=5)
     projects = Project.query.filter_by(is_accepted=True).order_by(Project.date_posted.desc()).paginate(page=page, per_page=5)
-    # TODO : if project.is_accepted == True / then, post it
-    return render_template('project_home.html', projects=projects, instructions=instructions('projects'))
+    grants = Grant.query.filter_by(is_accepted=True).order_by(Grant.date_posted.desc()).paginate(page=page, per_page=5)
+    return render_template('project_home.html', projects=projects, grants=grants, instructions=instructions('projects'))
 
-@main.route("/grant_home")
+'''@main.route("/grant_home")
 @login_required
 def grant_home():
     page = request.args.get('page', 1,type=int)
@@ -48,7 +46,7 @@ def grant_home():
     #projects = Project.query.order_by(Project.date_posted.desc()).paginate(page=page, per_page=5)
     grants = Grant.query.filter_by(is_accepted=True).order_by(Grant.date_posted.desc()).paginate(page=page, per_page=5)
     # TODO : if project.is_accepted == True / then, post it
-    return render_template('grant_home.html', grants=grants, instructions=instructions('grants'))
+    return render_template('project_home.html', grants=grants, instructions=instructions('projects'))'''
 
 
 @main.route("/about_us")

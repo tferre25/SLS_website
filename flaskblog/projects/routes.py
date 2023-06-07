@@ -17,7 +17,8 @@ def new_project():
     form = ProjectForm()
     #try:
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
+        #user = User.query.filter_by(email=form.email.data).first()
+        user = current_user
         project = object_project(form)
         try:
             db.session.add(project)
@@ -115,7 +116,8 @@ def delete_grants(grant_id):
 def new_grant():
     form = GrantForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
+        #user = User.query.filter_by(email=form.email.data).first()
+        user = current_user
         grant = object_grant(form)
         try:
             db.session.add(grant)

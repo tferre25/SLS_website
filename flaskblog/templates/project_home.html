@@ -1,11 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
-    <legend data-text="Projects...">Projects...</legend>
-    {% if projects.items|length == 0 %}
-      <h1>No Projects</h1>
+    <legend data-text="Projects & Grants...">Projects & Grants...</legend>
+    {% if projects.items|length == 0 and grants.items|length == 0%}
+      <h1>Nothing to display</h1>
       <img class="fit-picture" src="../static/profile_pics/default.png" alt="logo_aphp" style="width: 250px;">
     {% endif %}
-    
+
+    <!--PROJECT PARCOUR-->
     {% for project in projects.items %}
         <article class="media content-section">
           {% if project.author is none %}
@@ -23,6 +24,7 @@
               {%endif%}
                 <small class="text-muted">{{ project.date_posted.strftime('%Y-%m-%d') }}</small>
                 <a class="ml-5" href="{{ url_for('projects.project', project_id=project.id) }}">Modification</a>
+                <a class="ml-5" href="#">Project</a>
             </div>
             <h2 class="article-title">{{ project.project_title }}</h2>
             <p style="color: blue; font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Application: </b>{{ project.application }}</p>
@@ -30,9 +32,39 @@
           </div>
         </article>
     {% endfor %}
+
+    <!--PROJECT PARCOUR-->
+    {% for grant in grants.items %}
+      <article class="media content-section-grant">
+      {% if grant.author is none %}
+        <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/unknown.jpg') }}" alt="None user">
+      {%else%}
+        <a href="{{ url_for('users.user_profile',  username=grant.author.username) }}"><img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+grant.author.image_file) }}" alt=""></a>
+      {%endif%}
+        <div class="media-body">
+        <div class="article-metadata">
+          {% if grant.author is none %}
+            <a class="mr-2" href="#">Unknown user</a>
+          {%else%}
+            <a class="mr-2" href="{{ url_for('users.user_profile',  username=grant.author.username) }}">{{ grant.author.username.capitalize() }}</a>
+            <a class="mr-5 ml-5" href="{{ url_for('users.user_grants', username=grant.author.username) }}" style="font-weight: bold; color: crimson;">Get all {{ grant.author.username.capitalize() }} grants</a>
+          {%endif%}
+            <small class="text-muted">{{ grant.date_posted.strftime('%Y-%m-%d') }}</small>
+            <a class="ml-5" href="{{ url_for('projects.grant', grant_id=grant.id) }}">Modification</a>
+            <a class="ml-5" href="#">Grant</a>
+        </div>
+        <h2 class="article-title">{{ grant.project_title }}</h2>
+        <li style="color: rgb(28, 3, 71); font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Principal  investigator: </b>{{ grant.principal_investigator }}</li>
+        <li style="color: rgb(28, 3, 71); font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Total Amount: </b>{{ grant.total_amount }}</li>
+        <li style="color: rgb(28, 3, 71); font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Deadline: </b>{{ grant.deadline }}</li>
+        <p class="article-content"> <b>Context grant (Public): </b>{{ grant.project_context }}</p>
+      </div>
+      </article>
+    {% endfor %}
+
     {% for page_num in projects.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
       {% if page_num %}
-          {% if projects.page == page_num %}
+          {% if projects.page == page_num or grants.page == page_num %}
               <a class="btn btn-info mb-4" href="{{url_for('main.project_home', page=page_num)}}">{{ page_num }}</a> 
           {%else%}
               <a class="btn btn-outline-info mb-4" href="{{url_for('main.project_home', page=page_num)}}">{{ page_num }}</a> 
