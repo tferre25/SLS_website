@@ -25,9 +25,14 @@ footer{
 
 .footer-aphp a{
     margin-top: 10px;
-    font-size:48px;color:red;
+    font-size:48px;color:rgb(0, 0, 0);
     text-decoration: none;
 }
+
+.footer-aphp a:hover{
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.8);
+}
+
 .footer-aphp img{
     width: 200px;
     background-color: #a59898;

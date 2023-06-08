@@ -91,7 +91,7 @@ def update_grant(grant_id):
     if form.validate_on_submit():
         project_update(form, grant, 'POST')
         flash('Your grant had been updated !', 'success')
-        return redirect(url_for('projects.grant', grant_id=grant.id))
+        return redirect(url_for('projects.project', grant_id=grant.id))
     elif request.method == 'GET':
         project_update(form, grant, 'GET')
     return render_template('create_grant.html', title = 'Update Grant', form=form, legend = 'Update Grant')

@@ -6,6 +6,8 @@ import random, pytz
 from flaskblog import db, admin_required
 from datetime import datetime
 from ..static.info import instructions
+from ..static.doc import doc_def
+
 
 
 
@@ -49,36 +51,20 @@ def grant_home():
     return render_template('project_home.html', grants=grants, instructions=instructions('projects'))'''
 
 
-@main.route("/about_us")
-def about_us():
-    return render_template('about_us.html', title='About', instructions=instructions('about_us'))
-
 #--------------------------------------------------- ABOUT ---------------------------------------------------------
 @main.route("/about")
 def about():
     users = User.query.filter_by(is_admin=True).all()
-    return render_template('about.html', users=users, title='About', instructions = instructions('about'))
-
-#------------------------------------------------------------ DOC --------------------------------------------#
-@main.route("/about_us/omics")
-def omics():
-    return render_template('docs/omics.html', title='OMICS', instructions = instructions('about'))
-
-@main.route("/about_us/log")
-def log():
-    return render_template('docs/log.html', title='LOG_DEV', instructions = instructions('about'))
-
-@main.route("/about_us/web")
-def web():
-    return render_template('docs/web.html', title='WEB_DEV', instructions = instructions('about'))
-
-@main.route("/about_us/db")
-def database():
-    return render_template('docs/db.html', title='DB_DEV', instructions = instructions('about'))
-
-@main.route("/about_us/code")
-def code():
-    return render_template('docs/code.html', title='CODE_DEV', instructions = instructions('about'))
+    return render_template('about.html',
+                           users=users,
+                           title='Qui pourriez-vous solliciter ?',
+                           instructions = instructions('about'),
+                           code = doc_def('code'),
+                           db = doc_def('db'),
+                           log = doc_def('log'),
+                           omics = doc_def('omics'),
+                           web = doc_def('web')
+                           )
 
 
 # pass stuff to navBar

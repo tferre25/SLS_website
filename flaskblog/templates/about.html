@@ -1,26 +1,95 @@
 {% extends 'layout.html' %}
 {% block content %}
-<main>
-    <legend data-text="{{title}}" class="border-bottom mb-4">{{title}}</legend>
-    <div class="diapo">
-        <div class="elements" id="user">
-            {% for user in users %}
-                <div class="element">
-                    <img src="../static/profile_pics/{{ user.image_file }}" alt="{{user.username}}">
-                    <div class="caption">
-                        <h2 class="article-title">{{ user.username }}</h2>
-                        <li>Email : {{user.email}}</li>
-                        <li>Status : {{user.status}}</li>
-                        <li>Number of project requests : {{user.requests|length}}</li>
+    <main>
+        <legend data-text="{{title}}" class="border-bottom mb-4">{{title}}</legend>
+        <div class="diapo">
+            <div class="elements" id="user">
+                {% for user in users %}
+                    <div class="element">
+                        <img src="../static/profile_pics/{{ user.image_file }}" alt="{{user.username}}">
+                        <div class="caption">
+                            <h2 class="article-title">{{ user.username }}</h2>
+                            <li>Email : {{user.email}}</li>
+                            <li>Status : {{user.status}}</li>
+                            <li>Number of project requests : {{user.requests|length}}</li>
+                            {% if user.email == 'dina.ouahbi@aphp.fr' %}
+                                <p>Hi i'm Dina</p>
+                            {% elif user.email == 'theo.ferreira@aphp.fr' %}
+                                <p>Hi i'm Théo</p>
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
+            <!--FLECHES-->
+            <!--<i id="nav-gauche" class="fas fa-chevron-left"></i>-->
+            <i id="nav-droite" class="fas fa-chevron-right"></i>
         </div>
-        <!--FLECHES-->
-        <!--<i id="nav-gauche" class="fas fa-chevron-left"></i>-->
-        <i id="nav-droite" class="fas fa-chevron-right"></i>
+    </main>
+    <hr>
+    <legend data-text="Présentation golbale de notre cellule">Présentation golbale de notre cellule</legend>
+    <article class = 'au_container'>
+        <img src="../static/profile_pics/hopital.jpg" alt="Bioinformaticien team">
+        <p>
+            Toutes les deux semaines, le mercredi matin de 10h30 à 12h30, 
+            les membres de la Cellule BioInfo de Saint Louis sont mobilisés 
+            pour apporter un soutien direct à tous les membres de l’hôpital 
+            Saint Louis qui recherchent de l'aide sur des sujets liés à la bio-informatique. 
+            Vous pouvez venir directement en salle de réunion du Service de Génétique Neurovasculaire
+            (l’accès se fait par le Carré historique, porte 13 – 1er étage) ou nous contacter via notre Slack.
+        </p>
+        <h4>Les membres de la Cellule BioInfo peuvent vous aider dans les domaines suivants (liste non exhaustive)</h4>
+        <p>
+            <li><a href="#" onmouseover="showCode()">Révision de code (Bash, Python, R)</a></li>
+            <li><a href="#" onmouseover="showDb()">Développement de bases de données</a></li>
+            <li><a href="#" onmouseover="showLog()">Développement de logiciels</a></li>
+            <li><a href="#" onmouseover="showOmics()">Aide à l’analyse de données OMICS</a></li>  
+            <li><a href="#" onmouseover="showWeb()">Développement d'outils Web</a></li>
+        </p>
+        <p>Venez avec votre ordinateur perso et/ou de travail et vos données, ainsi que votre code si nécessaire.</p> 
+    </article>
+
+    <div id="code" class="modal">
+        <div class="modal-content">
+            <!-- Contenu de la fenêtre modale -->
+            <span class="close" onclick="hideCode()">&times;</span>
+            <h3>Révision de code (Bash, Python, R)</h3>
+            <p>{{code}}</p>
+        </div>
     </div>
-</main>
+    <div id="db" class="modal">
+        <div class="modal-content">
+            <!-- Contenu de la fenêtre modale -->
+            <span class="close" onclick="hideDb()">&times;</span>
+            <h3>Developpement de bases de donnees</h3>
+            <p>{{db}}</p>
+        </div>
+    </div>
+    <div id="log" class="modal">
+        <div class="modal-content">
+            <!-- Contenu de la fenêtre modale -->
+            <span class="close" onclick="hideLog()">&times;</span>
+            <h3>Developpement de logiciels</h3>
+            <p>{{log}}</p>
+        </div>
+    </div>
+    <div id="omics" class="modal">
+        <div class="modal-content">
+            <!-- Contenu de la fenêtre modale -->
+            <span class="close" onclick="hideOmics()">&times;</span>
+            <h3>Analyse de donnees OMICS</h3>
+            <p>{{omics}}</p>
+        </div>
+    </div>
+    <div id="web" class="modal">
+        <div class="modal-content">
+            <!-- Contenu de la fenêtre modale -->
+            <span class="close" onclick="hideWeb()">&times;</span>
+            <h3>Developpement d'outils web</h3>
+            <p>{{web}}</p>
+        </div>
+    </div>
+
 
 {% endblock content %}
 
