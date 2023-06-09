@@ -26,30 +26,27 @@ def send_recap_project(user, body, form, project_id):
     msg.body = f"""
     Hello {user.username.capitalize()},
 
-    Following your request for assistance for the project entitled "{form.project_title.data.capitalize()}", 
-    please find below a summary of the points summarizing the different criteria of the project :
+    Suite à votre demande d'aide pour le projet intitulé"{form.project_title.data.capitalize()}", 
+    veuillez trouver ci-dessous un résumé des points qui résument les différents critères du projet :
                 
                 {body}
 
-    An answer will be sent to you by the bioinformatics team of the Saint-Louis hospital as soon as possible.
+    Une réponse vous sera envoyée par l'équipe de bioinformatique de l'hôpital Saint-Louis dans les plus brefs délais.
 
-    Project ID : {project_id}
+    Identifiant du projet: {project_id}
 
-    If you have any questions, do not hesitate to come back on the contact page by clicking on the link below.
+    Si vous avez des questions, n'hésitez pas à revenir sur la page de contact en cliquant sur le lien ci-dessous.
                 
     {url_for('main.about', token=token, _external = True)}
 
-    You can check out our team projects in Github by clicking on the link bellow.
+    Vous pouvez consulter les projets de notre équipe sur Github en cliquant sur le lien ci-dessous.
 
     https://github.com/bioinformatic-hub-sls
 
 
-    Saint Louis Hospital Bioinformaticien Team
-    Regards,
-    
+    Cordialement,
+    Cellule bioinformatique Saint Louis Hospital
     """
-    
-
     mail.send(msg)
 
 def extract_label(s):
@@ -62,37 +59,40 @@ def extract_form_info(form):
     body = f'''
 
         {extract_label(form.username.label)}\t:\t{form.username.data} \n
-        {extract_label(form.email.label)}\t:\t{form.email.data} \n
-        {extract_label(form.project_title.label)}\t:\t{form.project_title.data} \n
         {extract_label(form.application.label)}\t:\t{form.application.data} \n
+        {extract_label(form.laboratories.label)}\t:\t{form.laboratories.data} \n
+        {extract_label(form.if_no_laboratory.label)}\t:\t{form.if_no_laboratory.data} \n
+        {extract_label(form.clinical_service.label)}\t:\t{form.clinical_service.data} \n
         {extract_label(form.organism.label)}\t:\t{form.organism.data} \n
 
                 ***************************************
 
         {extract_label(form.principal_investigator.label)}\t:\t{form.principal_investigator.data} \n
         {extract_label(form.promotor.label)}\t:\t{form.promotor.data} \n
-        {extract_label(form.urgency_of_request.label)}\t:\t{form.urgency_of_request.data} \n
-        {extract_label(form.if_urgency.label)}\t:\t{form.if_urgency.data} \n
-
-                ***************************************
-
-        {extract_label(form.project_context.label)}\t:\t{form.project_context.data} \n
-        {extract_label(form.project_context_private)}\t:\t{form.project_context_private.data} \n
-        {extract_label(form.project_summary.label)}\t:\t{form.project_summary.data} \n
-        {extract_label(form.bioF_needs.label)}\t:\t{form.bioF_needs.data} \n
-        {extract_label(form.data_available.label)}\t:\t{form.data_available.data} \n
-
-                ***************************************
-
-        {extract_label(form.access_data.label)}\t:\t{form.access_data.data} \n
-        {extract_label(form.data_owner.label)}\t:\t{form.data_owner.data} \n
         {extract_label(form.regulatory_requirements.label)}\t:\t{form.regulatory_requirements.data} \n
         {extract_label(form.if_regulatory_requirements.label)}\t:\t{form.if_regulatory_requirements.data} \n
 
                 ***************************************
 
+        {extract_label(form.project_title.label)}\t:\t{form.project_title.data} \n
+        {extract_label(form.urgency_of_request)}\t:\t{form.urgency_of_request.data} \n
+        {extract_label(form.if_urgency.label)}\t:\t{form.if_urgency.data} \n
+        {extract_label(form.project_context.label)}\t:\t{form.project_context.data} \n
+        {extract_label(form.project_context_private.label)}\t:\t{form.project_context_private.data} \n
+
+                ***************************************
+
+        {extract_label(form.project_summary.label)}\t:\t{form.project_summary.data} \n
+        {extract_label(form.bioF_needs.label)}\t:\t{form.bioF_needs.data} \n
+        {extract_label(form.data_available.label)}\t:\t{form.data_available.data} \n
+        {extract_label(form.access_data.label)}\t:\t{form.access_data.data} \n
+
+                ***************************************
+
+        {extract_label(form.data_owner.label)}\t:\t{form.data_owner.data} \n
         {extract_label(form.data_type.label)}\t:\t{form.data_type.data} \n
         {extract_label(form.data_size.label)}\t:\t{form.data_size.data} \n
+        {extract_label(form.email.label)}\t:\t{form.email.data} \n
         {extract_label(form.add_info.label)}\t:\t{form.add_info.data} \n
     '''
     return body
@@ -111,7 +111,7 @@ def object_project(form):
         urgency_of_request = form.urgency_of_request.data,
         if_urgency = form.if_urgency.data,
         project_context = form.project_context.data,
-        #project_context_private = form.project_context_private,
+        project_context_private = form.project_context_private.data,
         project_summary = form.project_summary.data,
         bioF_needs = form.bioF_needs.data,
         data_available = form.data_available.data,
@@ -147,7 +147,6 @@ def project_update(form, project, method):
         project.if_regulatory_requirements = form.if_regulatory_requirements.data
         project.data_type = form.data_type.data
         project.data_size = form.data_size.data
-
         #project.funding_type = form.funding_type.data
         #project.total_amount = form.total_amount.data
         #project.deadline = form.deadline.data
@@ -177,13 +176,6 @@ def project_update(form, project, method):
         #form.funding_type.data = project.funding_type
         #form.total_amount.data = project.total_amount
         #form.deadline.data = project.deadline
-
-    
-
-    
-
-
-
 
 #------------------------------------- GRANT -----------------------------------------------------
 
@@ -243,7 +235,7 @@ def object_grant(form):
         urgency_of_request = form.urgency_of_request.data,
         if_urgency = form.if_urgency.data,
         project_context = form.project_context.data,
-        #project_context_private = form.project_context_private,
+        project_context_private = form.project_context_private.data,
         project_summary = form.project_summary.data,
         bioF_needs = form.bioF_needs.data,
         data_available = form.data_available.data,

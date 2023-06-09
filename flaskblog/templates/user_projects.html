@@ -3,10 +3,10 @@
     <h1 class="mb-3">Project by {{ user.username.capitalize() }} ({{ projects.total }})</h1>
     {% for project in projects.items %}
         <article class="media content-section">
-          <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+project.author.image_file) }}" alt="">
+          <a href="{{ url_for('users.user_profile',  username=project.author.username) }}"><img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+project.author.image_file) }}" alt=""></a>
           <div class="media-body">
             <div class="article-metadata">
-              <a class="mr-2" href="{{ url_for('users.user_projects', username=project.author.username) }}">{{ project.author.username.capitalize() }}</a>
+              <a class="mr-2" href="{{ url_for('users.user_profile',  username=project.author.username) }}">{{ project.author.username.capitalize() }}</a>
               <small class="text-muted">{{ project.date_posted.strftime('%Y-%m-%d') }}</small>
               <a class="ml-5" href="{{ url_for('projects.project', project_id=project.id) }}">Modification</a>
             </div>

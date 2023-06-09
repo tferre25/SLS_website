@@ -7,9 +7,7 @@ from flaskblog import db, admin_required
 from datetime import datetime
 from ..static.info import instructions
 from ..static.doc import doc_def
-
-
-
+from flask_login import login_user, current_user
 
 main = Blueprint('main', __name__)
 
@@ -31,12 +29,19 @@ def home():
     return render_template('home.html', posts=posts, time=time, instructions=instructions('post'))
 
 
-# LES PROJETS ACCPTt
+# LES PROJETS ACCPTtt
 @main.route("/project_home")
 @login_required
 def project_home():
     page = request.args.get('page', 1,type=int)
-    projects = Project.query.filter_by(is_accepted=True).order_by(Project.date_posted.desc()).paginate(page=page, per_page=5)
+    if not current_user.is_admin:
+        projects = Project.query.filter_by(is_accepted=True).\
+            filter_by(application='For_research').\
+            order_by(Project.date_posted.desc()).\
+                paginate(page=page, per_page=5)
+    else:
+        projects = Project.query.filter_by(is_accepted=True).order_by(Project.date_posted.desc()).paginate(page=page, per_page=5)
+    
     grants = Grant.query.filter_by(is_accepted=True).order_by(Grant.date_posted.desc()).paginate(page=page, per_page=5)
     return render_template('project_home.html', projects=projects, grants=grants, instructions=instructions('projects'))
 

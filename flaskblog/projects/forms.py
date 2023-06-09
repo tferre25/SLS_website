@@ -53,7 +53,7 @@ class ProjectForm(FlaskForm):
                                                   ('Laboratoire diagnostic St Louis', 'Laboratoire diagnostic St Louis'),
                                                   ('Service clinique St Louis', 'Service clinique St Louis')],
                                         validators=[DataRequired()])
-    application = SelectField('Application :', choices=[('For_research', 'For research'),('For_diagnosis', 'For diagnosis')]) # if username = 'Laboratoire diagnostic St Louis
+    application = SelectField('Application :', choices=[('For_research', 'Recherche'),('For_diagnosis', 'Diagnostic(routine)')]) # if username = 'Laboratoire diagnostic St Louis
     laboratories = SelectField('Saint-Louis clinical services', choices=laboratories)# if username = 'Laboratoire diagnostic St Louis
     if_no_laboratory = StringField('Precise witch laboratory:',render_kw={'placeholder': 'cardio, reanimation...'}) # if laboratories = 'autre'
     clinical_service = StringField('Clinical service :',render_kw={'placeholder': 'cardio, reanimation...'}) # if username= Service clinique St Louis
@@ -84,14 +84,14 @@ class ProjectForm(FlaskForm):
     data_type = StringField('Data type :*', validators=[DataRequired(), Length(min=2)],render_kw={'placeholder': 'ex: fastq, counting tables, bam, etc.'})
     data_size = FloatField('Data size(GO) :*', validators=[validators.InputRequired(), validators.NumberRange(min=0)],render_kw={'placeholder': 'Approximate, in GO'})
     
-    submit = SubmitField('Send It To Bioinfo SLS')
+    submit = SubmitField('Submit')
 
 class GrantForm(FlaskForm):  
     username = SelectField('You are* :', choices=[(None,None),
                                                   ('Laboratoire diagnostic St Louis', 'Laboratoire diagnostic St Louis'),
                                                   ('Service clinique St Louis', 'Service clinique St Louis')],
                                         validators=[DataRequired()])
-    application = SelectField('Application:', choices=[('For_research', 'For research')]) # if username = 'Laboratoire diagnostic St Louis
+    application = SelectField('Application:', choices=[('For_research', 'Recherche')]) # if username = 'Laboratoire diagnostic St Louis
     laboratories = SelectField('Saint-Louis clinical services', choices=laboratories)# if username = 'Laboratoire diagnostic St Louis
     if_no_laboratory = StringField('Precise witch laboratory:',render_kw={'placeholder': 'cardio, reanimation...'}) # if laboratories = 'autre'
     clinical_service = StringField('Clinical service:',render_kw={'placeholder': 'cardio, reanimation...'}) # if username= Service clinique St Louis
@@ -128,7 +128,7 @@ class GrantForm(FlaskForm):
     total_amount = FloatField('Total amount: *', validators=[DataRequired()],render_kw={'placeholder': 'Total amount ...'})
     deadline = CustomDateField('Deadline: *', validators=[DataRequired()],render_kw={'placeholder': 'please use DD-MM-YYYY'})
 
-    submit = SubmitField('Send It To Bioinfo SLS')
+    submit = SubmitField('Submit')
 
 # project
 class RequestProjectForm(FlaskForm):

@@ -25,9 +25,9 @@ print(User.query.all())
 
 
 print(f'--------------------------> Grant')
-'''g = Grant.query.get(1)
+g = Grant.query.get(3)
 db.session.delete(g)
-db.session.commit()'''
+db.session.commit()
 print(Grant.query.all())
 
 print(f'--------------------------> Project_request')

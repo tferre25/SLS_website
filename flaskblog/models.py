@@ -84,9 +84,8 @@ class Project(db.Model):
     data_owner = db.Column(db.String(20), unique=False, nullable=False)
     data_type = db.Column(db.String(20), unique=False, nullable=False)
     data_size = db.Column(db.Integer, unique=False, nullable=False)
-
     # NOT REQUIRED ==> nullable=True
-    email = db.Column(db.String(120), unique=False, nullable=True)
+    email = db.Column(db.String(120), nullable=False, default='noCopyMail@mail.com')
     date_posted = db.Column(db.DateTime, nullable=False,default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     is_accepted = db.Column(db.Boolean, default=False, nullable=True)
@@ -126,7 +125,7 @@ class Grant(db.Model):
     deadline = db.Column(db.Date(), unique=False, nullable=False)
 
     #NOT REQUIRED ==> nullable=True
-    email = db.Column(db.String(120), unique=False, nullable=True)
+    email = db.Column(db.String(120), nullable=False, default='noCopyMail@mail.com')
     date_posted = db.Column(db.DateTime, nullable=False,default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     is_accepted = db.Column(db.Boolean, default=False, nullable=True)

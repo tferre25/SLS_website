@@ -1,18 +1,19 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %}h
 {% block content %}
     <h1 class="mb-3">Grants by {{ user.username.capitalize() }} ({{ grants.total }})</h1>
     {% for grant in grants.items %}
-        <article class="media content-section">
-          <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+grant.author.image_file) }}" alt="">
-          <div class="media-body">
-            <div class="article-metadata">
-              <a class="mr-2" href="{{ url_for('users.user_grants', username=grant.author.username) }}">{{ grant.author.username.capitalize() }}</a>
-              <small class="text-muted">{{ grant.date_posted.strftime('%Y-%m-%d') }}</small>
-            </div>
-            <h2><a class="article-title" href="{{ url_for('projects.grant', grant_id=grant.id) }}">{{ grant.grant_title }}</a></h2>
-            <p class="article-content">{{ grant.grant_summary }}</p>
+      <article class="media content-section">
+        <a href="{{ url_for('users.user_profile',  username=grant.author.username) }}"><img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+grant.author.image_file) }}" alt=""></a>
+        <div class="media-body">
+          <div class="article-metadata">
+            <a class="mr-2" href="{{ url_for('users.user_profile',  username=grant.author.username) }}">{{ grant.author.username.capitalize() }}</a>
+            <small class="text-muted">{{ grant.date_posted.strftime('%Y-%m-%d') }}</small>
+            <a class="ml-5" href="{{ url_for('projects.grant', grant_id=grant.id) }}">Modification</a>
           </div>
-        </article>
+          <h2 class="article-title">{{ grant.project_title }}</h2>
+          <p class="article-content">{{ grant.project_summary }}</p>
+        </div>
+      </article>
     {% endfor %}
     {% for page_num in grants.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
       {% if page_num %}

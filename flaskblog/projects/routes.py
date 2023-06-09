@@ -15,7 +15,6 @@ projects = Blueprint('projects', __name__)
 @login_required
 def new_project():
     form = ProjectForm()
-    #try:
     if form.validate_on_submit():
         #user = User.query.filter_by(email=form.email.data).first()
         user = current_user

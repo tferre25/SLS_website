@@ -132,14 +132,14 @@ def user_projects(username):
         .paginate(page=page, per_page=3)
     return render_template('user_projects.html', projects=projects, user=user)
 
-@users.route("/user/<string:username>/")
+@users.route("/user/<string:username>/grant")
 def user_grants(username):
     page = request.args.get('page', 1,type=int)
     user = User.query.filter_by(username=username).first_or_404()
     grants = Grant.query.filter_by(author=user)\
         .order_by(Grant.date_posted.desc())\
         .paginate(page=page, per_page=3)
-    return render_template('user_grants.html', projects=grants, user=user)
+    return render_template('user_grants.html', grants=grants, user=user)
 
 @users.route('/project_request', methods=['GET', 'POST'])
 @login_required
@@ -187,7 +187,6 @@ def project_request():
 
 #--------------------------------------------------- profile---------------------------------------------------------
 @users.route("/user/<string:username>/profile")
-@login_required
 def user_profile(username):
     user = User.query.filter_by(username=username).first()
     posts = Post.query.all()

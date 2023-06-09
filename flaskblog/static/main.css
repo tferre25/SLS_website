@@ -2,6 +2,7 @@ body {
   justify-content: center;
   background: #ffffff;
   margin-top: 10rem;
+  font-family: Arial, sans-serif;
   }
 
 legend{
@@ -431,4 +432,34 @@ hr {
   padding: 14px 70px;
   border-radius: 50px;
   margin-top: 20px;
+}
+
+/*Nos Bioinformaticiens*/
+
+.annuaire{
+  display: flex;
+  margin-top: 10px;
+}
+.contact {
+  background-color: #fff;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.ann_top{
+  display: flex;  
+}
+.ann_top img{
+  width: 25%;
+  height: 25%;
+  border-radius: 60px;
+
+}
+.ann_top h2{
+  margin-right: 150px;
+  margin-top: 0;
+}
+.contact p {
+  margin-bottom: 5px;
+  margin-top: 10px;
 }
