@@ -185,13 +185,18 @@ def project_request():
     return render_template('project_request.html', legend='Project Request', form = form)
 
 
-#--------------------------------------------------- profile---------------------------------------------------------
+#--------------------------------------------------- profile--------(-------------------------------------------------
 @users.route("/user/<string:username>/profile")
 def user_profile(username):
     user = User.query.filter_by(username=username).first()
     posts = Post.query.all()
+    total_user_posts = 0
+    for p in posts:
+        post_username = User.query.get(p.user_id).username
+        if post_username == username:
+            total_user_posts +=1
     no_accepted = int(len(Project.query.filter_by(author=user, is_accepted=True).all()))
     no_refused = int(len(Project.query.filter_by(author=user, is_accepted=False).all()))
-    return render_template('profile.html', user=user, posts = posts, no_accepted=no_accepted, no_refused=no_refused)
+    return render_template('profile.html', user=user, posts = posts, no_accepted=no_accepted, no_refused=no_refused, total_user_posts=int(total_user_posts), instructions=instructions('profile'))
 
 

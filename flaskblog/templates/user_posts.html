@@ -13,7 +13,7 @@
             <h2 class="article-title">{{ post.title }}</h2>
             <p class="article-content">{{ post.content }}</p>
             {% if post.image_file%}
-              <img class="img-thumbnail mx-auto d-block article-img" src="../static/profile_pics/{{ post.image_file }}" alt="#">
+              <img class="img-thumbnail mx-auto d-block article-img" style="width: 50%; height: 50%;" src="../static/profile_pics/{{ post.image_file }}" alt="#">
             {%endif%}
             </div>
         </article>

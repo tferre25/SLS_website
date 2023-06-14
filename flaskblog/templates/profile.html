@@ -9,6 +9,7 @@
             <li>Position at the aphp : {{user.status}}</li>
             <li>Number of Valid Projects : {{no_accepted}}</li>
             <li>Number of Invalid Projects : {{no_refused}}</li>
+            <li>Number of user posts : {{total_user_posts}}</li>
             {% if user.is_admin %}
                 <a href="{{ url_for('main.project_home') }}" class="btn btn-primary" style="margin-top: 10px; display: block;">Check All Accepted Team Project</a>
             {% else %}
@@ -17,7 +18,9 @@
         </div>
     </div>
 
-
-
-
 {% endblock content %}
+
+
+{% block info %}
+    {{ instructions }}
+{% endblock info %}

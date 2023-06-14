@@ -7,9 +7,13 @@
         </video>
         -->
         <div class="content">
-            <h1>Cellule Bioinformatique Saint-Louis</h1>
-            <p>{{instructions}}</p>
+            <h1>HelpBioinfo</h1>
+            <p id="paragraphe">{{instructions}}</p>
         </div>
     </div>
 
 {% endblock content %}
+
+{% block info %}
+    {{ instructions }}
+{% endblock info %}

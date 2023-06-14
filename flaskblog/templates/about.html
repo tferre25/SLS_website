@@ -132,10 +132,12 @@
             <p>Phone: 128-456-7890</p>
         </div>
     </div>
-
-
-
 {% endblock content %}
+
+{% block js %}
+    <script src="{{ url_for('static', filename='about.js') }}"></script>    
+{% endblock %}
+
 
 {% block info %}
     {{ instructions }}

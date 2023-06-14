@@ -9,44 +9,39 @@ racine = '''
     Cliquer sur l'un de ses boutons ci-contre selon vos besoins.
 '''
 
-
 login = '''
-   Info login
+S'authentifier vous donnera la possibilité de partager des nouveaux postes, de soumettre un projet ou une subvention à la cellules bioinformatique
 '''
 register = '''
-    ==> Info for registration.
-    Un compte ici vous permettre de soumettre un projet, une subvention, 
-    ou même partager un post avec tous les visiteurs de cette plateforme web
+    Attention, l'Username, l'email et le numéro APHP sont des informations uniques. 
 '''
 account = '''
-    ==> accout info.
-    Un titre en rouge 'Admin Account' apparaîtra sous l'username, si vous êtes administrateur. 
+    Un titre 'Admin Account' apparaîtra sous l'username, si vous êtes administrateur. 
     Vous avez l'opportunité de faire une mise à jour de toutes les informations de votre profil.
 '''
 about = '''
-    ==> À propos de MediResearchDepot : Bienvenue sur MediResearchDepot , le reseau qui sera dedier au depot de projets de recherche au sein de l'AP-HP.
-    ==> Vision : Créer des opportunités pour les chercheurs de pouvoir deposer leurs projets en toute securiter. Ainsi dans le but de soliciter l'aide
-        de la cellule bioinformatique de l'APHP.
-    ==> Mission : La mission de MediResearchDepot est simple : mettre en relation des chercheurs et des bioinformaticiens de l'APHP  pour les rendre plus performants et productifs.\n
+    Bienvenue sur HelpBioinfo , le reseau qui sera dedier au depot de projets de recherche au sein de l'AP-HP.
+    Vision : Créer des opportunités pour les chercheurs de pouvoir deposer leurs projets en toute securiter.
+    Ainsi dans le but de soliciter l'aide de la cellule bioinformatique de l'APHP.
+    La mission de HelpBioinfo est simple? mettre en relation des chercheurs et des bioinformaticiens de l'APHP  
+    pour les rendre plus performants et productifs.\n
 '''
 post = '''
-    Ici, vous avez l'oportunitee de partager des posts. Échanger les idées,
+    Ici, vous avez l'opportunité de partager des posts. Échanger les idées,
     partager ses résultats ou une actualité importante pour un utilisateur.
-    Vous n'êtes pas obligé à vous connecter pour avoir accès à cette page de posts.
-    Vous avez la possibilité de faire une recherche d'un post à travers un mot-clé grâce à la fonctionnalité 'search'.
-    Accessible sur cette page via la barre de navigation.
+    Seul l'utilisateur authentifié peut créer un nouveau poste.
+    Vous avez la possibilité de faire une recherche d'un poste à travers un mot-clé 
+    grâce à la fonctionnalité 'search' accessible sur cette page via la barre de navigation.
 '''
 projects = '''
-    Ici, vous avez accès a tous les projets ayant déjà et consultée et accepter par la cellule bioinfo de l'aphp
-    Vous devez être connecté pour avoir accès à cette fonctionnalité.
-    Les admins (les bioinformaticiens) peuvent modifier, voir supprimer un projet.
-    Vous pouvez aussi consulter tous les projets de l'utilisateur en question, ainsi que son profil. 
+    Les administrateurs (bioinformaticiens) peuvent modifier, voir supprimer un projet quelconque.
+    Vous pouvez aussi consulter tous les projets de l'utilisateur en question, ainsi que son profil.
+    Enfin, les projets de diagnostic acceptés ne sont visibles que par les administrateurs,
+    tandis que les projets de recherches acceptés peuvent être consultés par tous les utilisateurs authentifiés.
 '''
 grants = '''
-    Ici, vous avez accès a tous les Grants ayant déjà et consultée et accepter par la cellule bioinfo de l'aphp
-    Vous devez être connecté pour avoir accès à cette fonctionnalité.
-    Les admins (les bioinformaticiens) peuvent modifier, voir supprimer un Grant.
-    Vous pouvez aussi consulter tous les Grants de l'utilisateur en question, ainsi que son profil. 
+    Les administrateurs (bioinformaticiens) peuvent modifier, voir supprimer une demande de subvention (Grant) quelconque.
+    Vous pouvez aussi consulter tous les Grants de l'utilisateur en question, ainsi que son profil.
 '''
 about_us = '''
     Présentation brève de la cellule bio-informatique de l'hôpital 
@@ -67,6 +62,9 @@ new_post = '''
     Dans un post, il peut s'agit d'un article publié, d'une information particulière qui concerne la cellule BioInfo...
     Soyer réactif ! 
 '''
+profile = '''
+    Info profile
+'''
 
 # TO ACCESS INFO IN ROOT PAGES
 def instructions(key):
@@ -82,7 +80,8 @@ def instructions(key):
         'about_us':about_us,
         'new_project':new_project,
         'new_post':new_post,
-        'racine':racine
+        'racine':racine,
+        'profile':profile
 
     }
 
