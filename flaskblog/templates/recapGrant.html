@@ -2,10 +2,10 @@
 {% block content %}
 
 <div class="pdf_btn">
-    <a href="javascript:htmlIntoPDF()" class="button">Download</a>
+    <a href="javascript:htmlIntoPDF()" class="button">Télécharger</a>
 </div>
 <div id="content">
-    <legend style="color: rgb(40, 42, 42); font-size: 4em; font-weight: bold; font-family: Georgia, 'Times New Roman', Times, serif;">Grant Asking Recapitulatif</legend>    
+    <legend style="color: rgb(40, 42, 42); font-size: 4em; font-weight: bold; font-family: Georgia, 'Times New Roman', Times, serif;">Demande de subvention Récapitulatif</legend>    
     <div id="invoice">
         <ul class="list-group">
             <li class="list-group-item" id="toto"><b>{{ form.username.label }}</b>  &nbsp; {{ form.username.data }}</li>
@@ -38,10 +38,10 @@
     
     <div class="form-group">
         <small class="text-muted ml-2">
-            <a href="{{ url_for('projects.new_grant') }}">Go back to the Grant Asking form ? </a>
+            <a href="{{ url_for('projects.new_grant') }}">Retourner au formulaire de demande de subvention ? </a>
         </small>
         <small class="text-muted ml-2">
-            <a href="{{ url_for('main.project_home') }}">Visit your project in the home page (for projects) ? </a>
+            <a href="{{ url_for('main.project_home') }}">Visitez votre projet sur la page d'accueil (pour les projets) ? </a>
         </small>
     </div>
     <br>

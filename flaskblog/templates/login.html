@@ -4,7 +4,7 @@
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <legend data-text="Log In" class="border-bottom mb-4">Log In</legend>
+                <legend data-text="Connexion" class="border-bottom mb-4">Connexion</legend>
                 <div class="form-group">
                     {{ form.email.label(class="form-control-label") }}
                     {% if form.email.errors %}
@@ -29,7 +29,7 @@
                         </div>
                     {% else %}
                         {{ form.password(class="form-control form-control-lg") }}
-                        <input type="checkbox" onclick="togglePasswordVisibility()"> Show Password
+                        <input type="checkbox" onclick="togglePasswordVisibility()"> Afficher le mot de passe
                     {% endif %}
                 </div>
                 <div class="form-check">
@@ -40,13 +40,13 @@
             <div class="form-group">
                 {{ form.submit(class="btn btn-outline-info") }}
                 <small class="text-muted ml-2">
-                    <a href="{{ url_for('users.reset_request') }}">Forgot Password?</a>
+                    <a href="{{ url_for('users.reset_request') }}">Mot de passe oublié?</a>
                 </small>
             </div>
         </form>
         <div class="border-top pt-3">
             <small class="text-muted">
-                Need An Account? <a class="ml-2" href="{{ url_for('users.register') }}">Sign Up Now</a>
+                Besoin d'un compte? <a class="ml-2" href="{{ url_for('users.register') }}">Inscrivez-vous maintenant</a>
             </small>
         </div>
     </div>

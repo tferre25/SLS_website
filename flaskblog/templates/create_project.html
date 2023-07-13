@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-    <legend data-text="Requiring bioinformatics support _ {{legend}}" class="border-bottom mb-6 h2">Requiring bioinformatics support _ {{legend}}</legend>
+    <legend data-text="Besoin d'un soutien bioinformatique _ {{legend}}" class="border-bottom mb-6 h2">Besoin d'un soutien bioinformatique _ {{legend}}</legend>
     <div class="content-section">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
@@ -329,7 +329,7 @@
     </div>
     <div class="border-top pt-3">
         <small class="text-muted">
-            Return to the home page? <a class="ml-2" href="{{ url_for('main.home') }}">Home Page</a>
+            Retour à la page d'accueil? <a class="ml-2" href="{{ url_for('main.home') }}">Page d'accueil</a>
         </small>
     </div>
 {% endblock content %}

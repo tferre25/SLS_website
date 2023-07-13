@@ -9,13 +9,13 @@
                         <img src="../static/profile_pics/{{ user.image_file }}" alt="{{user.username}}">
                         <div class="caption">
                             <h2 class="article-title">{{ user.username }}</h2>
-                            <li>Email : {{user.email}}</li>
+                            <li>E-mail : {{user.email}}</li>
                             <li>Status : {{user.status}}</li>
-                            <li>Number of project requests : {{user.requests|length}}</li>
+                            <li>Nombre de demandes de projets : {{user.requests|length}}</li>
                             {% if user.email == 'dina.ouahbi@aphp.fr' %}
-                                <p>Hi i'm Dina</p>
-                            {% elif user.email == 'theo.ferreira@aphp.fr' %}
-                                <p>Hi i'm Théo</p>
+                                <p>Bonjour je suis Dina, je travail principalement sur des projets de recherche</p>
+                            {% elif user.email == 'julien.robert@aphp.fr' %}
+                                <p>Bonjour je suis Julien, je travail principalement sur des projets de diagnostic</p>
                             {% endif %}
                         </div>
                     </div>
@@ -100,7 +100,6 @@
                 <img src="../static/profile_pics/tf.jpg" alt="Théo Ghelfenstein-Ferreira">
             </div>
             <p>Email: theo.ferreira@aphp.fr</p>
-            <p>Phone: 123-456-7890</p>
         </div>
     
         <div class="contact">
@@ -109,7 +108,6 @@
                 <img src="../static/profile_pics/ms.png" alt="Maud Salmona">
             </div>
             <p>Email: maud.salmona@example.fr</p>
-            <p>Phone: 128-456-7890</p>
         </div>
     </div>
 
@@ -120,7 +118,6 @@
                 <img src="../static/profile_pics/jr.jpg" alt="Julien Robert">
             </div>
             <p>Email: julien.robert@aphp.fr</p>
-            <p>Phone: 123-456-7890</p>
         </div>
     
         <div class="contact">
@@ -129,7 +126,6 @@
                 <img src="../static/profile_pics/do.jpg" alt="dinaOuahbi">
             </div>
             <p>Email: dina.ouahbi@aphp.fr</p>
-            <p>Phone: 128-456-7890</p>
         </div>
     </div>
 {% endblock content %}

@@ -44,95 +44,95 @@ class CustomDateField(StringField):
             try:
                 self.data = datetime.strptime(date_string, "%d-%m-%Y").date()
             except ValueError:
-                raise ValueError("Invalid date format, please use DD-MM-YYYY")
+                raise ValueError("Format de date non valide, veuillez utiliser DD-MM-YYYY")
         else:
             self.data = None
 
 class ProjectForm(FlaskForm):  
-    username = SelectField('You are* :', choices=[(None,None),
+    username = SelectField('Vous êtes* :', choices=[(None,None),
                                                   ('Laboratoire diagnostic St Louis', 'Laboratoire diagnostic St Louis'),
                                                   ('Service clinique St Louis', 'Service clinique St Louis')],
                                         validators=[DataRequired()])
     application = SelectField('Application :', choices=[('For_research', 'Recherche'),('For_diagnosis', 'Diagnostic(routine)')]) # if username = 'Laboratoire diagnostic St Louis
-    laboratories = SelectField('Saint-Louis clinical services', choices=laboratories)# if username = 'Laboratoire diagnostic St Louis
-    if_no_laboratory = StringField('Precise witch laboratory:',render_kw={'placeholder': 'cardio, reanimation...'}) # if laboratories = 'autre'
-    clinical_service = StringField('Clinical service :',render_kw={'placeholder': 'cardio, reanimation...'}) # if username= Service clinique St Louis
-    email = StringField('Email (person to copy) :', validators=[Email()],render_kw={'placeholder': 'firstName.lastName@aphp.fr'})
-    project_title = StringField('Project title :*', validators=[DataRequired(), Length(min=2)],render_kw={'placeholder': 'project Name'})
-    organism = StringField('Organism (funding succeptible) :',render_kw={'placeholder': 'Structure or organization funding the project'})
-    principal_investigator = StringField('Principal investigator :',render_kw={'placeholder': 'first and last name'})
-    promotor = StringField('Promotor :',render_kw={'placeholder': 'promotor(s) names (ex: APHP, DRCI)'})
-    data_available = SelectField('Data is available?:', choices=[('No', 'No'),('Yes', 'Yes')])
-    access_data = StringField('if available, please precise : ',render_kw={'placeholder': 'How can we access data? '})
-    add_info = TextAreaField('Additional informations if needs :',render_kw={'placeholder': 'Example: biblio, precision(s) not filled in without the previous fields, expired valuation(s) (ex: publication), etc.'})
-    urgency_of_request = SelectField('Urgency of request :', choices=[('Not urgent', 'Not urgent'),
-                                                                      ('Not particularly urgent', 'Not particularly urgent'),
-                                                                      ('Very urgent', 'Very urgent')
+    laboratories = SelectField("Services cliniques de Saint-Louis", choices=laboratories)# if username = 'Laboratoire diagnostic St Louis
+    if_no_laboratory = StringField('Précisez quel laboratoire:',render_kw={'placeholder': 'cardio, reanimation...'}) # if laboratories = 'autre'
+    clinical_service = StringField('Service clinique :',render_kw={'placeholder': 'cardio, reanimation...'}) # if username= Service clinique St Louis
+    email = StringField('E-mail (personne à copier) :', validators=[Email()],render_kw={'placeholder': 'firstName.lastName@aphp.fr'})
+    project_title = StringField('Titre du projet :*', validators=[DataRequired(), Length(min=2)],render_kw={'placeholder': 'Nom du projet'})
+    organism = StringField('Organisme (financement succeptible) :',render_kw={'placeholder': 'Structure ou organisation finançant le projet'})
+    principal_investigator = StringField('Investigateur principal :',render_kw={'placeholder': 'nom et prénom'})
+    promotor = StringField('Promoteur :',render_kw={'placeholder': 'Noms des promoteurs (ex: APHP, DRCI)'})
+    data_available = SelectField('Les données sont disponibles?:', choices=[('No', 'Non'),('Yes', 'Oui')])
+    access_data = StringField('Si disponible, veuillez préciser : ',render_kw={'placeholder': 'Comment accéder aux données? '})
+    add_info = TextAreaField('Informations complémentaires si nécessaire :',render_kw={'placeholder': 'Example: biblio, precision(s), Publication etc.'})
+    urgency_of_request = SelectField('Urgency of request :', choices=[('Not urgent', 'Non urgent'),
+                                                                      ('Not particularly urgent', "Pas d'urgence particulière"),
+                                                                      ('Very urgent', 'Trés urgent')
                                                                       ])
-    if_urgency = TextAreaField('If very urgent, please briefly explain the issues :',render_kw={'placeholder': 'Explain the reason for the emergency, depending on what has been selected from the drop-down list'})
-    project_context = TextAreaField('Project context :*', validators=[DataRequired(), Length(min=10)],render_kw={'placeholder': 'General explanations of the context of the project (ex : explain the rationale for the project, previous experiences or publications, general explanations of the disease, etc.)'})
-    project_context_private = TextAreaField('Project context private:',render_kw={'placeholder': 'General explanations of the context of the project (ex : explain the rationale for the project, previous experiences or publications, general explanations of the disease, etc.)'})
-    project_summary = TextAreaField('Project summary :*', validators=[DataRequired(), Length(min=10)],render_kw={'placeholder': 'Summary of the project itself, objectives, etc.'})
+    if_urgency = TextAreaField("Si c'est très urgent, veuillez expliquer brièvement les problèmes. :",render_kw={'placeholder': "Expliquer la raison de l'urgence, en fonction de ce qui a été sélectionné dans la liste déroulante"})
+    project_context = TextAreaField('Contexte du projet :*', validators=[DataRequired(), Length(min=10)],render_kw={'placeholder': "Explications générales du contexte du projet (ex : expliquer la raison d'être du projet, expériences ou publications antérieures, explications générales sur la maladie, etc.)"})
+    project_context_private = TextAreaField('Contexte du projet privé:',render_kw={'placeholder': "Explications générales du contexte du projet (ex : expliquer la raison d'être du projet, expériences ou publications antérieures, explications générales sur la maladie, etc.)"})
+    project_summary = TextAreaField('Résumé du projet:*', validators=[DataRequired(), Length(min=10)],render_kw={'placeholder': 'Résumé du projet lui-même, des objectifs, etc.'})
     bioF_needs = TextAreaField("Besoins d'analyse et d'expertise en bioinformatique et biostatistique :*", validators=[DataRequired()],render_kw={'placeholder': "Analyse; Développement de logiciels; etc."})
-    data_owner = StringField('Data owner :*', validators=[DataRequired()],render_kw={'placeholder': 'Who owns the data?'})
-    regulatory_requirements = SelectField('Regulatory requirements are available?:', choices=[('No', 'No'),('Yes', 'Yes')])
-    if_regulatory_requirements = SelectField('If regulatory requirements are available, please precise : ', choices=[('CPP', 'CPP'),
-                                                                                                                    ('Ethical Comity', 'Ethical Comity'),
-                                                                                                                    ('Jarde law conformity', 'Jarde law conformity'),
-                                                                                                                    ('Other', 'Other')
+    data_owner = StringField('Propriétaire des données :*', validators=[DataRequired()],render_kw={'placeholder': 'Qui possède les données ?'})
+    regulatory_requirements = SelectField('Les exigences réglementaires sont-elles disponibles ?:', choices=[('No', 'Non'),('Yes', 'Oui')])
+    if_regulatory_requirements = SelectField('Si des exigences réglementaires sont disponibles, veuillez préciser : ', choices=[('CPP', 'CPP'),
+                                                                                                                    ('Ethical Comity', "Comités d'éthique"),
+                                                                                                                    ('Jarde law conformity', 'Conformité de la loi Jarde'),
+                                                                                                                    ('Other', 'Autres')
                                                                                                                     ])
-    data_type = StringField('Data type :*', validators=[DataRequired(), Length(min=2)],render_kw={'placeholder': 'ex: fastq, counting tables, bam, etc.'})
-    data_size = FloatField('Data size(GO) :*', validators=[validators.InputRequired(), validators.NumberRange(min=0)],render_kw={'placeholder': 'Approximate, in GO'})
+    data_type = StringField('Type de donnée :*', validators=[DataRequired(), Length(min=2)],render_kw={'placeholder': 'ex: fastq, counting tables, bam, etc.'})
+    data_size = FloatField('Taille de donnée (GO) :*', validators=[validators.InputRequired(), validators.NumberRange(min=0)],render_kw={'placeholder': 'Approximate, in GO'})
     
-    submit = SubmitField('Submit')
+    submit = SubmitField('Soumettre')
 
 class GrantForm(FlaskForm):  
-    username = SelectField('You are* :', choices=[(None,None),
+    username = SelectField('Vous êtes* :', choices=[(None,None),
                                                   ('Laboratoire diagnostic St Louis', 'Laboratoire diagnostic St Louis'),
                                                   ('Service clinique St Louis', 'Service clinique St Louis')],
                                         validators=[DataRequired()])
     application = SelectField('Application:', choices=[('For_research', 'Recherche')]) # if username = 'Laboratoire diagnostic St Louis
-    laboratories = SelectField('Saint-Louis clinical services', choices=laboratories)# if username = 'Laboratoire diagnostic St Louis
-    if_no_laboratory = StringField('Precise witch laboratory:',render_kw={'placeholder': 'cardio, reanimation...'}) # if laboratories = 'autre'
-    clinical_service = StringField('Clinical service:',render_kw={'placeholder': 'cardio, reanimation...'}) # if username= Service clinique St Louis
+    laboratories = SelectField('Services cliniques de Saint-Louis', choices=laboratories)# if username = 'Laboratoire diagnostic St Louis
+    if_no_laboratory = StringField('Précisez quel laboratoire:',render_kw={'placeholder': 'cardio, reanimation...'}) # if laboratories = 'autre'
+    clinical_service = StringField('Service clinique:',render_kw={'placeholder': 'cardio, reanimation...'}) # if username= Service clinique St Louis
 
     # REQUIRED
-    email = StringField('Email (person to copy):', validators=[Email()],render_kw={'placeholder': 'firstName.lastName@aphp.fr'})
-    project_title = StringField('Project title:*', validators=[DataRequired(), Length(min=2)],render_kw={'placeholder': 'project Name'})
-    organism = StringField('Organism (funding succeptible):',render_kw={'placeholder': 'Structure or organization funding the project'})
-    principal_investigator = StringField('Principal investigator:',render_kw={'placeholder': 'first and last name'})
-    promotor = StringField('Promotor :',render_kw={'placeholder': 'promotor(s) names (ex: APHP, DRCI)'})
-    data_available = SelectField('Data is available?:', choices=[('No', 'No'),('Yes', 'Yes')])
+    email = StringField('E-mail (personne à copier):', validators=[Email()],render_kw={'placeholder': 'firstName.lastName@aphp.fr'})
+    project_title = StringField('Title du projet:*', validators=[DataRequired(), Length(min=2)],render_kw={'placeholder': 'Nom du projet'})
+    organism = StringField('Organisme (financement succeptible):',render_kw={'placeholder': 'Structure ou organisation finançant le projet'})
+    principal_investigator = StringField('Investigateur principal:',render_kw={'placeholder': 'Nom et prénom'})
+    promotor = StringField('Promoteur :',render_kw={'placeholder': 'promoteur(s) names (ex: APHP, DRCI)'})
+    data_available = SelectField('Les données sont disponibles?:', choices=[('No', 'Non'),('Yes', 'Oui')])
     access_data = StringField('if available, please precise :',render_kw={'placeholder': 'How can we access data? '})
-    add_info = TextAreaField('Additional informations if needs :',render_kw={'placeholder': 'Example: biblio, precision(s) not filled in without the previous fields, expired valuation(s) (ex: publication), etc.'})
-    urgency_of_request = SelectField('Urgency of request :', choices=[('Not urgent', 'Not urgent'),
-                                                                      ('Not particularly urgent', 'Not particularly urgent'),
-                                                                      ('Very urgent', 'Very urgent')
+    add_info = TextAreaField('Informations complémentaires si nécessaire :',render_kw={'placeholder': 'Example: biblio, precisions publication etc.'})
+    urgency_of_request = SelectField('Urgency of request :', choices=[('Not urgent', 'Non urgent'),
+                                                                      ('Not particularly urgent', "Pas d'urgence particulière"),
+                                                                      ('Very urgent', 'Trés urgent')
                                                                       ])
-    if_urgency = TextAreaField('If very urgent, please briefly explain the issues :',render_kw={'placeholder': 'Explain the reason for the emergency, depending on what has been selected from the drop-down list'})
-    project_context = TextAreaField('Project context :*', validators=[DataRequired(), Length(min=10)],render_kw={'placeholder': 'General explanations of the context of the project (ex : explain the rationale for the project, previous experiences or publications, general explanations of the disease, etc.)'})
-    project_context_private = TextAreaField('Project context private:', render_kw={'placeholder': 'General explanations of the context of the project (ex : explain the rationale for the project, previous experiences or publications, general explanations of the disease, etc.)'})
-    project_summary = TextAreaField('Project summary :*', validators=[DataRequired(), Length(min=10)],render_kw={'placeholder': 'Summary of the project itself, objectives, etc.'})
-    bioF_needs = TextAreaField('Needs for analysis and expertise in bioinformatics and biostatistics :*', validators=[DataRequired()],render_kw={'placeholder': 'Analyse; Développement de logiciels; etc.'})
-    data_owner = StringField('Data owner:*', validators=[DataRequired()],render_kw={'placeholder': 'Who owns the data?'})
+    if_urgency = TextAreaField("Si c'est très urgent, veuillez expliquer brièvement les problèmes:",render_kw={'placeholder': "Expliquer la raison de l'urgence, en fonction de ce qui a été sélectionné dans la liste déroulante"})
+    project_context = TextAreaField('Contexte du projet :*', validators=[DataRequired(), Length(min=10)],render_kw={'placeholder': "Explications générales du contexte du projet (ex : expliquer la raison d'être du projet, expériences ou publications antérieures, explications générales sur la maladie, etc.)"})
+    project_context_private = TextAreaField('Contexte privé du projet:', render_kw={'placeholder': "Explications générales du contexte du projet (ex : expliquer la raison d'être du projet, expériences ou publications antérieures, explications générales sur la maladie, etc.)"})
+    project_summary = TextAreaField('Résumé du projet :*', validators=[DataRequired(), Length(min=10)],render_kw={'placeholder': 'Résumé du projet lui-même, des objectifs, etc.'})
+    bioF_needs = TextAreaField("Besoins d'analyse et d'expertise en bioinformatique et biostatistique:*", validators=[DataRequired()],render_kw={'placeholder': 'Analyse; Développement de logiciels; etc.'})
+    data_owner = StringField('Propriétaire des données:*', validators=[DataRequired()],render_kw={'placeholder': 'Qui possède les données ??'})
     
-    regulatory_requirements = SelectField('Regulatory requirements are available?:', choices=[('No', 'No'),('Yes', 'Yes')])
-    if_regulatory_requirements = SelectField('If regulatory requirements are available, please precise:', choices=[('CPP', 'CPP'),
-                                                                                                                    ('Ethical Comity', 'Ethical Comity'),
-                                                                                                                    ('Jarde law conformity', 'Jarde law conformity'),
-                                                                                                                    ('Other', 'Other')
+    regulatory_requirements = SelectField('Les exigences réglementaires sont disponibles?:', choices=[('No', 'Non'),('Yes', 'Oui')])
+    if_regulatory_requirements = SelectField('Si des exigences réglementaires sont disponibles, veuillez préciser:', choices=[('CPP', 'CPP'),
+                                                                                                                    ('Ethical Comity', "Comités d'éthique"),
+                                                                                                                    ('Jarde law conformity', 'Conformité de la loi Jarde'),
+                                                                                                                    ('Other', 'Autres')
                                                                                                                     ])
-    data_type = StringField('Data type :*', validators=[DataRequired(), Length(min=2)],render_kw={'placeholder': 'ex: fastq, counting tables, bam, etc.'})
-    data_size = FloatField('Data size(GO) :*', validators=[validators.InputRequired(), validators.NumberRange(min=0)],render_kw={'placeholder': 'Approximate, in GO'})
-    funding_type = SelectField('Funding type : *',choices=funding, validators=[DataRequired()], render_kw={'placeholder': 'funding type ...'})
-    total_amount = FloatField('Total amount: *', validators=[DataRequired()],render_kw={'placeholder': 'Total amount ...'})
-    deadline = CustomDateField('Deadline: *', validators=[DataRequired()],render_kw={'placeholder': 'please use DD-MM-YYYY'})
+    data_type = StringField('Type de donnée :*', validators=[DataRequired(), Length(min=2)],render_kw={'placeholder': 'ex: fastq, counting tables, bam, etc.'})
+    data_size = FloatField('Taille de donnée (GO) :*', validators=[validators.InputRequired(), validators.NumberRange(min=0)],render_kw={'placeholder': 'Approximate, in GO'})
+    funding_type = SelectField('Type de financement : *',choices=funding, validators=[DataRequired()], render_kw={'placeholder': 'Type de financement ...'})
+    total_amount = FloatField('Montant total: *', validators=[DataRequired()],render_kw={'placeholder': 'Montant total ...'})
+    deadline = CustomDateField('Date limite: *', validators=[DataRequired()],render_kw={'placeholder': 'please use DD-MM-YYYY'})
 
-    submit = SubmitField('Submit')
+    submit = SubmitField('Soumettre')
 
 # project
 class RequestProjectForm(FlaskForm):
-    email = StringField('Email',
+    email = StringField('E-mail',
                         validators=[DataRequired(), Email()])
     submit = SubmitField('Request project Sending')
 

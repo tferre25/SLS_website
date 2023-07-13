@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-    <legend data-text="Posts...">Posts...</legend>
+    <legend data-text="Posts...">Postes</legend>
     {% if posts.items|length == 0 %}
 
     {% endif %}
@@ -15,10 +15,10 @@
           <div class="media-body">
             <div class="article-metadata">
               {% if post.author is none %}
-                <a class="mr-2" href="#">Unknown user</a>
+                <a class="mr-2" href="#">Utilisateur inconnu</a>
               {%else%}
                 <a class="mr-2" href="{{ url_for('users.user_profile',  username=post.author.username) }}">{{ post.author.username.capitalize() }}</a>
-                <a class="mr-5 ml-5" href="{{ url_for('users.user_posts', username=post.author.username) }}" style="font-weight: bold; color: crimson;">Get all {{ post.author.username.capitalize() }} posts</a>
+                <a class="mr-5 ml-5" href="{{ url_for('users.user_posts', username=post.author.username) }}" style="font-weight: bold; color: crimson;">Obtenir tout les postes de {{ post.author.username.capitalize() }}</a>
               {%endif%}
               <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
               <a class="ml-5" href="{{ url_for('posts.post', post_id=post.id) }}">Modification</a>
@@ -33,7 +33,7 @@
     {% endfor %}
 
     <div class="content">
-      <a href="{{ url_for('posts.new_post') }}">New Post</a></b>
+      <a href="{{ url_for('posts.new_post') }}">Nouveau poste</a></b>
     </div>
     
     {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
@@ -54,7 +54,7 @@
     {{form.hidden_tag() }}
     <input class="form-control me-2 mr-4" type="search" placeholder="Search" aria-label="Search", name="searched">
     <button class="btn btn-primary btn-sm" type="submit">
-      Search
+      Recherche
     </button>
   </form>
 {% endblock search %}

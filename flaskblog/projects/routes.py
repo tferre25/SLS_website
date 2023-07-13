@@ -26,16 +26,16 @@ def new_project():
             #current_project = int(len(Project.query.all()))
             try:
                 send_recap_project(user, body=dico, form= form, project_id=project.project_token)
-                flash('Your project hes been created succesfully & An email has been sent with a recap of your project', 'info')
+                flash("Votre projet a été créé avec succès & Un email a été envoyé avec un récapitulatif de votre projet", 'info')
                 return render_template('recapProject.html', title=project.project_title, form=form)
             except socket.gaierror:
-                flash('Please check your network connection and try again.', 'warning')
+                flash("Veuillez vérifier votre connexion réseau et réessayer", 'warning')
         #except AttributeError:
         #    flash('None type error (the mail should be the same as your mail in Account informations)', 'warning')
         #    return render_template('errors/errorPage.html', title='ERROR')
         except IntegrityError as e:
-            flash(f'A project with the same title has already been sent to the bioinformaticians team.','warning')
-    return render_template('create_project.html', title='New Project', form=form, legend='New Project', instructions=instructions('new_project'))
+            flash(f"Un projet portant le même titre a déjà été envoyé à l'équipe de bioinformaticiens.",'warning')
+    return render_template('create_project.html', title='Nouveau Projet', form=form, legend='Nouveau Projet', instructions=instructions('new_project'))
 
 @projects.route("/project/<int:project_id>")
 def project(project_id):
@@ -58,11 +58,11 @@ def update_project(project_id):
     form = ProjectForm()
     if form.validate_on_submit():
         project_update(form, project, 'POST')
-        flash('Your project had been updated !', 'success')
+        flash("Votre projet a été mis à jour !", 'success')
         return redirect(url_for('projects.project', project_id=project.id))
     elif request.method == 'GET':
         project_update(form, project, 'GET')
-    return render_template('create_project.html', title = 'Update Project', form=form, legend = 'Update Project')
+    return render_template('create_project.html', title = 'Mise à jour du projet', form=form, legend = 'Mise à jour du projet')
 
 @projects.route("/project/<int:project_id>/delete", methods=['POST'])
 @login_required
@@ -73,7 +73,7 @@ def delete_projects(project_id):
     #    abort(403)
     db.session.delete(project)
     db.session.commit()
-    flash('Your project had been deleted !', 'success')
+    flash('Votre projet a été supprimé !', 'success')
     return redirect(url_for('main.project_home'))
 
 
@@ -89,11 +89,11 @@ def update_grant(grant_id):
     form = GrantForm()
     if form.validate_on_submit():
         project_update(form, grant, 'POST')
-        flash('Your grant had been updated !', 'success')
+        flash("Votre demande d'aide à une subvention a été mise à jour !", 'success')
         return redirect(url_for('projects.project', grant_id=grant.id))
     elif request.method == 'GET':
         project_update(form, grant, 'GET')
-    return render_template('create_grant.html', title = 'Update Grant', form=form, legend = 'Update Grant')
+    return render_template('create_grant.html', title = "Mise à jour de l'aide financière", form=form, legend = "Mise à jour de l'aide financière")
 
 @projects.route("/grant/<int:grant_id>/delete", methods=['POST'])
 @login_required
@@ -104,7 +104,7 @@ def delete_grants(grant_id):
     #    abort(403)
     db.session.delete(grant)
     db.session.commit()
-    flash('Your grant had been deleted !', 'success')
+    flash('Votre subvention a été supprimée !', 'success')
     return redirect(url_for('main.grant_home'))
 
 #######
@@ -124,12 +124,12 @@ def new_grant():
             dico = extract_form_info_grant(form)
             try:
                 send_recap_project(user, body=dico, form= form, project_id=grant.project_token)
-                flash('Your project hes been created succesfully & An email has been sent with a recap of your grant', 'info')
+                flash("Votre projet a été créé avec succès & Un email a été envoyé avec un récapitulatif de votre subvention.", 'info')
                 return render_template('recapGrant.html', title=grant.project_title, form=form)
             except socket.gaierror:
-                flash('Please check your network connection and try again.', 'warning')
+                flash('Veuillez vérifier votre connexion réseau et réessayer', 'warning')
         except IntegrityError as e:
-            flash(f'A project grant with the same title has already been sent to the bioinformaticians team.','warning')
-    return render_template('create_grant.html', title='New Grant', form=form, legend='New Grant',instructions=instructions('new_project').replace('Projet', 'Grant'))
+            flash(f"Une subvention de projet portant le même titre a déjà été envoyée à l'équipe de bioinformaticiens.",'warning')
+    return render_template('create_grant.html', title='Nouvelle subvention', form=form, legend='Nouvelle subvention',instructions=instructions('new_project').replace('Projet', 'Grant'))
 
 

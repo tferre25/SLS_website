@@ -8,28 +8,28 @@
                 <small class="text-muted">{{ project.date_posted.strftime('%Y-%m-%d') }}</small>
                 {% if current_user.is_admin %}
                     <div>
-                        <a class = 'btn btn-secondary btn-sm m-1' href="{{ url_for('projects.update_project', project_id=project.id) }}">Update</a>
-                        <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                        <a class = 'btn btn-secondary btn-sm m-1' href="{{ url_for('projects.update_project', project_id=project.id) }}">Mise à jour</a>
+                        <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Supprimer</button>
                     </div>
                 {% endif %}
 
             </div>
             <h2 class="article-title">{{ project.project_title }}</h2>
             <p style="color: blue; font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Application: </b>{{ project.application }}</p>
-            <p class="article-content"> <b>Context project (Public): </b>{{ project.project_context }}</p>
+            <p class="article-content"> <b>Contexte du projet (Public): </b>{{ project.project_context }}</p>
         </div>
     </article>
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="deleteModalLabel">Delete Project?</h5>
+            <h5 class="modal-title" id="deleteModalLabel">Supprimer un projet?</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
             <form action="{{ url_for('projects.delete_projects', project_id=project.id) }}" method="POST">
                 <input class="btn btn-danger" type="submit" value="Delete">
             </form>

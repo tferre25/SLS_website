@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
-    <legend data-text="Projects & Grants...">Projects & Grants...</legend>
+    <legend data-text="Projets et subventions">Projets et subventions</legend>
     {% if projects.items|length == 0 and grants.items|length == 0%}
-      <h1>Nothing to display</h1>
+      <h1>Rien à afficher</h1>
       <img class="fit-picture" src="../static/profile_pics/default.png" alt="logo_aphp" style="width: 250px;">
     {% endif %}
 
@@ -17,23 +17,23 @@
             <div class="media-body">
             <div class="article-metadata">
               {% if project.author is none %}
-                <a class="mr-2" href="#">Unknown user</a>
+                <a class="mr-2" href="#">Utilisateur inconnu</a>
               {%else%}
                 <a class="mr-2" href="{{ url_for('users.user_profile',  username=project.author.username) }}">{{ project.author.username.capitalize() }}</a>
-                <a class="mr-5 ml-5" href="{{ url_for('users.user_projects', username=project.author.username) }}" style="font-weight: bold; color: crimson;">Get all {{ project.author.username.capitalize() }} projects</a>
+                <a class="mr-5 ml-5" href="{{ url_for('users.user_projects', username=project.author.username) }}" style="font-weight: bold; color: crimson;">Obtenir tout les projets de {{ project.author.username.capitalize() }}</a>
               {%endif%}
                 <small class="text-muted">{{ project.date_posted.strftime('%Y-%m-%d') }}</small>
                 <a class="ml-5" href="{{ url_for('projects.project', project_id=project.id) }}">Modification</a>
-                <a class="ml-5" href="#">Project</a>
+                <i class="ml-5" href="#">Projet</i>
             </div>
             <h2 class="article-title">{{ project.project_title }}</h2>
             <p style="color: blue; font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Application: </b>{{ project.application }}</p>
-            <p class="article-content"> <b>Context project (Public): </b>{{ project.project_context }}</p>
+            <p class="article-content"> <b>Contexte du projet (Publique): </b>{{ project.project_context }}</p>
           </div>
         </article>
     {% endfor %}
 
-    <!--PROJECT PARCOUR-->
+    <!--GRANT PARCOUR-->
     {% for grant in grants.items %}
       <article class="media content-section-grant">
       {% if grant.author is none %}
@@ -44,20 +44,20 @@
         <div class="media-body">
         <div class="article-metadata">
           {% if grant.author is none %}
-            <a class="mr-2" href="#">Unknown user</a>
+            <a class="mr-2" href="#">Utilisateur inconnu</a>
           {%else%}
             <a class="mr-2" href="{{ url_for('users.user_profile',  username=grant.author.username) }}">{{ grant.author.username.capitalize() }}</a>
-            <a class="mr-5 ml-5" href="{{ url_for('users.user_grants', username=grant.author.username) }}" style="font-weight: bold; color: crimson;">Get all {{ grant.author.username.capitalize() }} grants</a>
+            <a class="mr-5 ml-5" href="{{ url_for('users.user_grants', username=grant.author.username) }}" style="font-weight: bold; color: crimson;">Obtenir tout les demandes de subvention de {{ grant.author.username.capitalize() }}</a>
           {%endif%}
             <small class="text-muted">{{ grant.date_posted.strftime('%Y-%m-%d') }}</small>
             <a class="ml-5" href="{{ url_for('projects.grant', grant_id=grant.id) }}">Modification</a>
-            <a class="ml-5" href="#">Grant</a>
+            <i class="ml-5" href="#">Subvention</i>
         </div>
         <h2 class="article-title">{{ grant.project_title }}</h2>
-        <li style="color: rgb(28, 3, 71); font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Principal  investigator: </b>{{ grant.principal_investigator }}</li>
-        <li style="color: rgb(28, 3, 71); font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Total Amount: </b>{{ grant.total_amount }}</li>
-        <li style="color: rgb(28, 3, 71); font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Deadline: </b>{{ grant.deadline }}</li>
-        <p class="article-content"> <b>Context grant (Public): </b>{{ grant.project_context }}</p>
+        <li style="color: rgb(28, 3, 71); font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Investigateur principal: </b>{{ grant.principal_investigator }}</li>
+        <li style="color: rgb(28, 3, 71); font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Montant total: </b>{{ grant.total_amount }}</li>
+        <li style="color: rgb(28, 3, 71); font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Date limite: </b>{{ grant.deadline }}</li>
+        <p class="article-content"> <b>Contexte de la subvention (Publique): </b>{{ grant.project_context }}</p>
       </div>
       </article>
     {% endfor %}
@@ -80,7 +80,7 @@
     {{form.hidden_tag() }}
     <input class="form-control me-2 mr-4" type="search" placeholder="Search" aria-label="Search", name="searched">
     <button class="btn btn-primary btn-sm" type="submit">
-      Search
+      Recherche
     </button>
   </form>
 {% endblock search %}

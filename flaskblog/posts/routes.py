@@ -24,7 +24,7 @@ def new_post():
             #current_user.image_file = picture_file
         db.session.add(post)
         db.session.commit()
-        flash(f'Your post has been created!', 'success')
+        flash(f'Votre poste a été créé !', 'success')
         return redirect(url_for('main.home'))
     return render_template('create_post.html', title='New Post', form=form, legend='New Post', instructions=instructions('new_post'))
 
@@ -43,6 +43,7 @@ def update_post(post_id):
         abort(403)
     form = PostForm()
     if form.validate_on_submit():
+        picture_file = post.image_file #ancienne image
         if form.image_file.data:
             picture_file = save_picture(form.image_file.data)
             #current_user.image_file = picture_file
@@ -50,7 +51,7 @@ def update_post(post_id):
         post.content = form.content.data
         post.image_file = picture_file
         db.session.commit()
-        flash('Your post has been updated!', 'success')
+        flash('Votre poste a été mis à jour !', 'success')
         return redirect(url_for('posts.post', post_id=post.id))
     elif request.method == 'GET':
         form.title.data = post.title
@@ -68,6 +69,6 @@ def delete_post(post_id):
         abort(403)
     db.session.delete(post)
     db.session.commit()
-    flash('Your post has been deleted!', 'success')
+    flash('Votre poste a été supprimé !', 'success')
     return redirect(url_for('main.home'))
 

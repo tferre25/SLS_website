@@ -6,100 +6,100 @@ from flask_login import current_user
 from flaskblog.models import User
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Username', # html label
+    username = StringField("Nom d'utilisateur", # html label
                            validators=[DataRequired(), Length(min=2, max=20)],
                            render_kw={'placeholder': 'firstName & lastName'}) #list of validations that we want to check
-    email = StringField('Email',
+    email = StringField('E-mail',
                         validators=[DataRequired(), Email()],
                         render_kw={'placeholder': 'firstName.lastName@aphp.fr'})
-    aphp_num = StringField('APHP_Num',
+    aphp_num = StringField('Numéro APHP',
                         validators=[DataRequired(), Length(min=7, max=10)],
                         render_kw={'placeholder': '1234567'})
-    status = StringField('Position at the aphp',
+    status = StringField('Status',
                          validators=[DataRequired(), Length(min=2)],
                          render_kw={'placeholder': 'Engineer; Medical intern...'})
-    password = PasswordField('Password', 
+    password = PasswordField('Mot de passe', 
                              validators=[DataRequired(),
                                          Length(min=8, max=16),
                                          Regexp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).+$',
-                                                message="""Password must contain at least one uppercase letter,
-                                                           one lowercase letter, and one digit.""")],
+                                                message="""Le mot de passe doit contenir au moins une lettre majuscule, 
+                                                une lettre minuscule et un chiffre..""")],
                              render_kw={'placeholder': '**************'})
-    confirm_password = PasswordField('Confirm Password',
+    confirm_password = PasswordField('Confirmer le mot de passe',
                                      validators=[DataRequired(), EqualTo('password')],
                                      render_kw={'placeholder': '**************'})
-    submit = SubmitField('Sign Up')
+    submit = SubmitField("S'inscrire")
 
     def validate_username(self, username):
         user = User.query.filter_by(username= username.data).first()
         if user:
-            raise ValidationError('That user name is taken. Please choose another one') #template of validation method
+            raise ValidationError("Ce nom d'utilisateur est déjà pris. Veuillez en choisir un autre") #template of validation method
         
     def validate_email(self, email):
         user = User.query.filter_by(email= email.data).first()
         if user:
-            raise ValidationError('That user email is taken. Please choose another one') #template of validation method
+            raise ValidationError("L'adresse électronique de l'utilisateur est déjà utilisée. Veuillez en choisir un autre") #template of validation method
 
 class UpdateAccountForm(FlaskForm):
-    username = StringField('Username', # html label
+    username = StringField("Nom d'utilisateur", # html label
                            validators=[DataRequired(), Length(min=2, max=20)]) #list of validations that we want to check
-    email = StringField('Email',
+    email = StringField('E-mail',
                         validators=[DataRequired(), Email()])
-    aphp_num = StringField('APHP_Num',
+    aphp_num = StringField('Numéro APHP',
                         validators=[DataRequired(), Length(min=7, max=10)])
-    status = StringField('Position at the aphp',
+    status = StringField('Status',
                          validators=[DataRequired(), Length(min=2)])
-    picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
-    submit = SubmitField('Update')
+    picture = FileField("Mise à jour de l'image du profil", validators=[FileAllowed(['jpg', 'png'])])
+    submit = SubmitField('Mise à jour')
 
     def validate_username(self, username):
         if username.data != current_user.username:
             user = User.query.filter_by(username= username.data).first()
             if user:
-                raise ValidationError('That user name is taken. Please choose another one') #template of validation method
+                raise ValidationError("Ce nom d'utilisateur est déjà pris. Veuillez en choisir un autre") #template of validation method
         
     def validate_email(self, email):
         if email.data != current_user.email:
             user = User.query.filter_by(email= email.data).first()
             if user:
-                raise ValidationError('That user email is taken. Please choose another one') #template of validation method
+                raise ValidationError("The user's e-mail address is already in use. Please choose another one") #template of validation method
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Email',validators=[DataRequired(), Email()], render_kw={'placeholder': 'firstName.lastName@aphp.fr'})
-    password = PasswordField('Password', validators=[DataRequired()], render_kw={'placeholder': '**********************'})
-    remember = BooleanField('Remember Me') #remember the password
-    submit = SubmitField('Login')
+    email = StringField('E-mail',validators=[DataRequired(), Email()], render_kw={'placeholder': 'firstName.lastName@aphp.fr'})
+    password = PasswordField('Mot de passe', validators=[DataRequired()], render_kw={'placeholder': '**********************'})
+    remember = BooleanField("Souvenez-vous de moi") #remember the password
+    submit = SubmitField('Connexion')
 
 
 class RequestResetForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()], render_kw={'placeholder': 'firstName.lastName@aphp.fr'})
-    submit = SubmitField('Request Passord Reset')
+    email = StringField('E-mail', validators=[DataRequired(), Email()], render_kw={'placeholder': 'firstName.lastName@aphp.fr'})
+    submit = SubmitField("Demande de réinitialisation du mot de passe")
 
     def validate_email(self, email):
         user = User.query.filter_by(email= email.data).first()
         if user is None:
-            raise ValidationError('There is no account with this email. You must register first!') #template of validation method
+            raise ValidationError("Il n'y a pas de compte avec cet email. Vous devez d'abord vous inscrire !") #template of validation method
         
 class ResetPasswordForm(FlaskForm):
-    password = PasswordField('Password', 
+    password = PasswordField('Mot de passe', 
                              validators=[DataRequired(),
                                          Length(min=8, max=16),
                                          Regexp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).+$',
-                                                message="""Password must contain at least one uppercase letter,
-                                                           one lowercase letter, and one digit.""")],
+                                                message="""Le mot de passe doit contenir au moins une lettre majuscule,
+                                                une lettre minuscule et un chiffre.""")],
                              render_kw={'placeholder': '**************'})
-    confirm_password = PasswordField('Confirm Password',
+    confirm_password = PasswordField('Confirmer le mot de passe',
                                      validators=[DataRequired(), EqualTo('password')])
     
-    submit = SubmitField('Reset Password')
+    submit = SubmitField('Réinitialiser le mot de passe')
 
 
 class ProjectRequestForm(FlaskForm):
-    project_id = StringField('Project ID : *', validators=[DataRequired()], render_kw={'placeholder': 'eg, 5edffc5d29b070cac566f69d04bb63c0db5119837284f6fa84db7da1442b30a7'})
-    asking_for = SelectField('Asking for : *', validators=[DataRequired()], choices=[('Funding','Funding'),
-                                                                                     ('Requiring bioinformatics support','Requiring bioinformatics support')])
-    project_request = SelectField('Project_request : *', choices=[('Accepted', 'Accepted'),('Refused', 'Refused')])
-    motif = StringField('Motif : ', render_kw={'placeholder': 'eg, it doesn\'t concern my attributes . . .'})
-    submit = SubmitField('Send')
+    project_id = StringField('Identifiant du projet : *', validators=[DataRequired()], render_kw={'placeholder': 'eg, 5edffc5d29b070cac566f69d04bb63c0db5119837284f6fa84db7da1442b30a7'})
+    asking_for = SelectField('Demande de : *', validators=[DataRequired()], choices=[('Funding','Financement'),
+                                                                                     ('Requiring bioinformatics support',"Nécessitant un soutien bioinformatique")])
+    project_request = SelectField('Demande de projet : *', choices=[('Accepted', 'Accepté'),('Refused', 'Refusé')])
+    motif = StringField('Motif : ', render_kw={'placeholder': "Exemple, cela ne concerne pas mes attributs . . ."})
+    submit = SubmitField('Envoyer')
      

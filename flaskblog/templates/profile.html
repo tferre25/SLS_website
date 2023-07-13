@@ -11,9 +11,9 @@
             <li>Number of Invalid Projects : {{no_refused}}</li>
             <li>Number of user posts : {{total_user_posts}}</li>
             {% if user.is_admin %}
-                <a href="{{ url_for('main.project_home') }}" class="btn btn-primary" style="margin-top: 10px; display: block;">Check All Accepted Team Project</a>
+                <a href="{{ url_for('main.project_home') }}" class="btn btn-primary" style="margin-top: 10px; display: block;">Consultez tous les projets acceptés par l'équipe</a>
             {% else %}
-                <a href="{{ url_for('users.user_projects', username=user.username)}}" class="btn btn-primary" style="margin-top: 10px; display: block;">Check my submit projects</a>
+                <a href="{{ url_for('users.user_projects', username=user.username)}}" class="btn btn-primary" style="margin-top: 10px; display: block;">Consultez mes projets en cours</a>
             {% endif %}
         </div>
     </div>

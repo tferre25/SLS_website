@@ -69,7 +69,7 @@
                 <b><a class="nav-item nav-link" href="{{ url_for('users.login') }}">Connexion</a></b>
                 <b><a class="nav-item nav-link" href="{{ url_for('users.register') }}">Enregistrement</a></b>
               {% endif %}
-              <b><a class="nav-item nav-link" href="{{ url_for('users.project_request') }}" title="Dedier aux bioinformaticiens transversaux">Réponse au projet</a></b>
+              <b><a class="nav-item nav-link" href="{{ url_for('users.project_request') }}" title="Dedier aux bioinformaticiens transversaux">Réponse aux projets</a></b>
             </div>
           </div>
         </div>
@@ -193,6 +193,7 @@
     <!-- Optional JavaScript -->
     <script src="{{ url_for('static', filename='utils.js') }}"></script>
     <script src="{{ url_for('static', filename='doc.js') }}"></script>
+
     <!--load html into pdf file-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

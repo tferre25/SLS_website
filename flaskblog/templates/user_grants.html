@@ -1,6 +1,6 @@
 {% extends "layout.html" %}h
 {% block content %}
-    <h1 class="mb-3">Grants by {{ user.username.capitalize() }} ({{ grants.total }})</h1>
+    <h1 class="mb-3">Subventions par {{ user.username.capitalize() }} ({{ grants.total }})</h1>
     {% for grant in grants.items %}
       <article class="media content-section">
         <a href="{{ url_for('users.user_profile',  username=grant.author.username) }}"><img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+grant.author.image_file) }}" alt=""></a>

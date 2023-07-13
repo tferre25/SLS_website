@@ -33,7 +33,7 @@ def register():
             flash(f'Your account has benn created! You are now able to log in', 'success')
             return redirect(url_for('users.login'))
         except IntegrityError as e:
-            flash(f'{str(e)} Parameter should be unique','warning')
+            flash(f'Parameter should be unique','warning')
     return render_template('register.html', title='Register', form=form, instructions=instructions('register'))
 
 @users.route("/login", methods=['GET', 'POST'])
