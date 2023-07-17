@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1 class="mb-3">Project by {{ user.username.capitalize() }} ({{ projects.total }})</h1>
+    <h1 class="mb-3">Total des projets de {{ user.username.capitalize() }} ({{ projects.total }})</h1>
     {% for project in projects.items %}
         <article class="media content-section">
           <a href="{{ url_for('users.user_profile',  username=project.author.username) }}"><img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+project.author.image_file) }}" alt=""></a>

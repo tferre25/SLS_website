@@ -42,9 +42,9 @@
 
 .content p:hover{
     transform: scale(1.2); /* Agrandit le paragraphe à 120% */
-    border: 2px solid;
     padding: 15px;
     border-radius: 10px;
+    background-color: #bcc0d5;
 }
 
 

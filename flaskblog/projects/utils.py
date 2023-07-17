@@ -12,19 +12,24 @@ from flask_login import current_user
 from flaskblog import db
 from flaskblog.models import User
 
+#Maud : 4010240
+#Théo : 4079061
+#Dina : 4209954
+#Julien : 4177905
+
 def send_recap_project(user, body, form, project_id):
     token = user.get_reset_token()
     admins = [User.query.filter_by(is_admin=True).all()[i].email for i in range(len(User.query.filter_by(is_admin=True).all()))]
-    msg = Message(f'Summary of your project | {form.project_title.data.capitalize()} | {form.application.data.capitalize()}',
+    msg = Message(f'Résumé de votre projet | {form.project_title.data.capitalize()} | {form.application.data.capitalize()}',
                   sender='noreply@demo.com',
                   cc = [form.email.data],
-                  recipients=[user.email,
-                              'dina.ouahbi@aphp.fr'])
-                              #'maud.salmona@aphp.fr',
-                              #'theo.ferreira@aphp.fr',
-                              #'julien.robert@aphp.fr'])
+                  recipients=[user.email, #project creator
+                              'dina.ouahbi@aphp.fr',
+                              'maud.salmona@aphp.fr',
+                              'theo.ferreira@aphp.fr',
+                              'julien.robert@aphp.fr'])
     msg.body = f"""
-    Hello {user.username.capitalize()},
+    Bonjour {user.username.capitalize()},
 
     Suite à votre demande d'aide pour le projet intitulé"{form.project_title.data.capitalize()}", 
     veuillez trouver ci-dessous un résumé des points qui résument les différents critères du projet :
@@ -44,8 +49,8 @@ def send_recap_project(user, body, form, project_id):
     https://github.com/bioinformatic-hub-sls
 
 
-    Cordialement,
-    Cellule bioinformatique Saint Louis Hospital
+    Salutations,
+    Equipe des bioinformaticiens de l'APHP - SLS, 
     """
     mail.send(msg)
 

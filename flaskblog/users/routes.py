@@ -30,10 +30,10 @@ def register():
         db.session.add(user)
         try:
             db.session.commit()
-            flash(f'Your account has benn created! You are now able to log in', 'success')
+            flash(f"Votre compte a été créé ! Vous pouvez maintenant vous connecter", 'success')
             return redirect(url_for('users.login'))
         except IntegrityError as e:
-            flash(f'Parameter should be unique','warning')
+            flash(f'Le paramètre doit être unique','warning')
     return render_template('register.html', title='Register', form=form, instructions=instructions('register'))
 
 @users.route("/login", methods=['GET', 'POST'])
@@ -48,7 +48,7 @@ def login():
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('main.home'))
         else:
-            flash('Login Unsuccessful. Please check email and password', 'danger')
+            flash("Connexion non réussie. Veuillez vérifier l'email et le mot de passe", 'danger')
     return render_template('login.html', title='Login', form=form, instructions=instructions('login'))
 
 @users.route("/logout")
@@ -70,7 +70,7 @@ def account():
         current_user.aphp_num = form.aphp_num.data
         current_user.status = form.status.data
         db.session.commit()
-        flash('Your account has been updated', 'success')
+        flash("Votre compte a été mis à jour", 'success')
         return redirect(url_for('users.account'))
     elif request.method == 'GET':
         form.username.data=current_user.username
@@ -98,9 +98,9 @@ def reset_request():
         user = User.query.filter_by(email=form.email.data).first()
         try:
             send_reset_email(user)
-            flash('An email has been sent with instructions to reset your password', 'info')
+            flash("Un courriel a été envoyé avec les instructions pour réinitialiser votre mot de passe.", 'info')
         except socket.gaierror:
-            flash('Please check your network connection and try again.', 'warning')
+            flash("Veuillez vérifier votre connexion réseau et réessayer", 'warning')
         return redirect(url_for('users.login'))
     return render_template('reset_request.html', title='Reset_Password', form=form)
 
@@ -110,14 +110,14 @@ def reset_token(token):
         return redirect(url_for('main.home'))
     user = User.verify_reset_token(token)
     if user is None:
-        flash('That is invalid or expired token', 'warning')
+        flash("Il s'agit d'un jeton non valide ou expiré", 'warning')
         return redirect(url_for('users.reset_request'))
     form = ResetPasswordForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user.password = hashed_password
         db.session.commit()
-        flash(f'Your password has ben updated! You are now able to log in', 'success')
+        flash(f"Votre mot de passe a été mis à jour ! Vous pouvez maintenant vous connecter", 'success')
         return redirect(url_for('users.login'))
     return render_template('reset_token.html', title='Reset_Password', form=form)
 
@@ -172,15 +172,15 @@ def project_request():
             # INTERNET
             try:
                 send_project_request(project, form, request)
-                flash(f'Congrat, your answer to the project entitled "{project.project_title}" has been successfully sent to its creator "{project.username}" ', 'success')
+                flash(f'Félicitations, votre réponse au projet intitulé "{project.project_title}" a été envoyé avec succès à son créateur "{project.username}" ', 'success')
             except socket.gaierror:
-                flash('Please check your network connection and try again.', 'warning')
+                flash('Veuillez vérifier votre connexion réseau et réessayer', 'warning')
         except AttributeError:
-            flash('The id entered does not correspond to any project. please double check the id received in your mailbox', 'warning')
+            flash("L'identifiant saisi ne correspond à aucun projet. Veuillez vérifier l'identifiant reçu dans votre adresse e-mail.", 'warning')
             db.session.delete(request)
             db.session.commit()
         except IntegrityError:
-            flash('Already done for this project', 'warning')
+            flash('Déjà fait pour ce projet', 'warning')
 
     return render_template('project_request.html', legend='Project Request', form = form)
 

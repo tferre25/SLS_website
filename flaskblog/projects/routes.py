@@ -131,5 +131,3 @@ def new_grant():
         except IntegrityError as e:
             flash(f"Une subvention de projet portant le même titre a déjà été envoyée à l'équipe de bioinformaticiens.",'warning')
     return render_template('create_grant.html', title='Nouvelle subvention', form=form, legend='Nouvelle subvention',instructions=instructions('new_project').replace('Projet', 'Grant'))
-
-

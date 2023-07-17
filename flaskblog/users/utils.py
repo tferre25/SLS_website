@@ -29,9 +29,9 @@ def send_reset_email(user):
                   sender='noreply@demo.com',
                   recipients=[user.email])
     msg.body = f''' 
-            To reset your password, visit the following link:
+            Pour réinitialiser votre mot de passe, visitez le lien suivant:
             {url_for('users.reset_token', token=token, _external = True)}
-            If you did not make this request,so simply egnore this email and no changes wil be made
+            Si vous n'avez pas fait cette demande, ignorez simplement cet e-mail et aucun changement ne sera effectué.
     '''
     
     mail.send(msg)
@@ -39,18 +39,18 @@ def send_reset_email(user):
         
 
 def send_project_request(project, form, request):
-    msg = Message(f'Answer to your project "{project.project_title}" | {form.asking_for.data}',
+    msg = Message(f'Réponse à votre projet "{project.project_title}" | {form.asking_for.data}',
                   sender='noreply@demo.com',
                   recipients=[project.email])
     msg.body= f'''
-            Dear {project.username},
-            Your project has been {form.project_request.data}
-            The motif was {form.motif.data}
+            Cher {project.username},
+            Votre projet a été {form.project_request.data}
+            Le motif était : {form.motif.data}
 
-            The person who will take care of your project : {request.author.email}
+            La personne qui s'occupera de votre projet : {request.author.email}
 
-            Regards, 
-            APHP Bioinformaticiens Team, 
+            Salutations, 
+            Equipe des bioinformaticiens de l'APHP - SLS, 
 
     '''
     mail.send(msg)
