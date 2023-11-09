@@ -15,20 +15,26 @@
             <a href="{{ url_for('users.user_profile',  username=project.author.username) }}"><img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+project.author.image_file) }}" alt=""></a>
           {%endif%}
             <div class="media-body">
-            <div class="article-metadata">
-              {% if project.author is none %}
-                <a class="mr-2" href="#">Utilisateur inconnu</a>
-              {%else%}
-                <a class="mr-2" href="{{ url_for('users.user_profile',  username=project.author.username) }}">{{ project.author.username.capitalize() }}</a>
-                <a class="mr-5 ml-5" href="{{ url_for('users.user_projects', username=project.author.username) }}" style="font-weight: bold; color: crimson;">Obtenir tout les projets de {{ project.author.username.capitalize() }}</a>
-              {%endif%}
-                <small class="text-muted">{{ project.date_posted.strftime('%Y-%m-%d') }}</small>
-                <a class="ml-5" href="{{ url_for('projects.project', project_id=project.id) }}">Modification</a>
-                <i class="ml-5" href="#">Projet</i>
-            </div>
-            <h2 class="article-title">{{ project.project_title }}</h2>
-            <p style="color: blue; font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Application: </b>{{ project.application }}</p>
-            <p class="article-content"> <b>Contexte du projet (Publique): </b>{{ project.project_context }}</p>
+              <div class="article-metadata">
+                  {% if project.author is none %}
+                    <a class="mr-2" href="#">Utilisateur inconnu</a>
+                  {%else%}
+                    <a class="mr-2" href="{{ url_for('users.user_profile',  username=project.author.username) }}">{{ project.author.username.capitalize() }}</a>
+                    <a class="mr-5 ml-5" href="{{ url_for('users.user_projects', username=project.author.username) }}" style="font-weight: bold; color: crimson;">Obtenir tout les projets de {{ project.author.username.capitalize() }}</a>
+                  {%endif%}
+                    <small class="text-muted">{{ project.date_posted.strftime('%Y-%m-%d') }}</small>
+                    <a class="ml-5" href="{{ url_for('projects.project', project_id=project.id) }}">Modification</a>
+                    <!--PROJECT PROGRESS-->
+                    
+              </div>
+              <h2 class="article-title">{{ project.project_title }}</h2>
+              <p style="color: blue; font-weight: bold; font-family: 'Courier New', Courier, monospace;"><b>Application: </b>{{ project.application }}</p>
+              <p><b>Promoteur :</b> {{ project.promotor }}</p>
+              <p><b>Investigateur principal: </b>{{ project.principal_investigator }}</p>
+              <p><b>Type de donnée: </b>{{project.data_type}}</p>
+              <p><b>Taille des données: </b>{{project.data_size}}</p>
+              <p class="article-content"> <b>Contexte du projet (Public): </b>{{ project.project_context }}</p>
+              <p class="progress">Niveau de progression (définis par le bioinformaticien) : {{ project.progress }}</p>
           </div>
         </article>
     {% endfor %}

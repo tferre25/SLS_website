@@ -2,12 +2,13 @@ from flask import Blueprint, redirect, url_for, abort, request
 from flask import render_template, flash, Blueprint
 from flaskblog.projects.forms import ProjectForm, GrantForm
 from flask_login import login_required, current_user
-from flaskblog.models import User, Project, Grant
+from flaskblog.models import User, Project, Grant, Project_request
 from flaskblog import db, admin_required
 from flaskblog.projects.utils import send_recap_project, extract_form_info, object_project, object_grant, extract_form_info_grant, project_update
 import socket
 from sqlalchemy.exc import IntegrityError
 from ..static.info import instructions 
+import smtplib
 
 projects = Blueprint('projects', __name__)
 
@@ -25,7 +26,7 @@ def new_project():
             dico = extract_form_info(form)
             #current_project = int(len(Project.query.all()))
             try:
-                send_recap_project(user, body=dico, form= form, project_id=project.project_token)
+                send_recap_project(user, body=dico, form= form, project_id=project.project_token) #user
                 flash("Votre projet a été créé avec succès & Un email a été envoyé avec un récapitulatif de votre projet", 'info')
                 return render_template('recapProject.html', title=project.project_title, form=form)
             except socket.gaierror:
@@ -68,14 +69,16 @@ def update_project(project_id):
 @login_required
 @admin_required
 def delete_projects(project_id):
+    print('delete project =============================================')
     project = Project.query.get_or_404(project_id)
+    proj_req = Project_request.query.get_or_404(project_id)
     #if project.author != current_user:
     #    abort(403)
     db.session.delete(project)
+    db.session.delete(proj_req)
     db.session.commit()
     flash('Votre projet a été supprimé !', 'success')
     return redirect(url_for('main.project_home'))
-
 
 ##################33 GRANT
 @projects.route("/grant/<int:grant_id>/update", methods=['GET', 'POST'])
@@ -100,12 +103,14 @@ def update_grant(grant_id):
 @admin_required
 def delete_grants(grant_id):
     grant = Grant.query.get_or_404(grant_id)
+    proj_req = Project_request.query.get_or_404(grant_id)
     #if project.author != current_user:
     #    abort(403)
     db.session.delete(grant)
+    db.session.delete(proj_req)
     db.session.commit()
     flash('Votre subvention a été supprimée !', 'success')
-    return redirect(url_for('main.grant_home'))
+    return redirect(url_for('main.project_home'))
 
 #######
     

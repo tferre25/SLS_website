@@ -10,8 +10,6 @@ from flask import abort
 from flask_login import current_user
 from functools import wraps
 
-
-
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
@@ -19,8 +17,6 @@ login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'info'
 
 mail = Mail()
-
-
 
 # allow us to create different instance of our app with diffrent config
 def create_app(config_class=Config):

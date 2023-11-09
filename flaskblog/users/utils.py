@@ -26,7 +26,7 @@ def save_picture(form_picture):
 def send_reset_email(user):
     token = user.get_reset_token()
     msg = Message('Password Reset Request',
-                  sender='noreply@demo.com',
+                  sender='helpbioinfo@sls.aphp.fr',
                   recipients=[user.email])
     msg.body = f''' 
             Pour réinitialiser votre mot de passe, visitez le lien suivant:
@@ -37,22 +37,29 @@ def send_reset_email(user):
     mail.send(msg)
     
         
-
 def send_project_request(project, form, request):
-    msg = Message(f'Réponse à votre projet "{project.project_title}" | {form.asking_for.data}',
-                  sender='noreply@demo.com',
+    msg = Message(f"Confirmation d'Acceptation de Votre Projet < {project.project_title} > | {form.asking_for.data}",
+                  sender='helpbioinfo@sls.aphp.fr',
+                  # COMMISSION RECHERCHE
+                  cc = ['dina.ouahbi@aphp.fr',
+                        request.author.email], #PERSONNE AYANT ACCEPTER LE PROJET
                   recipients=[project.email])
     msg.body= f'''
-            Cher {project.username},
-            Votre projet a été {form.project_request.data}
-            Le motif était : {form.motif.data}
+                Cher(e) {project.username},
+                Nous avons le plaisir de vous informer que votre projet {project.project_title} a été < {form.project_request.data} > par notre équipe de sélection. Nous tenons à vous féliciter pour votre travail acharné et pour la qualité de votre proposition.
+                Votre projet a suscité un grand intérêt parmi notre comité d'évaluation, et nous croyons fermement en son potentiel de succès. Nous sommes impatients de collaborer avec vous pour concrétiser cette idée innovante.
 
-            La personne qui s'occupera de votre projet : {request.author.email}
+                Voici quelques informations importantes pour la suite du processus :
 
-            Salutations, 
-            Equipe des bioinformaticiens de l'APHP - SLS, 
+                    1. La personne qui va s'occuper de l'analyse < {request.author.email} > vous contactera dans les prochains jours pour discuter des détails pratiques liés à la mise en œuvre de votre projet. N'hésitez pas à poser toutes les questions que vous pourriez avoir lors de cet entretien.
 
-    '''
+                    2. Vous recevrez une invitation pour integrer un espace de travail WIMI qui sera dedier entierement à ce projet. 
+
+                    3. Si vous avez besoin de ressources supplémentaires pour mener à bien votre projet, veuillez nous en informer dès que possible. Nous ferons de notre mieux pour vous fournir les ressources nécessaires.
+
+                Sincères salutations,
+                HelpBioinfo SLS,
+            '''
     mail.send(msg)
 
 

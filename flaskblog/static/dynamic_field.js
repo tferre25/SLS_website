@@ -101,5 +101,3 @@ urgency_of_request.addEventListener('change', event => {
 
     }
 });
-
-

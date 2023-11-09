@@ -105,6 +105,8 @@ class Project(db.Model):
     organism = db.Column(db.String(20), unique=False, nullable=True)
     principal_investigator = db.Column(db.String(20), unique=False, nullable=True)
     promotor = db.Column(db.String(20), unique=False, nullable=True)
+    progress = db.Column(db.String(20), unique=False, default='Début')
+
     
     def __repr__(self) -> str:
         return f"Project('{self.project_token}','{self.username}','{self.project_title}','{self.application}','{self.is_accepted}')"

@@ -1,17 +1,17 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %}1
 {% block content %}
-
+    <legend data-text="Profile">Profile</legend>
     <div class="card" style="width: 40rem; display: block; margin-left: auto; margin-right: auto;">
         <img class="card-img-top" style="border-radius: 50px; width: 50%; display: block; margin-left: auto; margin-right: auto;" src="{{ url_for('static', filename='profile_pics/'+user.image_file) }}" alt="Card image cap">
         <div class="card-body" style="background-color: rgb(83, 169, 140); margin: 10px; border-radius: 5px;">
             <h5 class="card-title" style="text-align: center;">{{user.username}}</h5>
             <li>Email : {{user.email}}</li>
-            <li>Position at the aphp : {{user.status}}</li>
-            <li>Number of Valid Projects : {{no_accepted}}</li>
-            <li>Number of Invalid Projects : {{no_refused}}</li>
-            <li>Number of user posts : {{total_user_posts}}</li>
+            <li>Fonction à l'AP-HP: {{user.status}}</li>
+            <li>Nombre de projets soumis et acceptés : {{no_accepted}}</li>
+            <li>Nombre de projets soumis et non acceptés : {{no_refused}}</li>
+            <li>Nombre de posts publiés par l'utilisateur : {{total_user_posts}}</li>
             {% if user.is_admin %}
-                <a href="{{ url_for('main.project_home') }}" class="btn btn-primary" style="margin-top: 10px; display: block;">Consultez tous les projets acceptés par l'équipe</a>
+                <a href="{{ url_for('main.project_home') }}" class="btn btn-primary" style="margin-top: 10px; display: block;">Consultez tous les projets acceptés par l'équipe HelpBioinfo</a>
             {% else %}
                 <a href="{{ url_for('users.user_projects', username=user.username)}}" class="btn btn-primary" style="margin-top: 10px; display: block;">Consultez mes projets en cours</a>
             {% endif %}
@@ -24,3 +24,4 @@
 {% block info %}
     {{ instructions }}
 {% endblock info %}
+

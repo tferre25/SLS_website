@@ -17,17 +17,18 @@ from flaskblog.models import User
 #Dina : 4209954
 #Julien : 4177905
 
+#user.email, #project creator
+#'dina.ouahbi@aphp.fr',
 def send_recap_project(user, body, form, project_id):
     token = user.get_reset_token()
     admins = [User.query.filter_by(is_admin=True).all()[i].email for i in range(len(User.query.filter_by(is_admin=True).all()))]
     msg = Message(f'Résumé de votre projet | {form.project_title.data.capitalize()} | {form.application.data.capitalize()}',
-                  sender='noreply@demo.com',
+                  sender='helpbioinfo@sls.aphp.fr',
                   cc = [form.email.data],
                   recipients=[user.email, #project creator
                               'dina.ouahbi@aphp.fr',
-                              'maud.salmona@aphp.fr',
-                              'theo.ferreira@aphp.fr',
-                              'julien.robert@aphp.fr'])
+                              'julien.robert@aphp.fr',
+                              'abdeljalil.senhajirachik@aphp.fr'])
     msg.body = f"""
     Bonjour {user.username.capitalize()},
 

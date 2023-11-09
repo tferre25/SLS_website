@@ -10,28 +10,14 @@ app.app_context().push()
 
 from flaskblog.models import Grant, Project, User, Post, Project_request
 
-print(f'--------------------------> Post')
-print(Post.query.all())
+'''p = User.query.all()
 
-print(f'--------------------------> Project')
-print(Project.query.all())
-
-print(f'--------------------------> User')
-
-u = User.query.get(4)
-u.is_admin = True
+project_id = "3fce71d5f1872b956b368bb4a2bf113164687f15b44a3e0d92b90bf4d75bdbf5"
+proj_req = Project_request.query.filter_by(project_id = project_id).first()
+db.session.delete(proj_req)
 db.session.commit()
-print(User.query.all())
+'''
 
+p = Project.query.all()
 
-print(f'--------------------------> Grant')
-'''g = Grant.query.get(3)
-db.session.delete(g)
-db.session.commit()'''
-print(Grant.query.all())
-
-print(f'--------------------------> Project_request')
-print(Project_request.query.all())
-
-
-
+print(p)

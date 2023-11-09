@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1 class="mb-3">Total des postes de {{ user.username.capitalize() }} ({{ posts.total }})</h1>
+    <h1 class="mb-3">Total des posts de {{ user.username.capitalize() }} ({{ posts.total }})</h1>
     {% for post in posts.items %}
         <article class="media content-section">
           <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+post.author.image_file) }}" alt="">
@@ -13,7 +13,7 @@
             <h2 class="article-title">{{ post.title }}</h2>
             <p class="article-content">{{ post.content }}</p>
             {% if post.image_file%}
-              <img class="img-thumbnail mx-auto d-block article-img" style="width: 50%; height: 50%;" src="../static/profile_pics/{{ post.image_file }}" alt="#">
+              <img class="img-thumbnail mx-auto d-block article-img" style="width: 50%; height: 50%;" src="{{ url_for('static', filename='profile_pics/'+post.image_file) }}" alt="#">
             {%endif%}
             </div>
         </article>

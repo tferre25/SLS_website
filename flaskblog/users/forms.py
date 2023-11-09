@@ -102,4 +102,24 @@ class ProjectRequestForm(FlaskForm):
     project_request = SelectField('Demande de projet : *', choices=[('Accepted', 'Accepté'),('Refused', 'Refusé')])
     motif = StringField('Motif : ', render_kw={'placeholder': "Exemple, cela ne concerne pas mes attributs . . ."})
     submit = SubmitField('Envoyer')
+
+
+class ProjectProgressForm(FlaskForm):
+    project_id = StringField('Identifiant du projet : *', validators=[DataRequired()], render_kw={'placeholder': 'eg, 5edffc5d29b070cac566f69d04bb63c0db5119837284f6fa84db7da1442b30a7'})
+    progress = SelectField('Niveau de progression : *', validators=[DataRequired()], choices=[('Collecte des données','Collecte des données'),
+                                                                                              ('Nettoyage des données',"Nettoyage des données"),
+                                                                                              ('Exploration des données',"Exploration des données"),
+                                                                                              ("Choix de méthodes d'analyse","Choix de méthodes d'analyse"),
+                                                                                              ("Conception de l'analyse","Conception de l'analyse"),
+                                                                                              ("Analyse statistique","Analyse statistique "),
+                                                                                              ("Interprétation des résultats","Interprétation des résultats"),
+                                                                                              ("Rapport des résultats","Rapport des résultats"),
+                                                                                              ("Validation et réplication","Validation et réplication"),
+                                                                                              ("Discussion des implications","Discussion des implications"),
+                                                                                              ("Méta-analyse (le cas échéant)","Méta-analyse (le cas échéant)"),
+                                                                                              ("Préparation des données pour la publication","Préparation des données pour la publication"),
+                                                                                              ("Révision par les pairs","Révision par les pairs"),
+                                                                                              ("Publication","Publication"),
+                                                                                              ("Mise à jour et suivi","Mise à jour et suivi")])
+    submit = SubmitField('Ajouter')
      

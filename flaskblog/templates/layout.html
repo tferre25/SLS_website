@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
 
     <!--label color boostrap
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  -->
@@ -14,29 +14,33 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='racine.css') }}">
 
+    <link rel="icon" href="{{ url_for('static', filename='profile_pics/helpbioinfo_logo.png') }}">
+
     <!-- calendar-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"/>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/all.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/swap.css') }}">
+    
     <!--<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='calendar.css') }}">-->
 
     <!--RACINE-->
 
 
     <!-- FOOTER-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='footer.css') }}">
 
     {% if title %}
-        <title> Cellule Bioinformatique SLS - {{ title }}</title>
+        <title> HelpBioinfo - {{ title }}</title>
     {% else %}
-        <title>Cellule Bioinformatique SLS</title>
+        <title>HelpBioinfo</title>
     {% endif %}
 </head>
 <body>
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <div class="container">
-          <a href="/"><img class="fit-picture mr-7 rounded-circle" src="../static/profile_pics/default.png" alt="logo_sls" style="width: 100px; height: 100px;"></a>
+          
+          <a href="/"><img src="{{ url_for('static', filename='profile_pics/helpbioinfo_logo.png') }}" alt="logo_sls" style="width: 110px; height: 110px;"></a>
           <a class="navbar-brand mr-4" href="/">Accueil</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -45,7 +49,7 @@
             <div class="navbar-nav mr-auto"> 
               <b><a class="nav-item nav-link" href="{{ url_for('main.project_home') }}" title="Lister les projets et les subventions acceptés">Projets</a></b>
               <!--<b><a class="nav-item nav-link" href="#">Subventions</a></b>-->
-              <b><a class="nav-item nav-link" href="{{ url_for('main.home') }}">Postes</a></b>
+              <b><a class="nav-item nav-link" href="{{ url_for('main.home') }}">Posts</a></b>
               <b><a class="nav-item nav-link" href="{{ url_for('main.about') }}">A propos</a></b> 
               <!--<b><a class="nav-item nav-link" href="{{ url_for('posts.new_post') }}">New Post</a></b>-->
               <!--<b><a class="nav-item nav-link" href="https://authentification.aphp.fr/logon/LogonPoint/tmindex.html" target="_blank">AP-HP mailbox</a></b>-->
@@ -70,6 +74,7 @@
                 <b><a class="nav-item nav-link" href="{{ url_for('users.register') }}">Enregistrement</a></b>
               {% endif %}
               <b><a class="nav-item nav-link" href="{{ url_for('users.project_request') }}" title="Dedier aux bioinformaticiens transversaux">Réponse aux projets</a></b>
+              <b><a class="nav-item nav-link" href="{{ url_for('users.project_progress') }}" title="En cour de developpement">Avancement du projet</a></b>
             </div>
           </div>
         </div>
@@ -150,30 +155,21 @@
     <footer class="footer">
       <div class="footer-top">
         <div class="footer-aphp">
-          <img  src="../static/profile_pics/aphp.png" alt="logo_aphp">
-          <a class="fa fa-envelope" title="APHP mailbox" href="https://authentification.aphp.fr/logon/LogonPoint/tmindex.html" target="_blank"></a>
+          <img  src="{{ url_for('static', filename='profile_pics/aphp1.png') }}" style="background-color: transparent;" alt="logo_aphp">
+          <a title="APHP mailbox" href="https://authentification.aphp.fr/logon/LogonPoint/tmindex.html" target="_blank"><i style="font-size: 1.2rem;">MailBox</i></a>
         </div>
         <div class="footer-content">
         <!--SLS SUMMARY-->
-          <h3>Hôpital Saint-Louis</h3>
-          <p>
-            Situé à <b>Paris</b>, en France. Il a été construit en 1611 par l'architecte Claude Vellefaux.
-            Il fait partie du système hospitalier Assistance publique - Hôpitaux de Paris.
-            L'Hôpital Saint-Louis est un établissement médical de renom qui se spécialise 
-            dans le traitement des maladies de la peau et des maladies infectieuses. 
-            Il est également un centre de référence pour la prise en charge des patients 
-            atteints de cancer et des maladies du sang.
-            Cet hôpital historique est reconnu pour sa contribution à la recherche médicale et à l'enseignement.
-            Il continue de fournir des soins de qualité et d'être un pilier important du système de santé français.
-          </p>
+          <h3>Hôpital Saint Louis | Cellule SLS bioinformatique</h3>
+          
           <!--SOCIAL MEDIAS-->
             <ul class="socials">
-              <li><a href="https://github.com/bioinformatic-hub-sls" target="_blank" title="Github"><i class="fa fa-github"></i></a></li>
-              <li><a href="https://join.slack.com/t/cellulebioinfosls/shared_invite/zt-1jw5embhe-NVRA67PADVbTekEwQHqTyQ" target="_blank" title="Slack"><i class="fa fa-slack"></i></a></li>
+              <li><a href="https://github.com/bioinformatic-hub-sls" target="_blank" title="Github"><i>GitHub</i></a></li>
+              <li><a href="https://join.slack.com/t/cellulebioinfosls/shared_invite/zt-1jw5embhe-NVRA67PADVbTekEwQHqTyQ" target="_blank" title="Slack"><i>Slack</i></a></li>
             </ul>
         </div>
         <div class="footer-sls">
-          <img  src="../static/profile_pics/default.png" alt="logo_sls">
+          <img  src="{{ url_for('static', filename='profile_pics/helpbioinfo_logo.png') }}" alt="logo_sls">
         </div>
 
       </div>
@@ -195,10 +191,10 @@
     <script src="{{ url_for('static', filename='doc.js') }}"></script>
 
     <!--load html into pdf file-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+    <script src="{{ url_for('static', filename='js/jspdf.min.js') }}"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/jquery-3.2.1.slim.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 </body>
 </html>

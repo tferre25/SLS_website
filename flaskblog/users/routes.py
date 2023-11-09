@@ -2,7 +2,7 @@ from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from flaskblog import db, bcrypt, admin_required
 from flaskblog.models import User, Post, Project, Project_request, Grant
-from flaskblog.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm, ProjectRequestForm,
+from flaskblog.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm, ProjectRequestForm, ProjectProgressForm,
                                    RequestResetForm, ResetPasswordForm)
 from flaskblog.users.utils import save_picture, send_reset_email, send_project_request
 #from itsdangerous import URLSafeTimedSerializer, SignatureExpired
@@ -11,6 +11,8 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 import socket, sys
 from sqlalchemy.exc import IntegrityError
 from ..static.info import instructions
+import smtplib
+from random import *
 
 users = Blueprint('users', __name__)
 
@@ -29,6 +31,7 @@ def register():
                     password=hashed_password)
         db.session.add(user)
         try:
+            # ADD email validation
             db.session.commit()
             flash(f"Votre compte a été créé ! Vous pouvez maintenant vous connecter", 'success')
             return redirect(url_for('users.login'))
@@ -80,7 +83,7 @@ def account():
     image_file = url_for('static', filename='profile_pics/'+ current_user.image_file)
     return render_template('account.html', title='Account', image_file=image_file, form=form, instructions=instructions('account'))
 
-@users.route("/user/<string:username>")
+@users.route("/user/posts/<string:username>")
 def user_posts(username):
     page = request.args.get('page', 1,type=int)
     user = User.query.filter_by(username=username).first_or_404()
@@ -101,6 +104,8 @@ def reset_request():
             flash("Un courriel a été envoyé avec les instructions pour réinitialiser votre mot de passe.", 'info')
         except socket.gaierror:
             flash("Veuillez vérifier votre connexion réseau et réessayer", 'warning')
+        except smtplib.SMTPNotSupportedError:
+            flash(f"votre mail \"{form.email.data}\" n'est pas un mail APHP", 'warning')
         return redirect(url_for('users.login'))
     return render_template('reset_request.html', title='Reset_Password', form=form)
 
@@ -123,7 +128,7 @@ def reset_token(token):
 
 
 #--------------------------------------------------- project_request---------------------------------------------------------
-@users.route("/user/<string:username>/")
+@users.route("/user/projects/<string:username>")
 def user_projects(username):
     page = request.args.get('page', 1,type=int)
     user = User.query.filter_by(username=username).first_or_404()
@@ -200,3 +205,19 @@ def user_profile(username):
     return render_template('profile.html', user=user, posts = posts, no_accepted=no_accepted, no_refused=no_refused, total_user_posts=int(total_user_posts), instructions=instructions('profile'))
 
 
+
+@users.route("/user/project_progress", methods=['GET', 'POST'])
+@login_required
+@admin_required
+def project_progress():
+    form = ProjectProgressForm()
+    try:
+        project = Project.query.filter_by(project_token=form.project_id.data).first()
+        if form.validate_on_submit():
+            flash(f"{project.project_title}", 'success')
+            project.progress = form.progress.data
+            db.session.commit()
+            return redirect(url_for('main.project_home'))
+    except AttributeError:
+        flash("Project did not exist ! try again")
+    return render_template('project_progress.html', legend="Niveau de progression d'un projet", form=form)

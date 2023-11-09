@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-    <legend data-text="Besoin d'un soutien bioinformatique _ {{legend}}" class="border-bottom mb-6 h2">Besoin d'un soutien bioinformatique _ {{legend}}</legend>
+    <legend data-text="Besoin d'un soutien bioinformatique : {{legend}}">Besoin d'un soutien bioinformatique : {{legend}}</legend>
     <div class="content-section">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
@@ -139,7 +139,7 @@
                         {{ form.if_regulatory_requirements(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="project_title">
                     {{ form.project_title.label(class="form-control-label") }}
                     {% if form.project_title.errors %}
                         {{ form.project_title(class="form-control form-control-lg is-invalid") }}
@@ -178,7 +178,7 @@
                         {{ form.if_urgency(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="project_context">
                     {{ form.project_context.label(class="form-control-label") }}
                     {% if form.project_context.errors %}
                         {{ form.project_context(class="form-control form-control-lg is-invalid") }}
@@ -204,7 +204,7 @@
                         {{ form.project_context_private(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="project_summary">
                     {{ form.project_summary.label(class="form-control-label") }}
                     {% if form.project_summary.errors %}
                         {{ form.project_summary(class="form-control form-control-lg is-invalid") }}
@@ -217,7 +217,7 @@
                         {{ form.project_summary(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="bioF_needs">
                     {{ form.bioF_needs.label(class="form-control-label") }}
                     {% if form.bioF_needs.errors %}
                         {{ form.bioF_needs(class="form-control form-control-lg is-invalid") }}
@@ -256,7 +256,7 @@
                         {{ form.access_data(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="data_owner">
                     {{ form.data_owner.label(class="form-control-label") }}
                     {% if form.data_owner.errors %}
                         {{ form.data_owner(class="form-control form-control-lg is-invalid") }}
@@ -269,7 +269,7 @@
                         {{ form.data_owner(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="data_type">
                     {{ form.data_type.label(class="form-control-label") }}
                     {% if form.data_type.errors %}
                         {{ form.data_type(class="form-control form-control-lg is-invalid") }}
@@ -282,7 +282,7 @@
                         {{ form.data_type(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="data_size">
                     {{ form.data_size.label(class="form-control-label") }}
                     {% if form.data_size.errors %}
                         {{ form.data_size(class="form-control form-control-lg is-invalid") }}
@@ -295,7 +295,7 @@
                         {{ form.data_size(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="email">
                     {{ form.email.label(class="form-control-label") }}
                     {% if form.email.errors %}
                         {{ form.email(class="form-control form-control-lg is-invalid") }}
@@ -308,7 +308,7 @@
                         {{ form.email(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="add_info">
                     {{ form.add_info.label(class="form-control-label") }}
                     {% if form.add_info.errors %}
                         {{ form.add_info(class="form-control form-control-lg is-invalid") }}

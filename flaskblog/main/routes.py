@@ -29,7 +29,7 @@ def home():
     return render_template('home.html', posts=posts, time=time, instructions=instructions('post'))
 
 
-# LES PROJETS ACCPTtt
+# LES PROJETS ACCPTEES
 @main.route("/project_home")
 @login_required
 def project_home():
@@ -53,13 +53,43 @@ def grant_home():
     #projects = Project.query.order_by(Project.date_posted.desc()).paginate(page=page, per_page=5)
     grants = Grant.query.filter_by(is_accepted=True).order_by(Grant.date_posted.desc()).paginate(page=page, per_page=5)
     # TODO : if project.is_accepted == True / then, post it
-    return render_template('project_home.html', grants=grants, instructions=instructions('projects'))'''
+    return render_template('project_homee.html', grants=grants, instructions=instructions('projects'))'''
 
 
 #--------------------------------------------------- ABOUT ---------------------------------------------------------
 @main.route("/about")
 def about():
     users = User.query.filter_by(is_admin=True).all()
+    # BIOINFORMATICIENS
+    try:
+        dina_picture = User.query.filter_by(email='dina.ouahbi@aphp.fr').all()[0].image_file
+    except IndexError:
+        dina_picture = "helpbioinfo_logo.png"
+    try:
+        julien_picture = User.query.filter_by(email='julien.robert@aphp.fr').all()[0].image_file
+    except IndexError:
+        julien_picture = "helpbioinfo_logo.png"
+    try:
+        abdeljalil_picture = User.query.filter_by(email='abdeljalil.senhajirachik@aphp.fr').all()[0].image_file
+    except IndexError:
+        abdeljalil_picture = "helpbioinfo_logo.png"
+    try:
+        selim_picture = User.query.filter_by(email='selim.turan@inserm.fr').all()[0].image_file
+    except IndexError:
+        selim_picture = "helpbioinfo_logo.png"
+    try:
+        samuel_picture = User.query.filter_by(email='samuel.quentin@aphp.fr').all()[0].image_file
+    except IndexError:
+        samuel_picture = "helpbioinfo_logo.png"
+    # ANIMATEURS MEDICAUX
+    try:
+        theo_picture = User.query.filter_by(email='theo.ferreira@aphp.fr').all()[0].image_file
+    except IndexError:
+        theo_picture = "helpbioinfo_logo.png"
+    try:
+        maud_picture = User.query.filter_by(email='maud.salmona@aphp.fr').all()[0].image_file
+    except IndexError:
+        maud_picture = "helpbioinfo_logo.png"
     return render_template('about.html',
                            users=users,
                            title='Qui pourriez-vous solliciter ?',
@@ -68,7 +98,14 @@ def about():
                            db = doc_def('db'),
                            log = doc_def('log'),
                            omics = doc_def('omics'),
-                           web = doc_def('web')
+                           web = doc_def('web'),
+                           dina_picture = dina_picture,
+                           julien_picture = julien_picture,
+                           abdeljalil_picture = abdeljalil_picture,
+                           selim_picture = selim_picture,
+                           samuel_picture = samuel_picture,
+                           theo_picture = theo_picture,
+                           maud_picture = maud_picture
                            )
 
 

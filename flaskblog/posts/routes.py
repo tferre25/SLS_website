@@ -4,17 +4,17 @@ from flask_login import current_user, login_required
 from flaskblog import db
 from flaskblog.models import Post
 from flaskblog.posts.forms import PostForm
-from flaskblog.posts.utils import save_picture
+from flaskblog.posts.utils import save_picture, send_post_email
 from ..static.info import instructions
 
 posts = Blueprint('posts', __name__)
-
 
 @posts.route("/post/new", methods=['GET', 'POST'])
 @login_required
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
+        user = current_user
         if form.image_file.data:
             picture_file = save_picture(form.image_file.data)
             post = Post(title=form.title.data, content=form.content.data, image_file=picture_file,author=current_user)
@@ -24,7 +24,8 @@ def new_post():
             #current_user.image_file = picture_file
         db.session.add(post)
         db.session.commit()
-        flash(f'Votre poste a été créé !', 'success')
+        flash(f'Votre post a été créé !', 'success')
+        send_post_email(user)
         return redirect(url_for('main.home'))
     return render_template('create_post.html', title='New Post', form=form, legend='New Post', instructions=instructions('new_post'))
 

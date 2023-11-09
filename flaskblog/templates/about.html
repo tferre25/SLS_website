@@ -12,18 +12,13 @@
                             <li>E-mail : {{user.email}}</li>
                             <li>Status : {{user.status}}</li>
                             <li>Nombre de demandes de projets : {{user.requests|length}}</li>
-                            {% if user.email == 'dina.ouahbi@aphp.fr' %}
-                                <p>Bonjour je suis Dina, je travail principalement sur des projets de recherche</p>
-                            {% elif user.email == 'julien.robert@aphp.fr' %}
-                                <p>Bonjour je suis Julien, je travail principalement sur des projets de diagnostic</p>
-                            {% endif %}
                         </div>
                     </div>
                 {% endfor %}
             </div>
             <!--FLECHES-->
             <!--<i id="nav-gauche" class="fas fa-chevron-left"></i>-->
-            <i id="nav-droite" class="fas fa-chevron-right"></i>
+            <i id="nav-droite"> > </i>
         </div>
     </main>
     <hr>
@@ -92,43 +87,89 @@
 
     <hr>
     <legend data-text="Nos Bioinformaticiens">Nos Bioinformaticiens</legend>
-
+    <!--ROW ONE-->
     <div class="annuaire">
         <div class="contact">
             <div class="ann_top">
-                <h2>Théo Ghelfenstein-Ferreira</h2>
-                <img src="../static/profile_pics/tf.jpg" alt="Théo Ghelfenstein-Ferreira">
+                <h3><b><span style="text-transform:uppercase">Abdeljalil Senhaji Rachik</span></b></h3>
+                <img src="../static/profile_pics/{{ abdeljalil_picture }}" alt="Abdeljalil Senhaji Rachik">
             </div>
-            <p>Email: theo.ferreira@aphp.fr</p>
+            <h4>Bio-informaticien - Virologie</h4>
+            <h5>Langages:Python, Bash, C++</h5>
+            <p>Métagénomique, génomique, microbienne, big data</p>
+            <p><i>Contact: abdeljalil.senhajirachik@aphp.fr</i></p>
         </div>
-    
         <div class="contact">
             <div class="ann_top">
-                <h2>Maud Salmona</h2>
-                <img src="../static/profile_pics/ms.png" alt="Maud Salmona">
+                <h3><b><span style="text-transform:uppercase">Julien Robert</span></b></h3>
+                <img src="../static/profile_pics/{{ julien_picture }}" alt="Julien Robert">
             </div>
-            <p>Email: maud.salmona@example.fr</p>
+            <h4>Bio-informaticien transversal - Clinique</h4>
+            <h5>Langages:Python, Bash</h5>
+            <p>Développement de pipeline, Développement de logiciel, interface graphique</p>
+            <p><i>Contact: julien.robert@aphp.fr</i></p>
         </div>
     </div>
-
+    <!--ROW TWO-->
     <div class="annuaire">
         <div class="contact">
             <div class="ann_top">
-                <h2>Julien Robert</h2>
-                <img src="../static/profile_pics/jr.jpg" alt="Julien Robert">
+                <h3><b><span style="text-transform:uppercase">Dina Ouahbi</span></b></h3>
+                <img src="../static/profile_pics/{{ dina_picture }}" alt="Dina Ouahbi">
             </div>
-            <p>Email: julien.robert@aphp.fr</p>
+            <h4>Bio-informaticienne transversale - Recherche</h4>
+            <h5>Langages:Python, R, Bash, Java</h5>
+            <p>Analyses transcriptomiques, Analyse d'exomes, mutations somatiques, Analyse de survie, développement web, Intelligence artificielle</p>
+            <p><i>Contact: dina.ouahbi@aphp.fr</i></p>
         </div>
-    
         <div class="contact">
             <div class="ann_top">
-                <h2>Dina Ouahbi</h2>
-                <img src="../static/profile_pics/do.jpg" alt="dinaOuahbi">
+                <h3><b><span style="text-transform:uppercase">Samuel Quentin</span></b></h3>
+                <img src="../static/profile_pics/{{ samuel_picture }}" alt="Samuel Quentin">
             </div>
-            <p>Email: dina.ouahbi@aphp.fr</p>
+            <h4>Bio-informaticien - Hématologie</h4>
+            <h5>Langages:Python, R, Bash</h5>
+            <p>Recherche de variants structuraux, Analyses transcriptomiques, analyses d'exomes, mutations somatiques, génomique</p>
+            <p><i>Contact: samuel.quentin@aphp.fr</i></p>
         </div>
     </div>
-{% endblock content %}
+    <!--ROW THREE-->
+    <div class="annuaire">
+        <div class="contact">
+            <div class="ann_top">
+                <h3><b><span style="text-transform:uppercase">Selim Turan</span></b></h3>
+                <img src="../static/profile_pics/{{ selim_picture }}" alt="Selim Turan">
+            </div>
+            <h4>Bio-informaticien - Hématologie - INSERM</h4>
+            <h5>Langages:Python, R, Bash, JAVA</h5>
+            <p>Recherche de données RNA-seq (transcriptomique, single-cell ...), ATAC-seq (Assay for Transposase-Accessible Chromatin using sequencing)</p>
+            <p><i>Contact: selim.turan@inserm.fr</i></p>
+        </div>
+    </div>
+
+    <hr>
+    <legend data-text="Nos Animateurs médicaux">Nos Animateurs médicaux</legend>
+    <!--ROW ONE-->
+    <div class="annuaire">
+        <div class="contact">
+            <div class="ann_top">
+                <h3><b><span style="text-transform:uppercase">Théo Ghelfenstein-Ferreira</span></b></h3> 
+                <img src="../static/profile_pics/{{ theo_picture }}" alt="Théo Ghelfenstein-Ferreira">
+            </div>
+            <h4>AHU - Parasitologie - Mycologie</h4>
+            <p><i>Contact: theo.ferreira@aphp.fr</i></p>
+        </div>
+        <div class="contact">
+            <div class="ann_top">
+                <h3><b><span style="text-transform:uppercase">maud salmona</span></b></h3> 
+                <img src="../static/profile_pics/{{ maud_picture }}" alt="Julien Robert">
+            </div>
+            <h4>MCU - PH - Virologie</h4>
+            <p><i>Contact: maud.salmona@aphp.fr</i></p>
+        </div>
+    </div>
+
+    {% endblock content %}
 
 {% block js %}
     <script src="{{ url_for('static', filename='about.js') }}"></script>    
