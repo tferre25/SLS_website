@@ -68,10 +68,10 @@ h1, h2, h3, h4, h5, h6 {
   
   .article-title {
     color: #444444;
-    border: 2px solid gray ;
+    border: 2px solid rgb(0, 0, 0) ;
     text-align: center;
     font-weight: bold;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 10px 10px rgba(23, 99, 99, 0.8);
     margin-bottom: 30px;
     margin-top: 30px;
     border-radius: 30px;
@@ -84,7 +84,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 
 .media-body img:hover {
-    transform: scale(2); /* ajustez la valeur pour le niveau de zoom souhaité */
+    transform: scale(1.1); /* ajustez la valeur pour le niveau de zoom souhaité */
 }
   
   a.article-title:hover {

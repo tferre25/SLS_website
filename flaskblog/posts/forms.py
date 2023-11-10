@@ -12,6 +12,6 @@ class PostForm(FlaskForm):
 
 
 class CommentForm(FlaskForm):
-    comment = StringField('Commentaire',validators=[DataRequired()], render_kw={'placeholder': 'Quesque vous en pensez de ce post ?'})
+    comment = StringField('Commentaire',validators=[DataRequired()], render_kw={'placeholder': 'Votre avis'})
     submit = SubmitField('Ajouter')
 

@@ -30,21 +30,19 @@ def send_post_email(user):
     try:
         users = User.query.all()
         emails = [u.email for u in users] # un get de tout les utilisateur
-        msg = Message(f'Nouveau post de {user.username}',
+        msg = Message(f'Nouvelle publication | Mail automatique - Ne pas répondre',
                     sender='helpbioinfo@sls.aphp.fr',
                     #cc = [form.email.data],
                     recipients=emails)
         msg.body = f"""
                     Cher(e) abonné(e),
 
-                    Nous sommes heureux de vous informer qu'un de nos utilisateurs, {user.username}, a publié un nouveau post sur notre plateforme. Ne manquez pas cette occasion de découvrir son contenu!
+                    {user.username}, a publié (mit à jour) un post. 
 
-                    Découvrez le post de {user.username} en cliquant sur le lien ci-dessous :
+                    Découvrez le post en cliquant sur le lien ci-dessous :
                     http://bioinfo-recherche.sls.aphp.fr/home
 
-                    N'hésitez pas à interagir avec le post en partageant vos réflexions avec la communauté.
-
-                    Merci de nous suivre et de soutenir nos utilisateurs.
+                    N'hésitez pas à interagir avec le post via un commentaire.
 
                     Cordialement,
                     Equipe HelpBioinfo SLS

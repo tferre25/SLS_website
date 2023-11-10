@@ -17,11 +17,13 @@
                             {% if comment.post_title == post.title: %}
                                 <div style="background-color: rgb(133, 172, 172); border-radius: 20px;" class="col-md-6 mx-auto my-auto">
                                     <div style="display: flex">
-                                        <img src="{{ url_for('static', filename='profile_pics/'+Post.query.filter_by(title=comment.post_title).first().author.image_file) }}" style="border-radius: 50px; width: 50px; height: 50px; object-fit: cover; margin-left: 10;">
-                                        <h2 style="font-size: 18px; margin-top: 0; color: white; font-weight: bold; text-transform: capitalize; margin-left: 50px;"> {{ comment.user_comment }}</h2>
-                                        <button type="button" style="display: inline-block; padding: 4px 8px; background-color: brown; color: #fff; border: none; border-radius: 50px; cursor: pointer; margin-left: 100px;" data-toggle="modal" data-target="#deleteModal">Supprimer</button>
+                                        <img src="{{ url_for('static', filename='profile_pics/'+User.query.filter_by(username=comment.user_comment).first().image_file) }}" style="border-radius: 50px; width: 50px; height: 50px; object-fit: cover; margin-left: 10;">
+                                        <h2 style="font-size: 18px; margin-top: 0; color: white; font-weight: bold; text-transform: capitalize; margin-left: 50px;margin-left: 30px; margin-top: 15px;"> {{ comment.user_comment }}</h2>
+                                        {% if post.author == current_user %}
+                                            <button type="button" style="display: inline-block; padding: 4px 8px; background-color: brown; color: #fff; border: none; border-radius: 50px; cursor: pointer; margin-left: 100px;" data-toggle="modal" data-target="#deleteModal">Supprimer</button>
+                                        {% endif %}
                                     </div>
-                                    <p style="color: white; font-style: italic; text-transform: capitalize; margin-left: 10px;">{{ comment.content }}</p>
+                                    <p style="color: white; font-style: italic; margin-left: 10px;">{{ comment.content }}</p>
                                 </div>
                             {%endif%}
                       {% endfor %}

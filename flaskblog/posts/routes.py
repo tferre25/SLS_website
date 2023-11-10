@@ -2,7 +2,7 @@ from flask import (render_template, url_for, flash,
                    redirect, request, abort, Blueprint)
 from flask_login import current_user, login_required
 from flaskblog import db
-from flaskblog.models import Post, Comment
+from flaskblog.models import Post, Comment, User
 from flaskblog.posts.forms import PostForm, CommentForm
 from flaskblog.posts.utils import save_picture, send_post_email
 from ..static.info import instructions
@@ -85,7 +85,7 @@ def comment(post_id):
         db.session.add(comment)
         db.session.commit()
         return redirect(url_for('main.home'))
-    return render_template('comment_post.html', form=form, post=post, comments=comments, Post=Post)
+    return render_template('comment_post.html', form=form, post=post, comments=comments, User=User)
 
 
 @posts.route("/post/<int:post_id>/delete_comment",  methods=['POST'])

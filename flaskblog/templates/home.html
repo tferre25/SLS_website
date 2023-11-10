@@ -23,17 +23,20 @@
               <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
               <a class="ml-5" href="{{ url_for('posts.post', post_id=post.id) }}">Modification</a>
             </div>
-            <a href="{{ url_for('posts.comment', post_id=post.id) }}" style="text-decoration: none;"><h2 class="article-title" title="Commenter ce post">{{ post.title }}</h2></a>
+            <a href="{{ url_for('posts.comment', post_id=post.id) }}" style="text-decoration: none;"><h5 class="article-title" title="Commenter ce post">{{ post.title }}</h5></a>
             <p class="article-content">{{ post.content }}</p>
             {% if post.image_file%}
-              <img class="img-thumbnail mx-auto d-block article-img" style="width: 50%; height: 50%;" src="../static/profile_pics/{{ post.image_file }}" alt="#">
+              <img src="../static/profile_pics/{{ post.image_file }}" alt="#" id="image" onclick="ouvrirImage()">
+              <div id="modal" onclick="fermerImage()">
+                <img class="img-thumbnail mx-auto d-block article-img" style="width: 50%; height: 50%;" src="../static/profile_pics/{{ post.image_file }}" alt="#">
+              </div>
             {%endif%}
             <!--COMMENT LIST-->
               {% for comment in comments %}
                 {% if comment.post_title == post.title: %}
                 <div>
-                  <div style="background-color: rgb(179, 212, 212); border-radius: 20px; display: flex">
-                    <img src="{{ url_for('static', filename='profile_pics/'+Post.query.filter_by(title=comment.post_title).first().author.image_file) }}" style="border-radius: 50px; width: 50px; height: 50px; object-fit: cover; margin-left: 10;">
+                  <div style="background-color: rgb(23, 99, 99); border-radius: 20px; display: flex;">
+                    <img src="{{ url_for('static', filename='profile_pics/'+User.query.filter_by(username=comment.user_comment).first().image_file) }}" style="border-radius: 50px; width: 50px; height: 50px; object-fit: cover; margin-left: 10;">
                     <h2 style="font-size: 18px; margin-top: 0; color: white; font-weight: bold; text-transform: capitalize; margin-left: 30px; margin-top: 15px;"> {{ comment.user_comment }}</h2>
                   </div>
                   <p style="color: rgb(0, 0, 0); font-style: italic; text-transform: capitalize; margin-left: 10px; background-color: #fff; width: fit-content;">{{ comment.content }}</p>

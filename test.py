@@ -17,7 +17,7 @@ proj_req = Project_request.query.filter_by(project_id = project_id).first()
 db.session.delete(proj_req)
 db.session.commit()
 '''
-
+'''
 import sqlite3
 
 # Connexion à la base de données
@@ -36,4 +36,9 @@ for row in resultats:
 
 # Fermeture de la connexion à la base de données
 conn.close()
+'''
 
+comment = Comment.query.get(2)
+print(comment)
+user = User.query.filter_by(username=comment.user_comment).first().image_file
+print(user)

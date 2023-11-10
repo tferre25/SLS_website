@@ -3,7 +3,7 @@
     <legend data-text="Profile">Profile</legend>
     <div class="card" style="width: 40rem; display: block; margin-left: auto; margin-right: auto;">
         <img class="card-img-top" style="border-radius: 50px; width: 50%; display: block; margin-left: auto; margin-right: auto;" src="{{ url_for('static', filename='profile_pics/'+user.image_file) }}" alt="Card image cap">
-        <div class="card-body" style="background-color: rgb(83, 169, 140); margin: 10px; border-radius: 5px;">
+        <div class="card-body" style="background-color: rgba(23, 99, 99, 0.8); margin: 10px; border-radius: 5px;">
             <h5 class="card-title" style="text-align: center;">{{user.username}}</h5>
             <li>Email : {{user.email}}</li>
             <li>Fonction à l'AP-HP: {{user.status}}</li>

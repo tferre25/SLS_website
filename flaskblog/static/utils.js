@@ -63,6 +63,15 @@ document.getElementById("zone-survol").addEventListener("mouseover", function() 
  });
 
 
+function ouvrirImage() {
+    var modal = document.getElementById('modal');
+    modal.style.display = 'flex';
+}
 
+// Fonction pour fermer l'image
+function fermerImage() {
+    var modal = document.getElementById('modal');
+    modal.style.display = 'none';
+}
   
  
