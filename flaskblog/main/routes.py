@@ -1,5 +1,5 @@
 from flask import render_template, request, Blueprint, flash, url_for, redirect
-from flaskblog.models import Post, User, Project, Grant
+from flaskblog.models import Post, User, Project, Grant, Comment
 from flask_login import login_required
 from flaskblog.main.forms import SearchForm
 import random, pytz
@@ -17,8 +17,9 @@ def racine():
 
 
 # LES POSTES
-@main.route("/home")
+@main.route("/home", methods=['GET', 'POST'])
 def home():
+    comments = Comment.query.all()
     UTC = pytz.utc
     IST = pytz.timezone('Europe/Paris')
     datetime_ist = datetime.now(IST)
@@ -26,7 +27,7 @@ def home():
     page = request.args.get('page', 1,type=int)
     # grab those posts from database
     posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
-    return render_template('home.html', posts=posts, time=time, instructions=instructions('post'))
+    return render_template('home.html', posts=posts, time=time, instructions=instructions('post'), comments=comments, Post=Post)
 
 
 # LES PROJETS ACCPTEES

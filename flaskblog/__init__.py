@@ -40,7 +40,7 @@ def create_app(config_class=Config):
     app.register_blueprint(projects)
     app.register_blueprint(errors)
 
-    migrate = Migrate(app, db)
+    migrate = Migrate(app, db ,render_as_batch=True)
 
     return app
 

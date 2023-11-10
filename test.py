@@ -8,7 +8,7 @@ app.app_context().push()
 # mdp theo : J5Q7eR4a8Zegt8
 # mdp julien : pH3Y6A85Ynnj3r
 
-from flaskblog.models import Grant, Project, User, Post, Project_request
+from flaskblog.models import Grant, Project, User, Post, Project_request, Comment
 
 '''p = User.query.all()
 
@@ -18,6 +18,22 @@ db.session.delete(proj_req)
 db.session.commit()
 '''
 
-p = Project.query.all()
+import sqlite3
 
-print(p)
+# Connexion à la base de données
+conn = sqlite3.connect('flaskblog/site.db')
+
+# Création d'un objet curseur
+cursor = conn.cursor()
+
+# Exécution d'une requête SQL (exemple)
+cursor.execute('SELECT * FROM Comment;')
+resultats = cursor.fetchall()
+
+# Affichage des résultats (exemple)
+for row in resultats:
+    print(row)
+
+# Fermeture de la connexion à la base de données
+conn.close()
+

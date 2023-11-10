@@ -2,8 +2,8 @@ from flask import (render_template, url_for, flash,
                    redirect, request, abort, Blueprint)
 from flask_login import current_user, login_required
 from flaskblog import db
-from flaskblog.models import Post
-from flaskblog.posts.forms import PostForm
+from flaskblog.models import Post, Comment
+from flaskblog.posts.forms import PostForm, CommentForm
 from flaskblog.posts.utils import save_picture, send_post_email
 from ..static.info import instructions
 
@@ -73,3 +73,30 @@ def delete_post(post_id):
     flash('Votre poste a été supprimé !', 'success')
     return redirect(url_for('main.home'))
 
+@posts.route("/post/<int:post_id>/add_comment",  methods=['GET', 'POST'])
+@login_required
+def comment(post_id):
+    comments = Comment.query.all()
+    user = current_user
+    post = Post.query.get_or_404(post_id)
+    form = CommentForm()
+    if form.validate_on_submit():
+        comment = Comment(post_title=post.title, content=form.comment.data, user_comment=user.username)
+        db.session.add(comment)
+        db.session.commit()
+        return redirect(url_for('main.home'))
+    return render_template('comment_post.html', form=form, post=post, comments=comments, Post=Post)
+
+
+@posts.route("/post/<int:post_id>/delete_comment",  methods=['POST'])
+@login_required
+def delete_comment(post_id):
+    post = Post.query.get_or_404(post_id)
+    comment = Comment.query.filter_by(post_title=post.title).first()
+    if comment.user_comment != current_user.username:
+        #flash(current_user, 'warning')
+        abort(403)
+    db.session.delete(comment)
+    db.session.commit()
+    flash('Votre commentaire a été supprimé !', 'success')
+    return redirect(url_for('main.home'))

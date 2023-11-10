@@ -52,8 +52,7 @@ class User(db.Model, UserMixin):
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
-    date_posted = db.Column(db.DateTime, nullable=False,
-                            default=datetime.utcnow)
+    date_posted = db.Column(db.DateTime, nullable=False,default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
     image_file = db.Column(db.String(20), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
@@ -151,6 +150,12 @@ class Grant(db.Model):
     def __repr__(self) -> str:
         return f"Grant('{self.project_token}','{self.username}','{self.project_title}','{self.application}','{self.is_accepted}')"
 
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    post_title = db.Column(db.String(20), nullable=False)
+    content = db.Column(db.String(100), nullable=False)
+    user_comment = db.Column(db.String(10), nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False,default=datetime.utcnow)
 
-
-
+    def __repr__(self):
+        return f"Comment('{self.user_comment}','{self.post_title}', '{self.content}')"

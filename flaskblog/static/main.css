@@ -5,43 +5,36 @@ body {
   font-family: Arial, sans-serif;
   }
 
-legend{
-  position: relative;
-  font-size: 2vw;
-  color: #0a1b80;
-  text-decoration : underline;
-  font-family: Georgia, serif;
-  padding: 7%;
+/* === HEADING STYLE #1 === */
+legend {
   text-align: center;
-  font-style:unset;
+  text-transform: uppercase;
+  padding-bottom: 5px;
 }
-/*
-legend::before{
-  content: attr(data-text);
+legend:before {
+  width: 28px;
+  height: 5px;
+  display: block;
+  content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 100%;
-  color: #020d49;
-  -webkit-text-stroke: 0vw #383d52;
-  border-right: 2px solid #020d49;
-  overflow: hidden;
-  animation: animate 6s linear infinite;
+  bottom: 3px;
+  left: 50%;
+  margin-left: -14px;
+  background-color: #b80000;
+}
+legend:after {
+  width: 100px;
+  height: 1px;
+  display: block;
+  content: "";
+  position: relative;
+  margin-top: 25px;
+  left: 50%;
+  margin-left: -50px;
+  background-color: #b80000;
 }
 
-@keyframes animate{
-  0%, 10%, 100%
-  {
-    width: 0;
-  }
-  70%, 90%
-  {
-    width: 70%;
-  }
-}
-*/
-  h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6 {
     color: #444444;
   }
   
@@ -84,17 +77,21 @@ legend::before{
     border-radius: 30px;
   }
 
-  .article-img {
+  .media-body img {
     border-radius: 30px;
-    width: 200px;
-    height: 100px;
+    width: 50%;
+    height: 50%;
   }
+
+.media-body img:hover {
+    transform: scale(2); /* ajustez la valeur pour le niveau de zoom souhaité */
+}
   
   a.article-title:hover {
     color: #273792;
     text-decoration: none;
   }
-  
+
   .article-content {
     white-space: pre-line;
   }
@@ -474,4 +471,11 @@ hr {
   margin: 10px;
   font-weight: bolder;
   width: fit-content;
+}
+
+.img_comment{
+  border-radius: 50%;
+  width: 50px; /* ajustez la taille selon vos besoins */
+  height: 50px; /* ajustez la taille selon vos besoins */
+  object-fit: cover; /* cette propriété permet de conserver les proportions de l'image */
 }

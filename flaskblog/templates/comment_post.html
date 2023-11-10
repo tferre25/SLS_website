@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+{% block content %}
+    <article class="media content-section">
+        <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+post.author.image_file) }}" alt="">
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username.capitalize() }}</a>
+                <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+            </div>
+            <h2 class="article-title">{{ post.title }}</h2>
+            <p class="article-content">{{ post.content }}</p>
+            {% if post.image_file%}
+                <img class="img-thumbnail mx-auto d-block article-img" style="width: 50%; height: 50%;" src="{{ url_for('static', filename='profile_pics/'+post.image_file) }}" alt="#">
+            {%endif%}
+            <!--COMMENT LIST-->
+                        {% for comment in comments %}
+                            {% if comment.post_title == post.title: %}
+                                <div style="background-color: rgb(133, 172, 172); border-radius: 20px;" class="col-md-6 mx-auto my-auto">
+                                    <div style="display: flex">
+                                        <img src="{{ url_for('static', filename='profile_pics/'+Post.query.filter_by(title=comment.post_title).first().author.image_file) }}" style="border-radius: 50px; width: 50px; height: 50px; object-fit: cover; margin-left: 10;">
+                                        <h2 style="font-size: 18px; margin-top: 0; color: white; font-weight: bold; text-transform: capitalize; margin-left: 50px;"> {{ comment.user_comment }}</h2>
+                                        <button type="button" style="display: inline-block; padding: 4px 8px; background-color: brown; color: #fff; border: none; border-radius: 50px; cursor: pointer; margin-left: 100px;" data-toggle="modal" data-target="#deleteModal">Supprimer</button>
+                                    </div>
+                                    <p style="color: white; font-style: italic; text-transform: capitalize; margin-left: 10px;">{{ comment.content }}</p>
+                                </div>
+                            {%endif%}
+                      {% endfor %}
+            <!-- END COMMENT LIST-->
+
+            <!-- Modal -->
+                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel">Supprimer le commentaire?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                            <form action="{{ url_for('posts.delete_comment', post_id=post.id) }}" method="POST">
+                                <input class="btn btn-danger" type="submit" value="Delete">
+                            </form>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            <!--END MODAL -->
+
+            <!--COMMENT SECTION-->
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <fieldset class="form-group">
+                        <div class="form-group">
+                            {{ form.comment.label(class="form-control-label") }}
+                            {% if form.comment.errors %}
+                              {{ form.comment(class="form-control form-control-lg is-invalid") }}
+                              <div class="invalid-feedback">
+                                  {% for error in form.comment.errors %}
+                                    <span>{{ error }}</span>
+                                  {% endfor %}
+                              </div>
+                            {% else %}
+                              {{ form.comment(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                    </fieldset>
+                    <div class="form-group">
+                      {{ form.submit(class="btn btn-outline-info") }}
+                    </div>
+                  </form>
+            <!--END COMMENT SECTION-->
+        </div>
+    </article>
+    
+{% endblock content %}           

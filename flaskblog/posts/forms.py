@@ -10,3 +10,8 @@ class PostForm(FlaskForm):
     image_file = FileField("Mise à jour de l'image du poste", validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Poster')
 
+
+class CommentForm(FlaskForm):
+    comment = StringField('Commentaire',validators=[DataRequired()], render_kw={'placeholder': 'Quesque vous en pensez de ce post ?'})
+    submit = SubmitField('Ajouter')
+
